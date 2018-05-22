@@ -2,7 +2,7 @@
 
 angular
 .module('sesionS', []) 
-.controller('MainCtrl', function ($scope, $http) {
+.controller('MainCtrl', function ($scope) {
 
 
 });
