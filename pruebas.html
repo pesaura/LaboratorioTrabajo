@@ -41,10 +41,23 @@
 	<main>
 		<div ng-app="sesionS" >
         <div ng-controller="MainCtrl">
-					<div class="container-fluid border ">
+					<div class="container-fluid border m-1">
 						<input type="text" ng-model="tasktext">
 						
 						<button ng-click="savetask()">salvar</button>
+					</div>
+					<div class="container-fluid border m-1" >
+						
+						<button ng-click="seetask()">mostrar</button>
+						<table ng-repeat="task in myTasks">
+							<tr ng-repeat="(k,v) in task">
+								<td>{{k}}={{v}}</td>
+							
+							</tr>
+						</table>
+						<div>
+							{{myTask}}
+						</div>
 					</div>
    	  </div> <!-- Controler -->     
     </div>   <!-- Sesion --> 

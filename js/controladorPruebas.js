@@ -4,21 +4,45 @@ angular
 .module('sesionS', []) 
 .controller('MainCtrl', function ($scope, $http) {
     $scope.tasktext="";
+    $scope.myTasks =[];
+    $scope.myErr="";
 
     $scope.savetask=function(){
         var task={
                 taskMessage : $scope.tasktext
         };
-        console.log(JSON.stringify(task));
-        var res = $http({
+        
+        $http({
             url: 'http://localhost:5000/api/v1.0/task', 
             method: 'POST',
             data: JSON.stringify(task),
             headers: {
                 'Content-Type': 'application/json'
             }
+        }).then(function mySuccess(response) {
+            console.log(response.data.code);
+            
+        }, function myError(response) {
+            
+            console.log(response.data.code);
         });
-        console.log(res);
+       
+    },
+
+    $scope.seetask=function(){
+        
+        $http({
+            method : "GET",
+            url : "http://localhost:5000/api/v1.0/task"
+        }).then(function mySuccess(response) {
+            angular.copy(response.data.data, $scope.myTasks);
+            
+        }, function myError(response) {
+            
+            console.log(response.data.code);
+        });
+        
     }
 
+ 
 });
