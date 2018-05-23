@@ -41,22 +41,35 @@
 	<main>
 		<div ng-app="sesionS" >
         <div ng-controller="MainCtrl">
-					<div class="container-fluid border m-1">
-						<input type="text" ng-model="tasktext">
-						
-						<button ng-click="savetask()">salvar</button>
-					</div>
-					<div class="container-fluid border m-1" >
-						
-						<button ng-click="seetask()">mostrar</button>
-						<table ng-repeat="task in myTasks">
-							<tr ng-repeat="(k,v) in task">
-								<td>{{k}}={{v}}</td>
-							
-							</tr>
-						</table>
-						<div>
-							{{myTask}}
+					<div class="container-fluid ">
+						<div calss = "row" >	
+							<div class = "col-lg-4">
+									<div class="form-inline">
+											<input  class="form-control" type="text" ng-model="tasktext">
+											<button class="btn btn-primary" ng-click="savetask()">salvar</button>
+										</div><br>
+
+									<table class="table table-condensed ">
+											<tr>
+													<th>ID </th>
+													<th>Mensaje</th> 
+												</tr> 
+											<tr ng-repeat="d in mensajes  "> 
+												<td>{{ d.id }}</td>
+												<td>{{ d.taskMessage }}</td>
+											</tr>
+									</table>
+									<button ng-click="seetask()">mostrar</button>
+										<table ng-repeat="task in myTasks">
+											<tr ng-repeat="(k,v) in task">
+												<td>{{k}}={{v}}</td>
+											
+											</tr>
+										</table>
+										<div>
+											{{myTask}}
+										</div>
+								</div>
 						</div>
 					</div>
    	  </div> <!-- Controler -->     
