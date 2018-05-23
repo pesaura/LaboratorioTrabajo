@@ -1,0 +1,9 @@
+CREATE TABLE `task` (
+
+    `id` INT(11) NOT NULL  AUTO_INCREMENT,
+    `taskMessage` TEXT NULL,
+    `createdAt`DATETIME NULL DEFAULT NULL,
+    `updateAt`DATETIME NULL DEFAULT NULL,
+
+    PRIMARY KEY(`id`)
+)

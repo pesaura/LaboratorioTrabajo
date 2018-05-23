@@ -1,0 +1,20 @@
+23/05/2018 - 14:04
+creando un server provisional usando este tutorial
+https://www.youtube.com/watch?v=2_WhYFSVHnY&list=PLxoOrmZMsAWwTIKAJTOUpS9US5YkRuhrq
+
+es necesario, tener:
+    -una base de datos test con una tabla como la que aparece en schema.sql
+    -un usuario en la base de datos con la siguente info:
+        host     : 'localhost',
+        user     : 'user',
+        password : 'ne9QUv5IYbhtZAlg'
+
+    - para arrancar el servidor ejecutar desde consola "node app.js" 
+    sin comillas, la consola debe de estar en una ruta similar a 
+    "c/xampp/htdocs/LaboratorioTrabajo/server"   
+
+El servidor permite:
+    -guardar text en la columna taskMessage de la tabla taskMessage mediante post      
+    -obtener todas las entradas de la tabla mediante get
+
+
