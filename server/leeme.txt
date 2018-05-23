@@ -29,4 +29,9 @@ app.put('/api/v1.0/task/id/:taskId', taskController.updateTaskById);
 /**borrar task */
 app.delete('/api/v1.0/task/id/:taskId', taskController.deleteTaskById);    
 
+23/05/2018 - 17:14
+
+-Se consigue mediante pruebas.html y controladorPruebas.js incluir nuevas entradas
+ en la base de datos a traves del servidor app.js
+
 
