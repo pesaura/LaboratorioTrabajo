@@ -1,6 +1,14 @@
 /**https://expressjs.com/ */
 var express = require('express');
 
+/**con objetivo de solucionar
+ * Solicitud desde otro origen bloqueada: la política de mismo origen 
+ * impide leer el recurso remoto en 
+ * http://localhost:5000/api/v1.0/task
+ *  (razón: falta la cabecera CORS 'Access-Control-Allow-Origin').
+ */
+var cors = require('cors')
+
 /*https://github.com/expressjs/body-parser*/ 
 var bodyParser = require('body-parser');
 
@@ -13,6 +21,8 @@ var SERVER_PORT=5000;
 var app=express();
 
 //middlewares
+app.use(cors());
+
 app.use(bodyParser.urlencoded({extended:true}))
 app.use(bodyParser.json());
 
