@@ -57,6 +57,7 @@
 											<tr ng-repeat="d in mensajes  "> 
 												<td>{{ d.id }}</td>
 												<td>{{ d.taskMessage }}</td>
+												<td><button ng-click="borrar(d.id)">Borrar</button></td>
 											</tr>
 									</table>
 									<button ng-click="seetask()">mostrar</button>

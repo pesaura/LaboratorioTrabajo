@@ -30,7 +30,7 @@ app.use(bodyParser.json());
 
 
 /** INCLUDE TASK ON DATABASE */
-//app.post('/api/v1.0/task', taskController.createTask);
+app.post('/api/v1.0/task', taskController.createTask);
 
 /** OBTAIN TASK FROM DATABASE */
 app.get('/api/v1.0/task', taskController.getTask);

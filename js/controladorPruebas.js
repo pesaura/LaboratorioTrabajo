@@ -3,17 +3,36 @@
 angular
 .module('sesionS', []) 
 .controller('MainCtrl', function ($scope, $http) {
-    $http({
 
-        method: 'GET',
-        url: 'http://localhost:5000/api/v1.0/task'
-     }).then(function (data){
-        $scope.mensajes = data.data.data;
-        console.log($scope.mensajes);
+    $scope.recargarDatos = function(){
+         $http.get("http://localhost:5000/api/v1.0/task/")
+              .then(function(data) {
+                $scope.mensajes = data.data.data;
+                console.log($scope.mensajes);
+        });
+    }
+    $scope.recargarDatos();
 
-       
+    $http.get("http://localhost:5000/api/v1.0/task/id/1")
+        .then(function(data) {
+             console.log(data)
+        });
   
+    $scope.borrar = function(index){
+        console.log(index);
+       $http({
+        method: 'DELETE',
+        url: 'http://localhost:5000/api/v1.0/task/id/' + index,
+        })
+        .then(function(response) {
+            console.log(response.data);
+            $scope.recargarDatos();
+        }, function(rejection) {
+            console.log(rejection.data);
+        });
 
+    }
+    
 
     $scope.tasktext="";
     $scope.myTasks =[];
@@ -34,6 +53,7 @@ angular
         }).then(function mySuccess(response) {
             console.log(response.data.code);
             console.log(response.data);
+            $scope.recargarDatos();
             
         }, function myError(response) {
             
@@ -58,9 +78,6 @@ angular
     }
 
  
-    },function (error){
-        console.log(error);
-
-    });
+  
 
 });
