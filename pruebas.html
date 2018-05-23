@@ -41,10 +41,24 @@
 	<main>
 		<div ng-app="sesionS" >
         <div ng-controller="MainCtrl">
-					<div class="container-fluid border ">
-						<input type="text" ng-model="tasktext">
-						
-						<button ng-click="savetask()">salvar</button>
+					<div class="container-fluid ">
+						<div calss = "row" >	
+							<div class = "col-lg-4">
+								<input type="text" ng-model="tasktext">
+								<button ng-click="savetask()">salvar</button>
+
+									<table class="table table-condensed ">
+											<tr>
+													<th>ID </th>
+													<th>Mensaje</th> 
+												</tr> 
+											<tr ng-repeat="d in mensajes  "> 
+												<td>{{ d.id }}</td>
+												<td>{{ d.taskMessage }}</td>
+											</tr>
+									</table>
+								</div>
+						</div>
 					</div>
    	  </div> <!-- Controler -->     
     </div>   <!-- Sesion --> 
