@@ -29,12 +29,72 @@ module.exports = {
         connection.query("SELECT * FROM task",function(err, result,fields){
             if(err){
                 console.log(err);
-                return res.status(500).json({code:"tasknotfound", message:"error get tasks de la base de datos"});
+                return res.status(500).json({code:"tasknotfound", message:"error get lista de tasks de la base de datos"});
             }
             return res.status(200).json({code:"tasks founded", data:result});
         });
-    }
+    },
+    getTaskById :function(req,res){
+        //obtener Id
+        var taskId=req.params.taskId;
 
+        connection.query("SELECT * FROM task where id= ?", [taskId],function(err, result,fields){
+            if(err){
+                console.log(err);
+                return res.status(500).json({code:"tasknotfound", message:"error get taskId de la base de datos"});
+            }
+            return res.status(200).json({code:"one match task", data:result});
+        });
+    },
+    updateTaskById :function(req,res){
+        //obtener Id a actualizar
+        var taskId=req.params.taskId;
+        //obtener datos a actualizar 
+        var requestData=req.body;
+
+        if(!requestData.taskMessage){
+            return res.status(400).json({code:"taskUpdateFailed", message: "texto no disponible" });
+        }
+
+        connection.query("SELECT * FROM task where id= ?", [taskId],function(err, result,fields){
+            if(err){
+                console.log(err);
+                return res.status(500).json({code:"taskUpdateFailed", message:"error get taskId de la base de datos"});
+            }
+            if(result.length===0){
+                return res.status(500).json({code:"taskUpdateFailed", message:"result===0"});
+            }
+            connection.query("UPDATE task SET taskMessage=?, updateAt=? where id=?",[requestData.taskMessage, new Date(),taskId],function(err,result,field){
+                if(err){
+                    return res.status(500).json({code:"taskUpdateFailed", message:"error al actualizar task"});
+                }
+                return res.status(200).json({code:"taskUpdate"});     
+            });
+            
+        });
+    },
+
+    deleteTaskById : function(req,res){
+        var taskId=req.params.taskId;
+
+        connection.query("SELECT * FROM task where id= ?",[taskId],function(err, result,fields){
+            if(err){
+                console.log(err);
+                return res.status(500).json({code:"taskDeletedFailed",message:"Error al buscar task"});
+            }
+            if(result.length===0){
+                return res.status(500).json({code:"taskDeletedFailed", message:"result.length===0"});
+            }            
+
+            connection.query("DELETE FROM task WHERE id=?",[taskId],function(err, result,fields){
+                if(err){
+                    return res.status(500).json({code:"taskDeletedFailed", message:"error borrando ese task"});
+                }
+                return res.status(200).json({code:"Taskdeleted"})
+            });
+        });    
+
+    }
 
 };
 

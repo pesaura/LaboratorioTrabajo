@@ -17,4 +17,16 @@ El servidor permite:
     -guardar text en la columna taskMessage de la tabla taskMessage mediante post      
     -obtener todas las entradas de la tabla mediante get
 
+23/05/2018 - 16:37
+añadidas funciones:
+
+/** OBTAIN TASK from id FROM DATABASE */
+app.get('/api/v1.0/task/id/:taskId', taskController.getTaskById);
+
+/** update TASK from id FROM DATABASE */
+app.put('/api/v1.0/task/id/:taskId', taskController.updateTaskById);
+
+/**borrar task */
+app.delete('/api/v1.0/task/id/:taskId', taskController.deleteTaskById);    
+
 
