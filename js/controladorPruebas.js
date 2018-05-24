@@ -13,9 +13,15 @@ angular
     }
     $scope.recargarDatos();
 
+    $http.get("http://localhost:5000/api/v1.0/usuarios/")
+    .then(function(data) {
+      $scope.usuarios = data.data.data;
+      console.log($scope.usuarios);
+    });
+
     $http.get("http://localhost:5000/api/v1.0/task/id/1")
         .then(function(data) {
-             console.log(data)
+            // console.log(data)
         });
   
     $scope.borrar = function(index){

@@ -11,20 +11,21 @@ var cors = require('cors')
 
 /*https://github.com/expressjs/body-parser*/ 
 var bodyParser = require('body-parser');
-
-var taskController=require('./app/task/taskController');
-
+var taskController=require('./app/tables/taskController');
 var connection = require('./app/lib/database').connection; 
+var app=express();// instancia de express
 
-var SERVER_PORT=5000;
-// instancia de express
-var app=express();
+
+//var SERVER_PORT=5000;
+// settings
+app.set('port', process.env.PORT || 5000);
+
 
 //middlewares
 app.use(cors());
-
-app.use(bodyParser.urlencoded({extended:true}))
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended:true}))
+
 
 
 
@@ -33,20 +34,21 @@ app.use(bodyParser.json());
 app.post('/api/v1.0/task', taskController.createTask);
 
 /** OBTAIN TASK FROM DATABASE */
-app.get('/api/v1.0/task', taskController.getTask);
+app.get('/api/v1.0/task', taskController.getTable);
+app.get('/api/v1.0/usuarios', taskController.getTable);
 
 /** OBTAIN TASK from id FROM DATABASE */
-app.get('/api/v1.0/task/id/:taskId', taskController.getTaskById);
+app.get('/api/v1.0/task/id/:taskId', taskController.getTableById);
 
 /** update TASK from id FROM DATABASE */
 app.put('/api/v1.0/task/id/:taskId', taskController.updateTaskById);
 
 /**borrar task */
-app.delete('/api/v1.0/task/id/:taskId', taskController.deleteTaskById);
+app.delete('/api/v1.0/task/id/:taskId', taskController.deleteTableById);
 
 
 
 
-app.listen(SERVER_PORT, function(){
-    console.log("SERVIDOR LANZADO EN EL PUERTO: "+SERVER_PORT);
+app.listen(app.get('port'), function(){
+    console.log("SERVIDOR LANZADO EN EL PUERTO: "+app.get('port'));
 });

@@ -9,7 +9,7 @@
 <!-- <link rel="stylesheet" href="css/bootstrap.min.css"> -->
 <!-- <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"> -->
 <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/all.css" integrity="sha384-G0fIWCsCzJIMAVNQPfjH08cyYaUtMwjJwqiRKxxE/rx96Uroj1BtIQ6MLJuheaO9" crossorigin="anonymous">
+
 <link rel="stylesheet" href="css/style.css">
 
 
@@ -42,34 +42,36 @@
 		<div ng-app="sesionS" >
         <div ng-controller="MainCtrl">
 					<div class="container-fluid ">
-						<div calss = "row" >	
+						<div class = "row" >	
 							<div class = "col-lg-4">
 									<div class="form-inline">
 											<input  class="form-control" type="text" ng-model="tasktext">
 											<button class="btn btn-primary" ng-click="savetask()">salvar</button>
 										</div><br>
-
+											<table class="table table-condensed ">
+													<tr>
+															<th>ID </th>
+															<th>Mensaje</th> 
+														</tr> 
+													<tr ng-repeat="d in mensajes  "> 
+														<td>{{ d.id }}</td>
+														<td>{{ d.taskMessage }}</td>
+														<td><button ng-click="borrar(d.id)">Borrar</button></td>
+													</tr>
+											</table>
+								</div>
+							  <div class="col-lg-4">
 									<table class="table table-condensed ">
-											<tr>
-													<th>ID </th>
-													<th>Mensaje</th> 
-												</tr> 
-											<tr ng-repeat="d in mensajes  "> 
-												<td>{{ d.id }}</td>
-												<td>{{ d.taskMessage }}</td>
-												<td><button ng-click="borrar(d.id)">Borrar</button></td>
-											</tr>
-									</table>
-									<button ng-click="seetask()">mostrar</button>
-										<table ng-repeat="task in myTasks">
-											<tr ng-repeat="(k,v) in task">
-												<td>{{k}}={{v}}</td>
+										<tr>
+												<th>ID </th>
+												<th>Nombre</th> 
+											</tr> 
+										<tr ng-repeat="u in usuarios  "> 
+											<td>{{ u.id }}</td>
+											<td>{{ u.Nombre }}</td>
 											
-											</tr>
-										</table>
-										<div>
-											{{myTask}}
-										</div>
+										</tr>
+								  </table>
 								</div>
 						</div>
 					</div>

@@ -25,20 +25,27 @@ module.exports = {
         });
     },
     
-    getTask : function(req,res){
-        connection.query("SELECT * FROM task",function(err, result,fields){
+    getTable : function(req,res){
+        console.log(req.route.path);
+
+        var ruta = req.route.path; //obtener la ruta 
+        var tabla = req.route.path.substr(10,ruta.length); //obtener el nombre de la tabla
+        console.log(tabla);
+        connection.query("SELECT * FROM "+tabla,function(err, result,fields){
             if(err){
                 console.log(err);
                 return res.status(500).json({code:"tasknotfound", message:"error get lista de tasks de la base de datos"});
             }
             return res.status(200).json({code:"tasks founded", data:result});
+            
         });
     },
-    getTaskById :function(req,res){
+    getTableById :function(req,res){
         //obtener Id
         var taskId=req.params.taskId;
-
-        connection.query("SELECT * FROM task where id= ?", [taskId],function(err, result,fields){
+        var ruta = req.route.path; //obtener la ruta 
+        var tabla = req.route.path.substr(10,ruta.length); //obtener el nombre de la tabla
+        connection.query("SELECT * FROM"+ tabla +"where id= ?", [taskId],function(err, result,fields){
             if(err){
                 console.log(err);
                 return res.status(500).json({code:"tasknotfound", message:"error get taskId de la base de datos"});
@@ -74,10 +81,12 @@ module.exports = {
         });
     },
 
-    deleteTaskById : function(req,res){
+    deleteTableById : function(req,res){
         var taskId=req.params.taskId;
+        var ruta = req.route.path; //obtener la ruta 
+        var tabla = req.route.path.substr(10,ruta.length); //obtener el nombre de la tabla
 
-        connection.query("SELECT * FROM task where id= ?",[taskId],function(err, result,fields){
+        connection.query("SELECT * FROM"+ tabla + "where id= ?",[taskId],function(err, result,fields){
             if(err){
                 console.log(err);
                 return res.status(500).json({code:"taskDeletedFailed",message:"Error al buscar task"});
