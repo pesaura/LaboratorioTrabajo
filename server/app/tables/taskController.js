@@ -26,11 +26,17 @@ module.exports = {
     },
     
     getTable : function(req,res){
-        console.log(req.route.path);
+       // console.log(req.route.path);
+        var requestData = req.body;
+        console.log(requestData);
+        var value=requestData.value;
+        var column = requestData.column; 
+        var table = requestData.table; 
+        //console.log(table);
 
         var ruta = req.route.path; //obtener la ruta 
         var tabla = req.route.path.substr(10,ruta.length); //obtener el nombre de la tabla
-        console.log(tabla);
+       // console.log(tabla);
         connection.query("SELECT * FROM "+tabla,function(err, result,fields){
             if(err){
                 console.log(err);
@@ -44,8 +50,9 @@ module.exports = {
         //obtener Id
         var taskId=req.params.taskId;
         var ruta = req.route.path; //obtener la ruta 
-        var tabla = req.route.path.substr(10,ruta.length); //obtener el nombre de la tabla
-        connection.query("SELECT * FROM"+ tabla +"where id= ?", [taskId],function(err, result,fields){
+        var tabla = req.route.path.substr(10,ruta.length - 21); //obtener el nombre de la tabla
+
+        connection.query("SELECT * FROM " + tabla + " where id= ?", [taskId],function(err, result,fields){
             if(err){
                 console.log(err);
                 return res.status(500).json({code:"tasknotfound", message:"error get taskId de la base de datos"});
@@ -84,9 +91,9 @@ module.exports = {
     deleteTableById : function(req,res){
         var taskId=req.params.taskId;
         var ruta = req.route.path; //obtener la ruta 
-        var tabla = req.route.path.substr(10,ruta.length); //obtener el nombre de la tabla
-
-        connection.query("SELECT * FROM"+ tabla + "where id= ?",[taskId],function(err, result,fields){
+        var tabla = req.route.path.substr(10,ruta.length - 21);  //obtener el nombre de la tabla
+        
+        connection.query("SELECT * FROM "+ tabla + " where id= ?",[taskId],function(err, result,fields){
             if(err){
                 console.log(err);
                 return res.status(500).json({code:"taskDeletedFailed",message:"Error al buscar task"});
@@ -95,7 +102,7 @@ module.exports = {
                 return res.status(500).json({code:"taskDeletedFailed", message:"result.length===0"});
             }            
 
-            connection.query("DELETE FROM task WHERE id=?",[taskId],function(err, result,fields){
+            connection.query("DELETE FROM "+ tabla +" WHERE id=?",[taskId],function(err, result,fields){
                 if(err){
                     return res.status(500).json({code:"taskDeletedFailed", message:"error borrando ese task"});
                 }

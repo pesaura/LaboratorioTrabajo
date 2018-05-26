@@ -18,7 +18,7 @@ var app=express();// instancia de express
 
 //var SERVER_PORT=5000;
 // settings
-app.set('port', process.env.PORT || 5000);
+app.set('port', 5000);
 
 
 //middlewares
