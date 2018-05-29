@@ -111,7 +111,7 @@ module.exports = {
         var column = requestData.column; 
         var table = requestData.table; 
 
-        connection.query("SELECT * FROM"+ table +"where "+column+"= ?", [value],function(err, result,fields){
+        connection.query("SELECT * FROM "+ table +" where "+column+"= ?", [value],function(err, result,fields){
             if(err){
                 console.log(err);
                 return res.status(500).json({code:"get"+table+"By"+column+" Failed", message:"error en "+value});

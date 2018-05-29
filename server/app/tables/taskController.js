@@ -26,7 +26,7 @@ module.exports = {
     },
     
     getTable : function(req,res){
-       // console.log(req.route.path);
+        console.log(req.route.path);
         var requestData = req.body;
         console.log(requestData);
         var value=requestData.value;
