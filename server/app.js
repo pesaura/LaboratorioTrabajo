@@ -41,7 +41,7 @@ app.get('/api/v1.0/usuarios', taskController.getTable);
 app.get('/api/v1.0/task/id/:taskId', taskController.getTableById);
 
 /** update TASK from id FROM DATABASE */
-app.put('/api/v1.0/task/id/:taskId', taskController.updateTaskById);
+app.put('/api/v1.0/task/id/:taskId:nombre', taskController.updateTaskById);
 
 /**borrar task */
 app.delete('/api/v1.0/task/id/:taskId', taskController.deleteTableById);

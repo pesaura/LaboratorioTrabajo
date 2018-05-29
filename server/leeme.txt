@@ -1,4 +1,4 @@
-23/05/2018 - 14:04
+﻿23/05/2018 - 14:04
 creando un server provisional usando este tutorial
 https://www.youtube.com/watch?v=2_WhYFSVHnY&list=PLxoOrmZMsAWwTIKAJTOUpS9US5YkRuhrq
 
@@ -38,3 +38,11 @@ app.delete('/api/v1.0/task/id/:taskId', taskController.deleteTaskById);
 Sirve para reiniciar el servidor cada vez que algo se modifica.
 Usar el comando "npm run dev" en el server
 
+-Servidor SQL
+URl: http://www.phpmyadmin.co
+
+Server: sql2.freemysqlhosting.net
+Name: sql2240443
+Username: sql2240443
+Password: dE2!uZ5!
+Port number: 3306

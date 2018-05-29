@@ -69,7 +69,7 @@ module.exports = {
                 return res.status(500).json({code:"userUpdateFailed", message:"error get id_tm de la base de datos"});
             }
             if(result.length===0){
-                return res.status(500).json({code:"userUpdateFailed", message:"respuesta vacia en "+requestData.id_tm});
+                return res.status(500).json({code:"userUpdateFailed", message:"respuesta vacia en "+ requestData.id_tm});
             }
             connection.query("UPDATE Team_Member SET Nombre=?, Rol=?, Apl=?, Nick=?, Login=?, password=?. e-mail=? where id=?",datos,function(err,result,field){
                 if(err){
