@@ -26,14 +26,8 @@ module.exports = {
     },
     
     getTable : function(req,res){
-        console.log(req.route.path);
-        var requestData = req.body;
-        console.log(requestData);
-        var value=requestData.value;
-        var column = requestData.column; 
-        var table = requestData.table; 
-        //console.log(table);
-
+        //console.log(req.route.path);
+   
         var ruta = req.route.path; //obtener la ruta 
         var tabla = req.route.path.substr(10,ruta.length); //obtener el nombre de la tabla
        // console.log(tabla);

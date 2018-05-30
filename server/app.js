@@ -12,6 +12,9 @@ var cors = require('cors')
 /*https://github.com/expressjs/body-parser*/ 
 var bodyParser = require('body-parser');
 var taskController=require('./app/tables/taskController');
+var comunController=require('./app/tables/comunController');
+var devController=require('./app/tables/devController');
+var scrumController=require('./app/tables/scrumController');
 var connection = require('./app/lib/database').connection; 
 var app=express();// instancia de express
 
@@ -32,13 +35,22 @@ app.use(bodyParser.urlencoded({extended:true}))
 
 /** INCLUDE TASK ON DATABASE */
 app.post('/api/v1.0/task', taskController.createTask);
+//app.post('/api/v1.0/team_member', comunController.getTableBy);
+app.post('/api/v1.0/team_member', devController.getUser);
+app.post('/api/v1.0/user_story_terminada',comunController.getTableBy);
+
 
 /** OBTAIN TASK FROM DATABASE */
-app.get('/api/v1.0/task', taskController.getTable);
-app.get('/api/v1.0/usuarios', taskController.getTable);
+//app.get('/api/v1.0/task', taskController.getTable);
+app.get('/api/v1.0/team_member', comunController.getTable);
+app.get('/api/v1.0/user_story_status/:estado',devController.getUserHistory);
+app.get('/api/v1.0/user_story_sprint_status/:estado',devController.getUserHistorySprint);
+app.get('/api/v1.0/user_story_multiple_sprint',devController.getUserHistoryMultipleSprint);
+app.get('/api/v1.0/user_story_Develop/:nombre',devController.getUserHistoryDevelop);
 
 /** OBTAIN TASK from id FROM DATABASE */
-app.get('/api/v1.0/task/id/:taskId', taskController.getTableById);
+//app.get('/api/v1.0/task/id/:taskId', taskController.getTableById);
+
 
 /** update TASK from id FROM DATABASE */
 app.put('/api/v1.0/task/id/:taskId:nombre', taskController.updateTaskById);

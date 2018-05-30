@@ -43,7 +43,7 @@
         <div ng-controller="MainCtrl">
 					<div class="container-fluid ">
 						<div class = "row" >	
-							<div class = "col-lg-4">
+							<!-- <div class = "col-lg-4">
 									<div class="form-inline">
 											<input  class="form-control" type="text" ng-model="tasktext">
 											<button class="btn btn-primary" ng-click="savetask()">salvar</button>
@@ -59,7 +59,7 @@
 														<td><button ng-click="borrar(d.id)">Borrar</button></td>
 													</tr>
 											</table>
-								</div>
+								</div> -->
 							  <div class="col-lg-4">
 									<table class="table table-condensed ">
 										<tr>
@@ -67,7 +67,7 @@
 												<th>Nombre</th> 
 											</tr> 
 										<tr ng-repeat="u in usuarios  "> 
-											<td>{{ u.id }}</td>
+											<td>{{ u.Id_tm }}</td>
 											<td>{{ u.Nombre }}</td>
 											
 										</tr>
@@ -81,6 +81,7 @@
 
 	<script src="js/angular.min.js"></script>
 	<script src="js/controladorPruebas.js"></script>
+	<script src="js/angular-resource.min.js"></script>
 
 	<script src="js/jquery-3.3.1.min.js"></script> 
 	<script src="js/bootstrap.min.js"></script>

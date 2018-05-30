@@ -2,84 +2,22 @@ var connection = require('../lib/database').connection;
 
 module.exports = {
 
-    /** Obtener info de usuario de tabla Team_member, suponiendo que los datos se han enviado  al serivor en un json
-     * de la forma {
-     *              'user':'',
-     *              'password:''
-     *              }
-     * la tabla devuelta se espera de la forma
-     * 
-     *              'id_tm':''
-     *              'Nombre':'',
-     *              'Rol':'',
-     *              'Apl':'',
-     *              'Nick':'',
-     *              'Login':'',
-     *              'password:'',
-     *              'e-mail':'' 
-     *              }
-     * 
-     * cuando angular recibe los datos puede crear una cookie local
-     * https://www.w3schools.com/js/js_cookies.asp
-    */
-    getUser: function(req,res){
-        var requestData = req.body;
-
-        var user=requestData.user;
-        var password=requestData.password;
-
-        connection.query("SELECT * FROM Team_member WHERE Login=? AND password=?",[user,password],function (err,result,fields){
-            if(err){
-                console.log(err);
-                return res.status(500).json({code : "identificacionFallida", message:"error en el login"});
-            }
-            return res.status(200).json({code:"identificacion correcta", data:result});
-        });
-    },
-
-    /**El usuario debe poder editar sus datos personales.
-     * suponiendo que los datos se han enviado al serivor en un json
-     * de la forma {
-     *              'id_tm':'' 
-     *              'Nombre':'',
-     *              'Rol':'',
-     *              'Apl':'',
-     *              'Nick':'',
-     *              'Login':'',
-     *              'password:'',
-     *              'e-mail':'' 
-     *              }
-     * Teniendo presente que tras el login es necesario disponer
-     * del valor de 'id_tm'
-    */
+    getTable : function(req,res){
+        //console.log(req.route.path);
     
-
-    updateUser: function(req,res){
-        var requestData = req.body;
-
-        var datos=[requestData.Nombre, requestData.Rol, requestData.Apl, requestData.Nick, requestData.Login, requestData.password, requestData.e-mail, requestData.id_tm];   // 
-
-        if(!requestData.id_tm){
-            return res.status(400).json({code:"id_UpdateFailed", message: "id no disponible" });
-        }
-
-        connection.query("SELECT * FROM Team_Member where id_tm= ?", [id],function(err, result,fields){
+        var ruta = req.route.path; //obtener la ruta 
+        var tabla = req.route.path.substr(10,ruta.length); //obtener el nombre de la tabla
+       // console.log(tabla);
+        connection.query("SELECT * FROM "+tabla,function(err, result,fields){
             if(err){
                 console.log(err);
-                return res.status(500).json({code:"userUpdateFailed", message:"error get id_tm de la base de datos"});
+                return res.status(500).json({code:"tasknotfound", message:"error get lista de tasks de la base de datos"});
             }
-            if(result.length===0){
-                return res.status(500).json({code:"userUpdateFailed", message:"respuesta vacia en "+ requestData.id_tm});
-            }
-            connection.query("UPDATE Team_Member SET Nombre=?, Rol=?, Apl=?, Nick=?, Login=?, password=?. e-mail=? where id=?",datos,function(err,result,field){
-                if(err){
-                    return res.status(500).json({code:"userUpdateFailed", message:"error al actualizar user id "+ requestData.id_tm});
-                }
-                return res.status(200).json({code:"userUpdate"});     
-            });
+            return res.status(200).json({code:"tasks founded", data:result});
             
         });
     },
+
     
     /**Listado de Historias de Usuario completadas (en estado “Terminada”).
      *                  {   
@@ -118,7 +56,7 @@ module.exports = {
             }
             return res.status(200).json({code:"one match task", data:result});
         });
-    }
+    },
 
 
 
@@ -150,5 +88,33 @@ module.exports = {
     /*Listado de Historias de Usuario pendientes. Solo el Scrum Master puede ejecutar esta consulta.
         
     */
+
+   deleteTableById : function(req,res){
+    var taskId=req.params.taskId;
+    var ruta = req.route.path; //obtener la ruta 
+    var tabla = req.route.path.substr(10,ruta.length - 21);  //obtener el nombre de la tabla
+    
+    connection.query("SELECT * FROM "+ tabla + " where id= ?",[taskId],function(err, result,fields){
+        if(err){
+            console.log(err);
+            return res.status(500).json({code:"taskDeletedFailed",message:"Error al buscar task"});
+        }
+        if(result.length===0){
+            return res.status(500).json({code:"taskDeletedFailed", message:"result.length===0"});
+        }            
+
+        connection.query("DELETE FROM "+ tabla +" WHERE id=?",[taskId],function(err, result,fields){
+            if(err){
+                return res.status(500).json({code:"taskDeletedFailed", message:"error borrando ese task"});
+            }
+            return res.status(200).json({code:"Taskdeleted"})
+        });
+    });    
+
+}
+  
+
+
 };
+
 
