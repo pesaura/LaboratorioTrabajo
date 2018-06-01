@@ -1,0 +1,88 @@
+body, html {
+    height: 100%;
+}
+
+#cuerpo{
+    font-family: 'Roboto', sans-serif;
+    color: gainsboro;
+    background-color: #00001a;
+}
+header {
+    color: gainsboro;
+    /*background-color: azure;*/
+}
+
+section {
+    color: gainsboro;
+    /*background-color: #000d2d;*/
+}
+
+
+p {
+    color: gainsboro;
+   /*background-color: azure;*/
+}
+
+#CabP {
+    width: 100%;
+    height: 525px;
+    margin-left: 0px;
+    margin-right: 0px;
+    padding: 0px;
+    background-image: url("../imagenes/scrum-proyectos-ti.png");
+}/*id*/
+
+.imagen_cabh1{
+    font-size: 55px;
+    color: forestgreen;
+    background-color: #222222;
+    /*background-position: center center;*/
+    /*width: 900px;*/
+    /*background-image: url(/images/fondo_letra.jpg);*/
+    margin-top: 8%;
+    /*border-left: 300px;*/
+}/*clase*/
+
+#myFrame {
+    width: 100%;
+    height: 300px;
+}
+
+#myFrame2 {
+    width: inherit;
+    height: inherit;
+}
+
+.finP {
+    background-color: #222222;
+}
+
+/*img {
+    height: auto;
+    max-width: 100%;
+}*/
+#barra {
+    margin-bottom: 0px;
+}
+
+#cabecera {
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+/*.entrada {
+    width: 92px;!important
+}*/
+
+/*#inise {
+    width: 180px !important;
+}*/
+
+#cubrir {
+    background-size: cover;
+}
+
+.myFontButtons{
+    font-size: 3vw;
+    font-family: 'Permanent Marker', cursive;
+}
