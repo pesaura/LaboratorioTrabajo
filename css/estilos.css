@@ -1,11 +1,20 @@
-body, html {
-    height: 100%;
+body {
+    background-color: #14181c;
+	box-shadow: 0 0 2px rgba(0, 0, 0, 0.06);
+	font-size: 16px;
+	line-height: 1.5;
+	margin-top: 0;
+	margin-right: auto;
+	margin-left: auto;
+	max-width: 100%;
+    color: gainsboro;
+    font-family: 'Roboto', sans-serif;
 }
 
 #cuerpo{
     font-family: 'Roboto', sans-serif;
     color: gainsboro;
-    background-color: #00001a;
+    background-color: #14181c;
 }
 header {
     color: gainsboro;
@@ -24,23 +33,29 @@ p {
 }
 
 #CabP {
-    width: 100%;
-    height: 525px;
-    margin-left: 0px;
-    margin-right: 0px;
-    padding: 0px;
-    background-image: url("../imagenes/scrum-proyectos-ti.png");
+	width: 100%;
+	height: 525px;
+	margin-left: 0px;
+	margin-right: 0px;
+	padding: 0px;
+	border-radius: 17px;
+	background-image: url("../imagenes/scrum-proyectos-ti.png");
 }/*id*/
 
 .imagen_cabh1{
-    font-size: 55px;
-    color: forestgreen;
-    background-color: #222222;
-    /*background-position: center center;*/
+	font-size: 80px;
+	color: #ff9f3f;
+	background-color: #222222;
+	/*background-position: center center;*/
     /*width: 900px;*/
     /*background-image: url(/images/fondo_letra.jpg);*/
-    margin-top: 8%;
-    /*border-left: 300px;*/
+	margin-top: 103px;
+	opacity: 1;
+	
+	font-family: Constantia, "Lucida Bright", "DejaVu Serif", Georgia, serif;
+	font-style: oblique;
+	font-variant: small-caps;
+	font-weight: normal;
 }/*clase*/
 
 #myFrame {
@@ -79,10 +94,24 @@ p {
 }*/
 
 #cubrir {
-    background-size: cover;
+	background-size: cover;
+	margin-top: 10px;
+	border-bottom-left-radius: 0px;
+	border-bottom-right-radius: 0px;
+	border-top-left-radius: 0px;
+	margin-bottom: 10px;
 }
 
 .myFontButtons{
-    font-size: 3vw;
+    font-size: 1.5em;
     font-family: 'Permanent Marker', cursive;
+}
+
+section {
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+footer {
+	margin-top: 40px;
 }

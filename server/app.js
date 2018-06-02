@@ -46,7 +46,7 @@ app.get('/api/v1.0/team_member', comunController.getTable);
 app.get('/api/v1.0/user_story_status/:estado',devController.getUserHistory);
 app.get('/api/v1.0/user_story_sprint_status/:estado',devController.getUserHistorySprint);
 app.get('/api/v1.0/user_story_multiple_sprint',devController.getUserHistoryMultipleSprint);
-app.get('/api/v1.0/user_story_Develop/:nombre',devController.getUserHistoryDevelop);
+app.get('/api/v1.0/user_story_develop/:nombre',devController.getUserHistorydevelop);
 
 /** OBTAIN TASK from id FROM DATABASE */
 //app.get('/api/v1.0/task/id/:taskId', taskController.getTableById);

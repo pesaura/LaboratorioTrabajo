@@ -60,7 +60,7 @@ app.controller('MainCtrl', function ($scope, $http, URL) {
     //////// Función para el Listado de Historias de Usuario completadas //////////
     $scope.HistoryStatus_general=function(){ // Ssando la funcion general getTableBy
         var data={
-                table:'User_Story',
+                table:'user_story',
                 column:'status',
                 value:'terminada'
         };
@@ -131,10 +131,10 @@ app.controller('MainCtrl', function ($scope, $http, URL) {
 
     $scope.nombre = "Carmelo_Coton";
      ///////Función para el Listado de Historias de Usuario del Sprint activo (en cualquier estado)/////    
-     $scope.HistoryDevelop=function(nombre){ 
+     $scope.Historydevelop=function(nombre){ 
          $http({                               
              method : "GET",
-             url : "http://localhost:5000/api/v1.0/user_story_Develop/"+ nombre
+             url : "http://localhost:5000/api/v1.0/user_story_develop/"+ nombre
          }).then(function mySuccess(response) {
              console.log(response.data.data);
              
@@ -145,7 +145,7 @@ app.controller('MainCtrl', function ($scope, $http, URL) {
  
      }
      ///////////////////////////////////////////////////
-     $scope.HistoryDevelop($scope.nombre);
+     $scope.Historydevelop($scope.nombre);
     
 
    /////////////////////Pruebas no pensadas para la practica en concreto ///////////

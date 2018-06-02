@@ -12,3 +12,9 @@ connection.connect();
 module.exports={
     connection : connection
 };
+
+// Se puede usar la base de datos remota usando estos datos:
+/*host     : 'sql2.freemysqlhosting.net',
+  user     : 'sql2240443',
+  password : 'dE2!uZ5!',
+  database : 'sql2240443' */

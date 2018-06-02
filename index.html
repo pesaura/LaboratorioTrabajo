@@ -8,9 +8,10 @@
 <link rel="icon" type="image/png" href="imagenes/favicon.png">
 <!-- <link rel="stylesheet" href="css/bootstrap.min.css"> -->
 <!-- <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"> -->
-<link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/all.css" integrity="sha384-G0fIWCsCzJIMAVNQPfjH08cyYaUtMwjJwqiRKxxE/rx96Uroj1BtIQ6MLJuheaO9" crossorigin="anonymous">
-<link rel="stylesheet" href="css/style.css">
+<link href="css/bootstrap.min_4.1.css" rel="stylesheet" type="text/css">
+
+
+<link rel="stylesheet" href="css/estilos.css"> 
 
 
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -21,40 +22,198 @@
 <![endif]-->
 </head>
 
-<body>
-    <nav class="navbar navbar-expand-lg  navbar-dark bg-dark">
-	  <a class="navbar-brand" href="#">Scrum </a>
+<body >
+    <nav class="navbar navbar-expand-lg  navbar-light bg-light">
+			<a class="navbar-brand " href="http://www.upct.es/"><img alt="logo" src="imagenes/Logo_Scrum.png" style="width:200px;height: 70px;"></a>
 	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
 		<span class="navbar-toggler-icon"></span>
 	  </button>
 	  <div class="collapse navbar-collapse" id="navbarText">
 		<ul class="navbar-nav mr-auto">
 		  <li class="nav-item ">
-			<a class="nav-link" href="#">Cosas <span class="sr-only">(current)</span></a>
-		  </li>
-		  <li class="nav-item">
-			<a class="nav-link" href="#">Nazis</a>
-		  </li>	
+				<a class="nav-link" href="#">Descripción</a>
+			</li>
+			 <li class="nav-item ">
+				<a class="nav-link" href="#">Proyectos </a>
+			</li>
+			<li class="nav-item ">
+					<a class="nav-link" href="#">Contacto </a>
+			</li>
+			<li class="nav-item">
+					<div class="dropdown show">
+							<a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								Menú <span class="caret"></span>
+						   </a>
+							<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+								<a class="dropdown-item"  href="#temario">Temario</a>
+								<div class="dropdown-divider"></div>
+								<a class="dropdown-item" href="#">Proyectos</a>
+								<div class="dropdown-divider"></div>
+								<a class="dropdown-item"  href="#">Contacto</a>
+							</div>
+						</div>
+				</li>
+		</ul>
+		
+		<ul class="nav navbar-nav navbar-right">
+				<form>
+						<div class="form-row align-items-center">
+							<div class="col-auto">
+								<label class="sr-only" for="inlineFormInput">Nombre</label>
+								<input type="text" class="form-control mb-2" placeholder="Usuario">
+							</div>
+							<div class="col-auto">
+								<label class="sr-only" for="inlineFormInputGroup">Contraseña</label>
+								<div class="input-group mb-2">
+									<input type="password" class="form-control"  placeholder="Contraseña">
+								</div>
+							</div>
+							<div class="col-auto">
+								<button type="submit" class="btn btn-primary mb-2">Login</button>
+							</div>
+						</div>
+					</form>
 		</ul>
 	  </div>
 	</nav>
+	<div class="container-fluid" id="cubrir">  
+			<header id="CabP">
+					<div class="row">
+							<div class="col-md-12" style="text-align: center;">
+								<h1 class="imagen_cabh1 ">Scrum </h1>
+							</div> 
+						 </div>
+			</header>		 
+		 </div>
+ <br>
+	
 	<main>
 		<div ng-app="sesionS" >
-        <div ng-controller="MainCtrl">
-					<div class="container-fluid border ">
+			<section >		
+					<div class="container-fluid">
+							<div class="row">
+									<div class="col-xs-12 col-md-12" style="text-align: center;">
+										 <h1 id="descripcion">Historias de usuario</h1> 
+											<p class="derecha"><strong>Historias de usuario que se pueden consultar</strong></p>
+											<!--Comentario   Lorem ctrl shift L-->
+									</div>
+							</div>		
+					</div>							
+			</section>
+					<section ng-controller="MainCtrl" >
+							<div class="container-fluid">
+									<div class="row">
+										<div class="col-md-3" ></div>
+											<div class="col-xs-12  col-md-3 " style="text-align: center;">		
+													<button type="button" id="bhistorias" class="btn btn-success btn-lg btn-block myFontButtons" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+														 Listado de Historias
+													</button>
+											</div>
+											<div class="col-xs-12  col-md-3" style="text-align: center;">
+													<button type="button" id="bmodificar" class="btn btn-warning btn-lg btn-block myFontButtons" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+															Modificar Historias
+													</button>
+											</div>
+											<div class="col-md-3" ></div>
+									</div>		
+							</div>								
+					</section>
+					<br>		
+			</div> 		 
+</main>
+ <footer class="finP">
+		 <br>
+			<div class="container-fluid">
+							<div class="row">			 
+									<div class="col-xs-12 col-md-2" style="text-align: left;">
+
+										 <address>
+													<strong>Juan José Conesa</strong><br>
+													
+													<abbr title="Phone">P:</abbr> (123) 456-7890
+											</address>
+
+											<address>
+													<strong>Correo</strong><br>
+													<a href="mailto:#">first.last@example.com</a>
+											</address>
+
+											<p><a href="https://www.upct.es" target="_blank">UPCT</a></p>
+											
+									</div>
+									
+									<div class="col-xs-12 col-md-2" style="text-align: left;">
+										<address>
+										<strong>Pablo Saura Jiménez</strong><br>
+										<abbr title="Phone">P:</abbr> (123) 456-7890
+										</address>
+										<address>
+													 <strong>Correo</strong><br>
+													 <a href="mailto:#">pablo_95_08@hotmail.com</a>
+											 </address>
+
+											 <p><a href="https://www.upct.es" target="_blank">UPCT</a></p>
+											 
+									 </div>
+									 <div class="col-xs-12 col-md-2" style="text-align: left;">
+
+											<address>
+													 <strong>Rodrigo</strong><br>
+													 
+													 <abbr title="Phone">P:</abbr> (123) 456-7890
+											 </address>
+
+											 <address>
+													 <strong>Correo</strong><br>
+													 <a href="mailto:#">first.last@example.com</a>
+											 </address>
+
+											 <p><a href="https://www.upct.es" target="_blank">UPCT</a></p>
+											 
+									 </div>
+									 <div class="col-xs-12 col-md-2" style="text-align: left;">
+
+											<address>
+													 <strong>Raúl Navarro</strong><br>
+													 
+													 <abbr title="Phone">P:</abbr> (123) 456-7890
+											 </address>
+
+											 <address>
+													 <strong>Correo</strong><br>
+													 <a href="mailto:#">first.last@example.com</a>
+											 </address>
+
+											 <p><a href="https://www.upct.es" target="_blank">UPCT</a></p>
+											 
+									 </div>
+									 <div class="col-xs-12 col-md-2" style="text-align: left;">
+
+											<address>
+													 <strong>Victor Egea</strong><br>
+													
+													 <abbr title="Phone">P:</abbr> (123) 456-7890
+											 </address>
+
+											 <address>
+													 <strong>Correo</strong><br>
+													 <a href="mailto:#">first.last@example.com</a>
+											 </address>
+
+											 <p><a href="https://www.upct.es" target="_blank">UPCT</a></p>
+											 
+									 </div>
+							</div>
 					</div>
-   	  </div> <!-- Controler -->     
-    </div>   <!-- Sesion --> 
-	</main>
+ </footer>
 
 	<script src="js/angular.min.js"></script>
-	<script src="js/controlador.js"></script>
+	<script src="js/controladorPruebas.js"></script>
+	<script src="js/angular-resource.min.js"></script>
 
 	<script src="js/jquery-3.3.1.min.js"></script> 
 	<script src="js/bootstrap.min.js"></script>
-		 
-      
-
+	<script src="js/comprobacion.js"></script>
 </body>
 
-</html>
+</html>		 
