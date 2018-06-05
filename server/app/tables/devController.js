@@ -1,6 +1,8 @@
 var connection = require('../lib/database').connection; 
 
 
+
+
 module.exports = {
 
     /** Obtener info de usuario de tabla team_member, suponiendo que los datos se han enviado  al serivor en un json
@@ -26,14 +28,19 @@ module.exports = {
     getUser: function(req,res){  // Por alguna razón no devuelve los datos del usuario
         var requestData = req.body;
 
-        var user=requestData.user;
+        var user=requestData.Login;
         var password=requestData.password;
-
+        
         connection.query("SELECT * FROM team_member WHERE Login=? AND password=?",[user,password],function (err,result,fields){
+            //console.log(fields)
             if(err){
                 console.log(err);
                 return res.status(500).json({code : "identificacionFallida", message:"error en el login"});
             }
+            if(result.length == 0){
+                return res.status(500).json({code:"userLoginFailed", message:"Nombre o contraseña erroneas"});
+            }
+            
             return res.status(200).json({code:"identificacion correcta", data:result});
         });
     },

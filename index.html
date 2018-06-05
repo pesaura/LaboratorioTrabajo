@@ -22,8 +22,8 @@
 <![endif]-->
 </head>
 
-<body >
-    <nav class="navbar navbar-expand-lg  navbar-light bg-light">
+<body ng-app="scrumApp" >
+    <nav class="navbar navbar-expand-lg  navbar-light bg-light ">
 			<a class="navbar-brand " href="http://www.upct.es/"><img alt="logo" src="imagenes/Logo_Scrum.png" style="width:200px;height: 70px;"></a>
 	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
 		<span class="navbar-toggler-icon"></span>
@@ -54,26 +54,42 @@
 						</div>
 				</li>
 		</ul>
-		
-		<ul class="nav navbar-nav navbar-right">
-				<form>
-						<div class="form-row align-items-center">
-							<div class="col-auto">
-								<label class="sr-only" for="inlineFormInput">Nombre</label>
-								<input type="text" class="form-control mb-2" placeholder="Usuario">
+		<br>
+		<ul class="nav navbar-nav navbar-right" ng-controller="iniciarSesion">
+				<li class="nav-item "  ng-show="!Id">
+					<div class="btn-group dropleft">
+							<a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownSesion" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								Iniciar sesión
+							</a>
+							
+							<div class="dropdown-menu" id="dropdownSesion"> 
+								<form class="px-3 py-6" ng-submit="login()">
+									<div class="form-group">
+										<label>Usuario</label>
+										<input required type="text" class="form-control mb-2" placeholder="Usuario" ng-model="nombre">
+									</div>
+									<div class="form-group">
+										<label >Contraseña</label>
+										<input required type="password" class="form-control"  placeholder="Contraseña" ng-model = "pass">
+									</div>
+									<div class="form-check">
+										<input type="checkbox" class="form-check-input" ng-model="remember" >
+										<label class="form-check-label" >
+										  Recuerdame
+										</label>
+									</div> <br>
+									<div class="form-group" ><span class ="error" ng-show="loginError">{{loginError}}</span></div>
+									<button type="submit" class="btn btn-primary">Iniciar Sesión</button>
+									
+								</form>
 							</div>
-							<div class="col-auto">
-								<label class="sr-only" for="inlineFormInputGroup">Contraseña</label>
-								<div class="input-group mb-2">
-									<input type="password" class="form-control"  placeholder="Contraseña">
-								</div>
-							</div>
-							<div class="col-auto">
-								<button type="submit" class="btn btn-primary mb-2">Login</button>
-							</div>
-						</div>
-					</form>
-		</ul>
+					</div>
+				</li>
+				<li  class="nav-item" ng-show="Id">
+						<span>Hola {{nombre}}</span>
+						<button  class="btn btn-outline-secondary" ng-click="logout()" >cerrar sesión </button>
+				</li>
+		</ul> 
 	  </div>
 	</nav>
 	<div class="container-fluid" id="cubrir">  
@@ -88,7 +104,7 @@
  <br>
 	
 	<main>
-		<div ng-app="sesionS" >
+		<div >
 			<section >		
 					<div class="container-fluid">
 							<div class="row">
@@ -100,7 +116,7 @@
 							</div>		
 					</div>							
 			</section>
-					<section ng-controller="MainCtrl" >
+					<section  ng-controller="MainCtrl" >
 							<div class="container-fluid">
 									<div class="row">
 										<div class="col-md-3" ></div>
@@ -208,7 +224,8 @@
  </footer>
 
 	<script src="js/angular.min.js"></script>
-	<script src="js/controladorPruebas.js"></script>
+	
+	<script src="js/controlador.js"></script>
 	<script src="js/angular-resource.min.js"></script>
 
 	<script src="js/jquery-3.3.1.min.js"></script> 

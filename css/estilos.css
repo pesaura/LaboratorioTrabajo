@@ -7,7 +7,7 @@ body {
 	margin-right: auto;
 	margin-left: auto;
 	max-width: 100%;
-    color: gainsboro;
+   
     font-family: 'Roboto', sans-serif;
 }
 
@@ -45,7 +45,7 @@ p {
 .imagen_cabh1{
 	font-size: 80px;
 	color: #ff9f3f;
-	background-color: #222222;
+	background-color: #14181c;
 	/*background-position: center center;*/
     /*width: 900px;*/
     /*background-image: url(/images/fondo_letra.jpg);*/
@@ -114,4 +114,8 @@ section {
 
 footer {
 	margin-top: 40px;
+}
+
+.error {
+    color: red;
 }

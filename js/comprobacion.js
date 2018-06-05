@@ -28,7 +28,7 @@ function readCookie(name) {
 }
 
 var sId = '1';
-writeCookie('sessionId', sId, 3);
+//writeCookie('sessionId', sId, 3);
 
 var sId = readCookie('sessionId')
 
