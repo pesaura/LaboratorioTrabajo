@@ -39,6 +39,9 @@ app.post('/api/v1.0/task', taskController.createTask);
 app.post('/api/v1.0/team_member', devController.getUser);
 app.post('/api/v1.0/user_story_terminada',comunController.getTableBy);
 
+//añadida 06-06-2018
+app.post('/api/v1.0/createUserHistory',scrumController.createUserHistory);
+
 
 /** OBTAIN TASK FROM DATABASE */
 //app.get('/api/v1.0/task', taskController.getTable);

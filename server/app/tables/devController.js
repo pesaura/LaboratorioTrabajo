@@ -112,7 +112,7 @@ module.exports = {
      * 
      "SELECT * FROM user_story where id_us in (
          SELECT id_us FROM develop where id_sprint in(
-           SELECT Id_sprint FROM sprint where Status = "Activo"))"
+           SELECT Id_sprint FROM sprint where Status = "?"))"
     */
    getUserHistorySprint :function(req,res){
     var estado = req.params.estado;
