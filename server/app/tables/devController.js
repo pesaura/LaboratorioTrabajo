@@ -81,7 +81,7 @@ module.exports = {
             if(result.length===0){
                 return res.status(500).json({code:"userUpdateFailed", message:"respuesta vacia en "+ requestData.id_tm});
             }
-            connection.query("UPDATE team_member SET Nombre=?, Rol=?, Apl=?, Nick=?, Login=?, password=?. e-mail=? where Id=?",datos,function(err,result,field){
+            connection.query("UPDATE team_member SET Nombre=?, Rol=?, Apl=?, Nick=?, Login=?, Password=?, E_mail=? where Id=?",datos,function(err,result,field){
                 if(err){
                     return res.status(500).json({code:"userUpdateFailed", message:"error al actualizar user id "+ requestData.id_tm});
                 }

@@ -131,3 +131,6 @@ main {
 label {
     color: gainsboro;
 }
+strong, abbr{
+	color: azure;
+}
