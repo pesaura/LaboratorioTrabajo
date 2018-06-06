@@ -44,6 +44,7 @@ app.post('/api/v1.0/createUserHistory',scrumController.createUserHistory);
 
 
 /** OBTAIN TASK FROM DATABASE */
+app.get('/api/v1.0/team_member_datos/:id_tm/:tabla', comunController.getTableById);
 //app.get('/api/v1.0/task', taskController.getTable);
 app.get('/api/v1.0/team_member', comunController.getTable);
 app.get('/api/v1.0/user_story_status/:estado',devController.getUserHistory);
@@ -57,6 +58,7 @@ app.get('/api/v1.0/user_story_develop/:nombre',devController.getUserHistorydevel
 
 /** update TASK from id FROM DATABASE */
 app.put('/api/v1.0/task/id/:taskId:nombre', taskController.updateTaskById);
+app.post('/api/v1.0/updateUser', devController.updateUser);
 
 /**borrar task */
 app.delete('/api/v1.0/task/id/:taskId', taskController.deleteTableById);

@@ -6,7 +6,7 @@ module.exports = {
         //console.log(req.route.path);
     
         var ruta = req.route.path; //obtener la ruta 
-        var tabla = req.route.path.substr(10,ruta.length); //obtener el nombre de la tabla
+        var tabla = req.params.tabla; //obtener el nombre de la tabla
        // console.log(tabla);
         connection.query("SELECT * FROM "+tabla,function(err, result,fields){
             if(err){
@@ -15,6 +15,18 @@ module.exports = {
             }
             return res.status(200).json({code:"tasks founded", data:result});
             
+        });
+    },
+    getTableById :function(req,res){
+        //obtener Id
+        var Id_tm=req.params.id_tm;
+        var tabla = req.params.tabla; //obtener el nombre de la tabla team_member
+        connection.query("SELECT * FROM "+tabla+" where Id= ?", [Id_tm],function(err, result,fields){
+            if(err){
+                console.log(err);
+                return res.status(500).json({code:"tasknotfound", message:"error get taskId de la base de datos"});
+            }
+            return res.status(200).json({code:"one match task", data:result});
         });
     },
 

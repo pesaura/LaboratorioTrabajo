@@ -66,22 +66,22 @@ module.exports = {
         var requestData = req.body;
 
         //var datos=[requestData.Nombre, requestData.Rol, requestData.Apl, requestData.Nick, requestData.Login, requestData.password, requestData.e-mail, requestData.id_tm];   // 
-        var datos=[requestData.Nombre,"developer", requestData.Apl, requestData.Nick, requestData.Login, requestData.password, requestData.e-mail, requestData.id_tm];   // 
+        var datos=[requestData.Nombre,requestData.Rol, requestData.Apl, requestData.Nick, requestData.Login, requestData.password, requestData.e_mail, requestData.id_tm];   // 
         // El usuario no puede modificar su rol (crear una función en el scrumController para modificarlo)
-        
+        console.log(requestData.password)
         if(!requestData.id_tm){
             return res.status(400).json({code:"id_UpdateFailed", message: "id no disponible" });
         }
 
-        connection.query("SELECT * FROM team_member where id_tm= ?", [id],function(err, result,fields){
+        connection.query("SELECT * FROM team_member where Id= ?", [requestData.id_tm],function(err, result,fields){
             if(err){
                 console.log(err);
-                return res.status(500).json({code:"userUpdateFailed", message:"error get id_tm de la base de datos"});
+                return res.status(500).json({code:"userUpdateFailed", message:"error get id de la base de datos"});
             }
             if(result.length===0){
                 return res.status(500).json({code:"userUpdateFailed", message:"respuesta vacia en "+ requestData.id_tm});
             }
-            connection.query("UPDATE team_member SET Nombre=?, Rol=?, Apl=?, Nick=?, Login=?, password=?. e-mail=? where id=?",datos,function(err,result,field){
+            connection.query("UPDATE team_member SET Nombre=?, Rol=?, Apl=?, Nick=?, Login=?, Password=?, E_mail=? where Id=?",datos,function(err,result,field){
                 if(err){
                     return res.status(500).json({code:"userUpdateFailed", message:"error al actualizar user id "+ requestData.id_tm});
                 }
