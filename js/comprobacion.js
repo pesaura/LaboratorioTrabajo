@@ -43,7 +43,7 @@ window.addEventListener('load', function(){
             location.href ="registro.html";
             }
         else {
-            location.href="prueba.html";
+            location.href="pruebas.html";
             }
           
 
@@ -60,7 +60,7 @@ window.addEventListener('load', function(){
             location.href ="registro.html";
             }
         else {
-            location.href="prueba.html";
+            location.href="pruebas.html";
             }
           
 

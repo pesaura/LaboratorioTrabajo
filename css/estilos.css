@@ -119,3 +119,7 @@ footer {
 .error {
     color: red;
 }
+
+strong, abbr{
+	color: azure;
+}
