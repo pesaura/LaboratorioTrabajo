@@ -31,6 +31,9 @@ p {
     color: gainsboro;
    /*background-color: azure;*/
 }
+address{
+	color: gainsboro;
+}
 
 #CabP {
 	width: 100%;
@@ -118,4 +121,13 @@ footer {
 
 .error {
     color: red;
+}
+
+main {
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+label {
+    color: gainsboro;
 }
