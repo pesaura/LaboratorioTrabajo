@@ -41,6 +41,7 @@ app.post('/api/v1.0/user_story_terminada',comunController.getTableBy);
 
 //añadida 06-06-2018
 app.post('/api/v1.0/createUserHistory',scrumController.createUserHistory);
+app.post('/api/v1.0/createSprint',scrumController.createSprint);
 
 
 /** OBTAIN TASK FROM DATABASE */
