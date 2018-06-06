@@ -23,6 +23,7 @@
 </head>
 
 <body ng-app="scrumApp" >
+    <div ng-controller="iniciarSesion" >
     <nav class="navbar navbar-expand-lg  navbar-light bg-light ">
 			<a class="navbar-brand " href="http://www.upct.es/"><img alt="logo" src="imagenes/Logo_Scrum.png" style="width:200px;height: 70px;"></a>
 	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
@@ -55,7 +56,7 @@
 				</li>
 		</ul>
 		<br>
-		<ul class="nav navbar-nav navbar-right" ng-controller="iniciarSesion">
+		<ul class="nav navbar-nav navbar-right" >
 				<li class="nav-item "  ng-show="!Id">
 					<div class="btn-group dropleft">
 							<a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownSesion" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -63,10 +64,10 @@
 							</a>
 							
 							<div class="dropdown-menu" id="dropdownSesion"> 
-								<form class="px-3 py-6" ng-submit="login()">
+								<form class="px-3 py-6" ng-submit="login(nombreLog,pass)">
 									<div class="form-group">
 										<label>Usuario</label>
-										<input required type="text" class="form-control mb-2" placeholder="Usuario" ng-model="nombre">
+										<input required type="text" class="form-control mb-2" placeholder="Usuario" ng-model="nombreLog">
 									</div>
 									<div class="form-group">
 										<label >Contraseña</label>
@@ -86,56 +87,108 @@
 					</div>
 				</li>
 				<li  class="nav-item" ng-show="Id">
-						<span>Hola {{nombre}}</span>
-						<button  class="btn btn-outline-secondary" ng-click="logout()" >cerrar sesión </button>
+					<div class="btn-group dropleft">
+							<a class="btn btn-outline-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									Hola {{nombre}} 
+						   </a>
+							<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+								<a class="dropdown-item"  href="#" ng-click="mostrarModificarDatos()">Datos Personales</a>
+								<div class="dropdown-divider"></div>
+								<a class="dropdown-item" href="#">Proyectos</a>
+								<div class="dropdown-divider"></div>
+								<a class="dropdown-item"  href="#"ng-click="logout()" >cerrar sesión</a>
+							</div>
+						</div>
+						
 				</li>
 		</ul> 
 	  </div>
 	</nav>
-	<div class="container-fluid" id="cubrir">  
-			<header id="CabP">
-					<div class="row">
-							<div class="col-md-12" style="text-align: center;">
-								<h1 class="imagen_cabh1 ">Scrum </h1>
-							</div> 
-						 </div>
-			</header>		 
-		 </div>
- <br>
-	
+	<div class="container-fluid" id="cubrir" >  
+			<header id="CabP" ng-show="!verdatos">
+                <div class="row">
+				    <div class="col-md-12" style="text-align: center;">
+				        <h1 class="imagen_cabh1 ">Scrum </h1>
+				    </div> 
+				</div>
+			</header>
+					<div class="container-fluid " ng-show="verdatos">
+                            <div class = "row" >
+								<div class="col-lg-3" ></div>
+								<button class="btn btn-outline-secondary" ng-click="mostrarModificarDatos()">Cerrar </button>	
+                                <div class = "col-lg-6 ">
+                                        <form ng-submit="modificarDatos()">
+                                            <div class="form-group row">
+                                                    <label  class="col-sm-2 col-form-label">Login</label>
+                                                    <div class="col-sm-8">
+                                                     <input required type="text" class="form-control" placeholder="Login" ng-model="nombreLog" value={{nombreLog}}>
+                                                    </div>
+                                                </div>
+                                            <div class="form-group row">
+                                                <label  class="col-sm-2 col-form-label">Correo</label>
+                                                <div class="col-sm-8">
+                                                 <input required type="email" class="form-control" placeholder="Correo" ng-model="correo" value={{correo}}>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group row">
+                                                <label  class="col-sm-2 col-form-label">Nick</label>
+                                                <div class="col-sm-3">
+                                                    <input required type="text" class="form-control"  placeholder="Nick"ng-model="nick" value={{nick}}>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                    <label  class="col-sm-2 col-form-label">Nombre</label>
+                                                    <div class="col-sm-3">
+                                                        <input required type="text" class="form-control"  placeholder="Nombre" ng-model="nombre" value={{nombre}}>
+                                                    </div>
+                                                    <label  class="col-sm-2 col-form-label">Apellidos</label>
+                                                    <div class="col-sm-3">
+                                                            <input required type="text" class="form-control"  placeholder="Apellido" ng-model="apellidos" value={{apellidos}}>
+                                                    </div>
+        
+                                                </div>
+                                            <div class="form-group row">
+                                              <div class="col-sm-10">
+                                                <button type="submit" class="btn btn-primary">Actualizar</button>
+                                                </div>
+                                            </div>
+                                      </form>
+            				</div>
+							 </div> 
+					</div>
+
 	<main>
-		<div >
-			<section >		
-					<div class="container-fluid">
-							<div class="row">
-									<div class="col-xs-12 col-md-12" style="text-align: center;">
-										 <h1 id="descripcion">Historias de usuario</h1> 
-											<p class="derecha"><strong>Historias de usuario que se pueden consultar</strong></p>
-											<!--Comentario   Lorem ctrl shift L-->
-									</div>
-							</div>		
-					</div>							
+        
+		<section>		
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-xs-12 col-md-12" style="text-align: center;">
+						<h1 id="descripcion">Historias de usuario</h1> 
+							<p class="derecha"><strong>Historias de usuario que se pueden consultar</strong></p>
+					</div>
+				</div>		
+			</div>							
 			</section>
-					<section  ng-controller="MainCtrl" >
-							<div class="container-fluid">
-									<div class="row">
-										<div class="col-md-3" ></div>
-											<div class="col-xs-12  col-md-3 " style="text-align: center;">		
-													<button type="button" id="bhistorias" class="btn btn-success btn-lg btn-block myFontButtons" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+				<section  ng-controller="MainCtrl" >
+					<div class="container-fluid">
+						<div class="row">
+							<div class="col-md-3" ></div>
+								<div class="col-xs-12  col-md-3 " style="text-align: center;">		
+									<button type="button" id="bhistorias" class="btn btn-success btn-lg btn-block myFontButtons" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
 														 Listado de Historias
-													</button>
-											</div>
-											<div class="col-xs-12  col-md-3" style="text-align: center;">
-													<button type="button" id="bmodificar" class="btn btn-warning btn-lg btn-block myFontButtons" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-															Modificar Historias
-													</button>
-											</div>
-											<div class="col-md-3" ></div>
-									</div>		
-							</div>								
+									</button>
+								</div>
+								<div class="col-xs-12  col-md-3" style="text-align: center;">
+									<button type="button" id="bmodificar" class="btn btn-warning btn-lg btn-block myFontButtons" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+										Modificar Historias
+									</button>
+								</div>
+								<div class="col-md-3" ></div>
+							</div>		
+						</div>								
 					</section>
-					<br>		
-			</div> 		 
+					<br>				 
 </main>
  <footer class="finP">
 		 <br>
