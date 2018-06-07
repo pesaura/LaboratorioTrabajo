@@ -43,6 +43,11 @@ app.post('/api/v1.0/user_story_terminada',comunController.getTableBy);
 app.post('/api/v1.0/createUserHistory',scrumController.createUserHistory);
 app.post('/api/v1.0/createSprint',scrumController.createSprint);
 
+//07-06-2018
+app.delete('/api/v1.0/deleteUserStoyById',scrumController.deleteUserStoyById);
+
+
+
 
 /** OBTAIN TASK FROM DATABASE */
 app.get('/api/v1.0/team_member_datos/:id_tm/:tabla', comunController.getTableById);

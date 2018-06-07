@@ -97,4 +97,95 @@ module.exports = {
             return res.status(200).json({code:"sprint_created", message:"Task creada"});
         });
     },
+
+   /* Scrum Master debe poder: eliminar Historias de Usuario, en caso de que se decida que la Historia
+    en concreto es muy grande o ya no es necesaria. La aplicación no debe permitir borrar una
+    Historia de Usuario que esté en estado “Terminada”, “Pendiente de validación”, o “En
+    desarrollo”==En curso.
+
+    La siguienty funcion espera recibir una peticion de tipo DELETE con el siguiente contenido en formato JSON
+
+        {
+            "Id":#id de la historia de usuario 
+        }
+
+        o bien
+
+        {
+            "Nombre":#nombre de la historia de usuario
+        }
+
+
+    */
+
+    deleteUserStoyById : function(req,res){
+        var id=req.body.Id;
+        var nombre=req.body.Nombre;
+
+        if(id){
+            connection.query("SELECT * FROM user_story  where Id= ?",[id],function(err, result,fields){
+
+                if(err){
+                    console.log(err);
+                    return res.status(500).json({code:"deleteUserStoyByIdFailed",message:"Error al buscar Id"});
+                }
+                if(result.length===0){
+                    return res.status(500).json({code:"deleteUserStoyByIdFailed", message:"id user_stroy result.length===0"});
+                }
+                if(result[0].Status=="En_curso" || result[0].Status=="terminada" || result[0].Status=="Pendiente_de_validacion"){
+                    return res.status(500).json({code:"deleteUserStoyByIdFailed", message:"Status imposible to delete"});
+                }      
+                /* en caso de no error, id existe y status permite borrar verificamos si id existe en tabla develop
+                id_us, y procedemos a borrarlo de ella, antes de borrarlo en user_story
+                */
+                connection.query("SELECT * FROM develop  where Id_us= ?",[id],function(err, result,fields){
+                    
+                    if(err){
+                        console.log(err);
+                        return res.status(500).json({code:"delete_Develop_ByIdFailed",message:" delete_Develop_ByIdFailed Error al buscar Id"});
+                    }
+
+                    
+                    if(result.length>0){
+
+                        connection.query("DELETE FROM develop WHERE Id_us=?",[id],function(err, result,fields){
+                            if(err){
+                                return res.status(500).json({code:"delete_Develop_ByIdFailed", message:"error borrando delete_Develop_ByIdFailed"});
+                            }
+                            console.log("borrado id_us="+id+" de tabla develop");
+
+                            /* esta siguiente query esta aqu xq necesitamos borrar primero las claves ajenas de la tabla develop primero en caso de que exixtan*/
+                            connection.query("DELETE FROM user_story  WHERE Id=?",[id],function(err, result,fields){
+                                console.log("1 --------"+err);
+                                if(err){
+                                    return res.status(500).json({code:"deleteUserStoyByIdFailed", message:"error borrando  user_story id="+id});
+                                }
+                                return res.status(200).json({code:"deleteUserStoyById Correct"})
+                            });
+                        });           
+                    }
+                    else{
+
+                        /* en caso de que no exitan entradas en la tabla develop con el id buscado  */
+                        connection.query("DELETE FROM user_story  WHERE Id=?",[id],function(err, result,fields){
+                            console.log("2 --------"+err);
+                            if(err){
+                                return res.status(500).json({code:"deleteUserStoyByIdFailed", message:"error borrando  user_story id="+id});
+                            }
+                            return res.status(200).json({code:"deleteUserStoyById Correct"})
+                        });
+                    }   
+                });
+            });
+
+        }else if(nombre){
+                
+        }   
+
+    },
+
+
+
+
+
 }
