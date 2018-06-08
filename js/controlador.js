@@ -281,4 +281,35 @@ app.controller('MainCtrl', function($scope, $http){
     // $scope.Historydevelop($scope.nombre);
     
 
+    ///////////////////////////////////////////////////
+
+    $scope.mostrarBotones = false;
+
+    $scope.iniciado = function(){
+
+        if(!$scope.Id){
+            $scope.mostrarBotones = false;
+            alert("Inicia sesión");
+        }else{
+            $scope.mostrarBotones = true;
+        }
+   }
+   //$scope.Id = cookie.readCookie('sesionId');
+
+   $scope.mostrarFormHistorias = false;
+
+    $scope.scrumComp = function(){
+
+        if($scope.Rol != "Scrum_manager"){
+            $scope.mostrarFormHistorias = false;
+            alert("No eres Scrum Master");
+        }else{
+            $scope.mostrarFormHistorias = true;
+        }
+   }
+
+    ///////////////////////////////////////////////////
+
+
+
 });

@@ -166,7 +166,7 @@
 						</div>
 					</div>
 				</section>
-				<section>
+				<section>  <!-- Listado de historias de usuario (hecho por Pablo)  -->
 					<div class="container-fluid">
 						<div class="row">
 							<div class="col-md-3 separadorlateral">
@@ -300,49 +300,120 @@
 							</div>
 						</div>
 					</div>
+				</section>
+				<!-- ////////////////////////////////////////////////////////////////////////////////////////////////////-->
+				<section> <!-- Listado de historias de usuario (hecho por Raúl )  -->
 					<div class="container-fluid">
 						<div class="row">
-							<div class="col-md-3"></div>
-							<div class="col-xs-12  col-md-3 " style="text-align: center;">
-								<button type="button" id="bhistorias" class="btn btn-success btn-lg btn-block myFontButtons" data-toggle="collapse" data-target="#collapseTwo"
-								    aria-expanded="true" aria-controls="collapseTwo">
-									Listado de Historias
-								</button>
-							</div>
-							<div class="col-xs-12  col-md-3" style="text-align: center;">
-								<button type="button" id="bmodificar" class="btn btn-warning btn-lg btn-block myFontButtons" data-toggle="collapse" data-target="#collapseTwo"
-								    aria-expanded="true" aria-controls="collapseTwo">
-									Modificar Historias
-								</button>
-							</div>
-							<div class="col-md-3"></div>
-						</div>
-					</div>
-				</section>
-				<br>
-			</main>
-			<footer class="finP">
-				<br>
-				<div class="container-fluid">
-					<div class="row">
-						<div class="col-xs-12 col-md-2" style="text-align: left;">
+								<div class="col-md-3" ></div>
+								<div class="col-xs-12  col-md-3 " style="text-align: center;">		
+									<button type="button" ng-click="iniciado()" id="bhistorias" class="btn btn-success btn-lg btn-block myFontButtons" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+														 Listado de Historias
+									</button>
+								</div>
+	
+								<div class="col-xs-12  col-md-3" style="text-align: center;">
+									<button type="button" ng-click="scrumComp()" id="bmodificar" class="btn btn-warning btn-lg btn-block myFontButtons" data-toggle="collapse" data-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+										Modificar Historias
+									</button>
+								</div>
 
-							<address>
-								<strong>Juan José Conesa</strong>
+
+
+								<div class="col-md-3" ></div>
+								
 								<br>
 
-								<abbr title="Phone">P: (123) 456-7890</abbr>
-							</address>
 
-							<address>
-								<strong>Correo</strong>
-								<br>
-								<a href="mailto:#">first.last@example.com</a>
-							</address>
+								<div class="col-md-2" ng-show="mostrarBotones"></div>
 
-							<p>
-								<a href="https://www.upct.es" target="_blank">UPCT</a>
-							</p>
+								<div ng-show="mostrarBotones" id="collapseTwo" class="col-xs-12  col-md-5 collapse" style="text-align: center;">		
+									<br>
+									<button type="button" class="btn btn-success" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+														 Terminada
+									</button>
+									<button type="button" class="btn btn-success" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+										Sprint
+								    </button>
+									<button type="button" class="btn btn-success" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+										Sprints
+									</button>
+									<button type="button" class="btn btn-success" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+										Desarrolador
+				   					</button>   
+
+								</div>
+								<div class="col-md-3" ng-show="mostrarBotones"></div>
+								<div class="col-md-2" ng-show="mostrarBotones"></div>
+
+
+								<div class="col-md-2" ng-show="mostrarFormHistorias"></div>
+								<div class="col-md-3" ng-show="mostrarFormHistorias"></div>
+
+								<div ng-show="mostrarFormHistorias" id="collapseThree" class="col-xs-12  col-md-5 collapse" style="text-align: center;">		
+									<br>
+
+									<form>
+										<div class="form-group row">
+												<label  class="col-sm-2 col-form-label">Añadir</label>
+												<div class="col-sm-8">
+												 <input required type="text" class="form-control">
+												</div>
+											</div>
+										<div class="form-group row">
+											<label  class="col-sm-2 col-form-label">Eliminar</label>
+											<div class="col-sm-8">
+											 <input required type="email" class="form-control">
+											</div>
+										</div>
+										
+										<div class="form-group row">
+												<label  class="col-sm-2 col-form-label">Nombre</label>
+												<div class="col-sm-3">
+													<input required type="text" class="form-control">
+												</div>
+												<label  class="col-sm-2 col-form-label">Apellidos</label>
+												<div class="col-sm-3">
+														<input required type="text" class="form-control">
+												</div>
+	
+											</div>
+										<div class="form-group row">
+										  <div class="col-sm-10">
+											<button type="submit" class="btn btn-primary">Actualizar</button>
+											</div>
+										</div>
+								  </form>
+
+								</div>
+
+								<div class="col-md-1" ng-show="mostrarFormHistorias"></div>
+							
+
+
+							</div>		
+						</div>								
+					</section>
+					<br>				 
+</main>
+ <footer class="finP">
+		 <br>
+			<div class="container-fluid">
+							<div class="row">			 
+									<div class="col-xs-12 col-md-2" style="text-align: left;">
+
+										 <address>
+													<strong>Juan José Conesa</strong><br>
+													
+													<abbr title="Phone">P: (123) 456-7890</abbr>  
+												</address>
+
+											<address>
+													<strong>Correo</strong><br>
+													<a href="mailto:#">first.last@example.com</a>
+											</address>
+
+											<p><a href="https://www.upct.es" target="_blank">UPCT</a></p>
 
 						</div>
 
@@ -432,9 +503,9 @@
 			<script src="js/controlador.js"></script>
 			<script src="js/angular-resource.min.js"></script>
 
-			<script src="js/jquery-3.3.1.min.js"></script>
-			<script src="js/bootstrap.min.js"></script>
-			<script src="js/comprobacion.js"></script>
+	<script src="js/jquery-3.3.1.min.js"></script> 
+	<script src="js/bootstrap.min.js"></script>
+	<!-- <script src="js/comprobacion.js"></script> -->
 </body>
 
 </html>
