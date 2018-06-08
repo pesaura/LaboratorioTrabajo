@@ -1,16 +1,16 @@
                    
 
-function writeCookie(name,value,days) {
-    var date, expires;
-    if (days) {
-        date = new Date();
-        date.setTime(date.getTime()+(days*24*60*60*1000));
-        expires = "; expires=" + date.toGMTString();
-            }else{
-        expires = "";
-    }
-    document.cookie = name + "=" + value + expires + "; path=/";
-}
+// function writeCookie(name,value,days) {
+//     var date, expires;
+//     if (days) {
+//         date = new Date();
+//         date.setTime(date.getTime()+(days*24*60*60*1000));
+//         expires = "; expires=" + date.toGMTString();
+//             }else{
+//         expires = "";
+//     }
+//     document.cookie = name + "=" + value + expires + "; path=/";
+// }
 
 function readCookie(name) {
     var i, c, ca, nameEQ = name + "=";
@@ -27,23 +27,36 @@ function readCookie(name) {
     return '';
 }
 
-var sId = '1';
+// var sId = '1';
 //writeCookie('sessionId', sId, 3);
+var sId = readCookie('sesionId');
+console.log(sId);
 
-var sId = readCookie('sessionId')
+var rol = readCookie('sesionRol');
+console.log(rol);
 
+//window.addEventListener('load', function(){
 
-window.addEventListener('load', function(){
+    
+    var leer = document.getElementsByClassName("leerc");
+
+    for(let i = 0; i < leer.length; i++) {
+        leer[i].addEventListener("click", function() {
+            var rol = readCookie('sesionRol');
+            console.log(rol);
+        })
+      }
+
 
     var button1 = document.getElementById("bhistorias");
 
     button1.addEventListener('click', function(){
 
-        if(sId =='1'){
-            location.href ="registro.html";
+        if(rol =='Scrum_manager' || rol == 'Developer'){
+            location.href="pruebas.html";
             }
         else {
-            location.href="pruebas.html";
+            alert("Inicia sesión");
             }
           
 
@@ -53,17 +66,14 @@ window.addEventListener('load', function(){
 
     button2.addEventListener('click', function(){
 
-        if(sId =='1'){
-            location.href ="registro.html";
-            }
-        else if(sId =='1'){
-            location.href ="registro.html";
+        if(rol =='Scrum_manager'){
+            location.href="pruebas.html";
             }
         else {
-            location.href="pruebas.html";
+            alert("No eres Scrum");
             }
           
 
     });
-});
+//});
     

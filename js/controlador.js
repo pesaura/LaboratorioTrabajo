@@ -53,7 +53,7 @@ app.controller('iniciarSesion', function ($scope,$http,cookie) {
                 'Content-Type': 'application/json'
             }
         }).then(function mySuccess(response) {
-            var Id = response.data.data[0].Id_tm;
+            var Id = response.data.data[0].Id;
             var Rol = response.data.data[0].Rol;
             var nombre = response.data.data[0].Nombre;
             $scope.datoPersonales = response.data.data[0];
