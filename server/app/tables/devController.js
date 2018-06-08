@@ -117,7 +117,7 @@ module.exports = {
    getUserHistorySprint :function(req,res){
     var estado = req.params.estado;
     console.log(estado);
-    var query = 'SELECT * FROM user_story where id_us in (SELECT id_us FROM develop where id_sprint in(SELECT Id_sprint FROM sprint where Status = ?))'
+    var query = 'SELECT * FROM user_story where Id in (SELECT Id_us FROM develop where Id_sprint in(SELECT Id FROM sprint where Status = ?))';
 
     connection.query(query, [estado],function(err, result,fields){
         if(err){
@@ -142,7 +142,7 @@ module.exports = {
     */
    getUserHistoryMultipleSprint :function(req,res){
 
-    var query = 'SELECT * FROM user_story where id_us in (SELECT id_us FROM develop group by id_us HAVING COUNT(id_sprint) > 1)'
+    var query = 'SELECT * FROM user_story where Id in (SELECT Id_us FROM develop group by Id_us HAVING COUNT(Id_sprint) > 1)';
 
     connection.query(query,function(err, result,fields){
         if(err){
@@ -163,8 +163,7 @@ module.exports = {
    getUserHistorydevelop :function(req,res){
     var nombre = req.params.nombre;
     console.log(nombre);
-    var query = 'SELECT * FROM user_story where id_us in(select id_us from develop where id_tm=(select id_tm from team_member where Login=?))'
-
+    var query = 'SELECT * FROM user_story where Id in(select id_us from develop where id_tm=(select Id from team_member where Login=?))';
     connection.query(query, [nombre],function(err, result,fields){
         if(err){
             console.log(err);

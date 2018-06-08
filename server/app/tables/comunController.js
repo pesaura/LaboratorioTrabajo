@@ -5,7 +5,6 @@ module.exports = {
     getTable : function(req,res){
         //console.log(req.route.path);
     
-        var ruta = req.route.path; //obtener la ruta 
         var tabla = req.params.tabla; //obtener el nombre de la tabla
        // console.log(tabla);
         connection.query("SELECT * FROM "+tabla,function(err, result,fields){

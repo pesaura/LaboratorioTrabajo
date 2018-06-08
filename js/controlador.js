@@ -147,8 +147,6 @@ app.controller('iniciarSesion', function ($scope,$http,cookie) {
 });
 app.controller('MainCtrl', function($scope, $http){
     
-   
-    
 
     //////// Función para el Listado de Historias de Usuario completadas //////////
     $scope.HistoryStatus_general=function(){ // Usando la funcion general getTableBy
@@ -172,70 +170,112 @@ app.controller('MainCtrl', function($scope, $http){
             console.log(response.data.code);
         });  
     }
-    $scope.estado = "terminada";
+    $scope.verTerminadas = false;
     $scope.HistoryStatus=function(estado){  // Usando una función mas concreta getUserHistory
-        $http({                               // (Nos da las historias de usuario en función del estado)
-            method : "GET",
-            url : "http://localhost:5000/api/v1.0/user_story_status/"+ estado,
-        }).then(function mySuccess(response) {
-            console.log(response.data.data);
-            
-        }, function myError(response) {
-            
-            console.log(response.data.code);
-        });
+        if($scope.verTerminadas == true){
+            $scope.verTerminadas = false;
+        }else{   
+            $http({ // (Nos da las historias de usuario en función del estado)
+                method: "GET",
+                url: "http://localhost:5000/api/v1.0/user_story_status/" + estado,
+            }).then(function mySuccess(response) {
+                // console.log(response.data.data);
+                if (estado === 'terminada') {
+                    $scope.historiasUsuarioTerminada = response.data.data;
+                    $scope.verTerminadas = true;
+                    $scope.verActivo = false, $scope.verMultiple = false, $scope.verdev = false;
+                } else {
+                    $scope.historiasUsuario = response.data.data;
+                }
+
+            }, function myError(response) {
+
+                console.log(response.data.code);
+            });
+            }
+        
     }
     ///////////////////////////////////////////////////
     //$scope.HistoryStatus_general();
     //$scope.HistoryStatus($scope.estado);
 
-    $scope.estadoSprint = "Activo";
+    $scope.verActivo = false;
     ///////Función para el Listado de Historias de Usuario del Sprint activo (en cualquier estado)/////
-    $scope.HistorySprintEstatus=function(estado){ 
-        $http({                               
-            method : "GET",
-            url : "http://localhost:5000/api/v1.0/user_story_sprint_status/"+ estado
-        }).then(function mySuccess(response) {
-            console.log(response.data.data);
-            
-        }, function myError(response) {        
-            console.log(response.data.code);
-        });
+    $scope.HistorySprintEstatus = function (estado) {
+        if ($scope.verActivo == true) {
+            $scope.verActivo = false;
+        } else {
+            $http({
+                method: "GET",
+                url: "http://localhost:5000/api/v1.0/user_story_sprint_status/" + estado
+            }).then(function mySuccess(response) {
+                console.log(response.data.data);
+                if (estado === 'Activo') {
+                    $scope.historiasSprintActivo = response.data.data;
+                    $scope.verActivo = true;
+                    $scope.verTerminadas = false, $scope.verMultiple = false, $scope.verdev = false;
+                } else {
+                    $scope.historiasUsuario = response.data.data;
+                }
 
+            }, function myError(response) {
+                console.log(response.data.code);
+            });
+        }
     }
     ///////////////////////////////////////////////////
     //$scope.HistorySprintEstatus($scope.estadoSprint);
 
-    ///////Función para el Listado de Historias de Usuario del Sprint activo (en cualquier estado)/////
-    $scope.HistorySprintMultiple=function(estado){ 
-        $http({                               
-            method : "GET",
-            url : "http://localhost:5000/api/v1.0/user_story_multiple_sprint"
-        }).then(function mySuccess(response) {
-            console.log(response.data.data);
-            
-        }, function myError(response) {        
-            console.log(response.data.code);
-        });
+    ///////Función para el Listado de Historias de Usuario asignadas a más de un Sprint(en cualquier estado)/////
+    $scope.HistorySprintMultiple = function () {
+        if ($scope.verMultiple == true) {
+            $scope.verMultiple = false;
+        } else {
+            $http({
+                method: "GET",
+                url: "http://localhost:5000/api/v1.0/user_story_multiple_sprint"
+            }).then(function mySuccess(response) {
+                console.log(response.data.data);
+                $scope.historiasSprintMultiple = response.data.data;
+                $scope.verMultiple = true;
+                $scope.verActivo = false, $scope.verTerminadas = false, $scope.verdev = false;
 
+            }, function myError(response) {
+                console.log(response.data.code);
+            });
+        }
     }
     ///////////////////////////////////////////////////
    // $scope.HistorySprintMultiple();
+    //// Función para obtener los datos de los desarrolladores (necesaraia para la siguiente función)
+    $http.get("http://localhost:5000/api/v1.0/table/team_member")
+    .then(function mySuccess(response) {
+        $scope.datosDevs = response.data.data;
+        console.log( $scope.datosDevs);
+    });
 
-    $scope.nombre = "Carmelo_Coton";
-     ///////Función para el Listado de Historias de Usuario del Sprint activo (en cualquier estado)/////    
+
+    $scope.nombreDev = "pepe";
+     ///////Listado de Historias de Usuario asignadas a un Desarrollador concreto/////    
      $scope.Historydevelop=function(nombre){ 
-         $http({                               
-             method : "GET",
-             url : "http://localhost:5000/api/v1.0/user_story_develop/"+ nombre
-         }).then(function mySuccess(response) {
-             console.log(response.data.data);
-             
-             
-         }, function myError(response) {        
-             console.log(response.data.code);
-         });
- 
+         console.log(nombre)
+        if ($scope.verdev == true) {
+            $scope.verdev = false;
+        } else {
+            $http({                               
+                method : "GET",
+                url : "http://localhost:5000/api/v1.0/user_story_develop/"+ nombre
+            }).then(function mySuccess(response) {
+                console.log(response.data.data);
+                $scope.historiasDev = response.data.data;
+                $scope.verdev = true;
+                $scope.verActivo = false, $scope.verTerminadas = false, $scope.verMultiple = false;
+                
+                
+            }, function myError(response) {        
+                console.log(response.data.code);
+            });
+        }
      }
      ///////////////////////////////////////////////////
     // $scope.Historydevelop($scope.nombre);

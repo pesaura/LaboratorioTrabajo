@@ -52,7 +52,7 @@ app.delete('/api/v1.0/deleteUserStoyById',scrumController.deleteUserStoyById);
 /** OBTAIN TASK FROM DATABASE */
 app.get('/api/v1.0/team_member_datos/:id_tm/:tabla', comunController.getTableById);
 //app.get('/api/v1.0/task', taskController.getTable);
-app.get('/api/v1.0/team_member', comunController.getTable);
+app.get('/api/v1.0/table/:tabla', comunController.getTable);
 app.get('/api/v1.0/user_story_status/:estado',devController.getUserHistory);
 app.get('/api/v1.0/user_story_sprint_status/:estado',devController.getUserHistorySprint);
 app.get('/api/v1.0/user_story_multiple_sprint',devController.getUserHistoryMultipleSprint);
