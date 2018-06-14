@@ -1,0 +1,494 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0 maximum-scale=1, minimum-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta charset="UTF-8">
+	<title>Ingenieria del Software</title>
+	<link rel="icon" type="image/png" href="imagenes/favicon.png">
+	<!-- <link rel="stylesheet" href="css/bootstrap.min.css"> -->
+	<!-- <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"> -->
+	<link href="css/bootstrap.min_4.1.css" rel="stylesheet" type="text/css">
+
+
+	<link rel="stylesheet" href="css/estilos.css">
+
+
+	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+<![endif]-->
+</head>
+
+<body ng-app="scrumApp">
+	<div ng-controller="iniciarSesion">
+		<nav class="navbar navbar-expand-lg  navbar-light bg-light ">
+			<a class="navbar-brand " href="http://www.upct.es/">
+				<img alt="logo" src="imagenes/Logo_Scrum.png" style="width:200px;height: 70px;">
+			</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText"
+			    aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarText">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item ">
+						<a class="nav-link" href="#Historias_ref">Historias de usuario</a>
+					</li>
+					<li class="nav-item ">
+						<a class="nav-link" href="#Sprint">Sprint </a>
+					</li>
+					<li class="nav-item ">
+						<a class="nav-link" href="#">Contacto </a>
+					</li>
+				</ul>
+				<br>
+				<ul class="nav navbar-nav navbar-right">
+					<li class="nav-item " ng-show="!Id">
+						<div class="btn-group dropleft">
+							<a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownSesion" data-toggle="dropdown" aria-haspopup="true"
+							    aria-expanded="false">
+								Iniciar sesión
+							</a>
+							<div class="dropdown-menu" id="dropdownSesion">
+								<form class="px-3 py-6" ng-submit="login(nombreLog,pass)">
+									<div class="form-group">
+										<label>Usuario</label>
+										<input required type="text" class="form-control mb-2" placeholder="Usuario" ng-model="nombreLog">
+									</div>
+									<div class="form-group">
+										<label>Contraseña</label>
+										<input required type="password" class="form-control" placeholder="Contraseña" ng-model="pass">
+									</div>
+									<div class="form-check">
+										<input type="checkbox" class="form-check-input" ng-model="remember">
+										<label class="form-check-label">
+											Recuerdame
+										</label>
+									</div>
+									<br>
+									<div class="form-group">
+										<span class="error" ng-show="loginError">{{loginError}}</span>
+									</div>
+									<button type="submit" class="btn btn-primary">Iniciar Sesión</button>
+
+								</form>
+							</div>
+						</div>
+					</li>
+					<li class="nav-item" ng-show="Id">
+						<div class="btn-group dropleft">
+							<a class="btn btn-outline-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
+							    aria-haspopup="true" aria-expanded="false">
+								Hola {{nombre}}
+							</a>
+							<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+								<a class="dropdown-item" href="#" ng-click="mostrarModificarDatos()">Datos Personales</a>
+								<div class="dropdown-divider"></div>
+								<a class="dropdown-item" href="#">Proyectos</a>
+								<div class="dropdown-divider"></div>
+								<a class="dropdown-item" href="#" ng-click="logout()">cerrar sesión</a>
+							</div>
+						</div>
+
+					</li>
+				</ul>
+			</div>
+		</nav>
+		<div class="container-fluid" id="cubrir">
+			<header id="CabP" ng-show="!verdatos">
+				<div class="row">
+					<div class="col-md-12" style="text-align: center;">
+						<h1 class="imagen_cabh1 ">Scrum </h1>
+					</div>
+				</div>
+			</header>
+			<div class="container-fluid " ng-show="verdatos">
+				<div class="row">
+					<div class="col-lg-3"></div>
+					<button class="btn btn-outline-secondary" ng-click="mostrarModificarDatos()">Cerrar </button>
+					<div class="col-lg-6 ">
+						<form ng-submit="modificarDatos()">
+							<div class="form-group row">
+								<label class="col-sm-2 col-form-label">Login</label>
+								<div class="col-sm-8">
+									<input required type="text" class="form-control" placeholder="Login" ng-model="nombreLog" value={{nombreLog}}>
+								</div>
+							</div>
+							<div class="form-group row">
+								<label class="col-sm-2 col-form-label">Correo</label>
+								<div class="col-sm-8">
+									<input required type="email" class="form-control" placeholder="Correo" ng-model="correo" value={{correo}}>
+								</div>
+							</div>
+
+							<div class="form-group row">
+								<label class="col-sm-2 col-form-label">Nick</label>
+								<div class="col-sm-3">
+									<input required type="text" class="form-control" placeholder="Nick" ng-model="nick" value={{nick}}>
+								</div>
+							</div>
+							<div class="form-group row">
+								<label class="col-sm-2 col-form-label">Nombre</label>
+								<div class="col-sm-3">
+									<input required type="text" class="form-control" placeholder="Nombre" ng-model="nombre" value={{nombre}}>
+								</div>
+								<label class="col-sm-2 col-form-label">Apellidos</label>
+								<div class="col-sm-3">
+									<input required type="text" class="form-control" placeholder="Apellido" ng-model="apellidos" value={{apellidos}}>
+								</div>
+
+							</div>
+							<div class="form-group row">
+								<div class="col-sm-10">
+									<button type="submit" class="btn btn-primary">Actualizar</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+
+			<main ng-controller="MainCtrl">
+
+				<section id="Historias_ref">
+					<div class="container-fluid">
+						<div class="row">
+							<div class="col-xs-12 col-md-12" style="text-align: center;">
+								<h1 id="descripcion">Historias de usuario</h1>
+								<p class="derecha">
+									<strong>Historias de usuario que se pueden consultar</strong>
+								</p>
+							</div>
+						</div>
+					</div>
+				</section>
+				
+				<!-- ////////////////////////////////////////////////////////////////////////////////////////////////////-->
+				<section> <!-- Listado de historias de usuario (hecho por Raúl )  -->
+					<div class="container-fluid">
+						<div class="row">
+								<div class="col-md-3" ></div>
+								<div class="col-xs-12  col-md-3 " style="text-align: center;">		
+									<button type="button" ng-click="iniciado()" id="bhistorias" class="btn btn-success btn-lg btn-block myFontButtons" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+														 Listado de Historias
+									</button>
+								</div>
+	
+								<div class="col-xs-12  col-md-3" style="text-align: center;">
+									<button type="button" ng-click="scrumComp()" id="bmodificar" class="btn btn-warning btn-lg btn-block myFontButtons" data-toggle="collapse" data-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+										Modificar Historias
+									</button>
+                                </div>
+                                
+                                <section id="collapseTwo" ng-show="mostrarBotones" >  <!-- Listado de historias de usuario (hecho por Pablo)  -->
+                                    <div class="container-fluid">
+                                        <div class="row">
+                                            <div class="col-md-3 separadorlateral">
+                                                <div class="Listado">
+                                                    <h3>Listado de historias de usuario completadas </h3>
+                                                    <button class="btn btn-outline-secondary" ng-click="HistoryStatus('terminada')" ng-show="!verTerminadas">Ver historias</button>
+                                                    <button class="btn btn-outline-secondary" ng-click="HistoryStatus('terminada')" ng-show="verTerminadas">Cerrar historias</button>
+                                                </div>
+                                                <div class="Listado">
+                                                    <h3>Listado de historias de Usuario del sprint activo </h3>
+                                                    <button class="btn btn-outline-secondary" ng-click="HistorySprintEstatus('Activo')" ng-show="!verActivo">Ver historias</button>
+                                                    <button class="btn btn-outline-secondary" ng-click="HistorySprintEstatus('Activo')" ng-show="verActivo">Cerrar historias</button>
+                                                </div>
+                                                <div class="Listado">
+                                                    <h3>Listado de historias de Usuario asignadas a más de un Sprint </h3>
+                                                    <button class="btn btn-outline-secondary" ng-click="HistorySprintMultiple()" ng-show="!verMultiple">Ver historias</button>
+                                                    <button class="btn btn-outline-secondary" ng-click="HistorySprintMultiple()" ng-show="verMultiple">Cerrar historias</button>
+                                                </div>
+                                                <div class="Listado">
+                                                    <h3>Listado de historias de usuario asignadas a un desarrollador concreto </h3>
+                                                    <form ng-submit="Historydevelop(nombreDev)">
+                                                        <div class="form-group">
+                                                            <select required class="form-control" ng-model="nombreDev">
+                                                                <option ng-repeat="dev  in datosDevs " value="{{dev.Login}}">{{dev.Login}}</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <button type="submit" class="btn btn-outline-secondary"  ng-show="!verdev">Ver historias</button>
+                                                        </div>
+                                                    </form>
+                                                    <button class="btn btn-outline-secondary" ng-click="Historydevelop(nombreDev)" ng-show="verdev">Cerrar historias</button>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6  ListadoDatos">
+                                                <div ng-show="verTerminadas">
+                                                    <div class=" historias" ng-repeat="historia in historiasUsuarioTerminada ">
+                                                        <h3 class="titulosHistorias">{{ historia.Nombre }} </h3>
+                                                        <p>
+                                                            Prioridad :
+                                                            <spam class="dato">{{historia.Prioridad}}</spam>&nbsp;&nbsp; Dificultad :
+                                                            <span class="dato">{{historia.Dificultad}}</span>&nbsp;&nbsp; Horas acumuladas :
+                                                            <span class="dato">{{historia.Horas_Acumuladas}}</span>&nbsp;&nbsp; Estado :
+                                                            <span class="dato">{{historia.Status}}</span>
+                                                        </p>
+                                                        <p>Comentarios:
+                                                            <spam class="dato">{{historia.Comentarios}}</spam>
+                                                        </p>
+                                                        <p>
+                                                            As a :
+                                                            <spam class="dato">{{historia.As_A}}</spam>&nbsp;&nbsp; I Want :
+                                                            <span class="dato">{{historia.I_Want}}</span>&nbsp;&nbsp; So That :
+                                                            <span class="dato">{{historia.So_That}}</span>&nbsp;&nbsp;
+                                                        </p>
+                                                    </div>
+                                                    <div class=" historias" ng-show="!historiasUsuarioTerminada">
+                                                        <h2>No existen de Historias de Usuario completadas</h2>
+                                                    </div>
+                                                </div>
+                                                <div ng-show="verActivo">
+                                                    <div class=" historias" ng-repeat="historia in historiasSprintActivo ">
+                                                        <h3 class="titulosHistorias">{{ historia.Nombre }} </h3>
+                                                        <p>
+                                                            Prioridad :
+                                                            <spam class="dato">{{historia.Prioridad}}</spam>&nbsp;&nbsp; Dificultad :
+                                                            <span class="dato">{{historia.Dificultad}}</span>&nbsp;&nbsp; Horas acumuladas :
+                                                            <span class="dato">{{historia.Horas_Acumuladas}}</span>&nbsp;&nbsp; Estado :
+                                                            <span class="dato">{{historia.Status}}</span>
+                                                        </p>
+                                                        <p>Comentarios:
+                                                            <spam class="dato">{{historia.Comentarios}}</spam>
+                                                        </p>
+                                                        <p>
+                                                            As a :
+                                                            <spam class="dato">{{historia.As_A}}</spam>&nbsp;&nbsp; I Want :
+                                                            <span class="dato">{{historia.I_Want}}</span>&nbsp;&nbsp; So That :
+                                                            <span class="dato">{{historia.So_That}}</span>&nbsp;&nbsp;
+                                                        </p>
+                                                    </div>
+                                                    <div class="historias" ng-show="!historiasSprintActivo">
+                                                        <h2>No existen Historias de Usuario del Sprint activo</h2>
+                                                    </div>
+                                                </div>
+                                                <div ng-show="verMultiple">
+                                                    <div class=" historias" ng-repeat="historia in historiasSprintMultiple ">
+                                                        <h3 class="titulosHistorias">{{ historia.Nombre }} </h3>
+                                                        <p>
+                                                            Prioridad :
+                                                            <spam class="dato">{{historia.Prioridad}}</spam>&nbsp;&nbsp; Dificultad :
+                                                            <span class="dato">{{historia.Dificultad}}</span>&nbsp;&nbsp; Horas acumuladas :
+                                                            <span class="dato">{{historia.Horas_Acumuladas}}</span>&nbsp;&nbsp; Estado :
+                                                            <span class="dato">{{historia.Status}}</span>
+                                                        </p>
+                                                        <p>Comentarios:
+                                                            <spam class="dato">{{historia.Comentarios}}</spam>
+                                                        </p>
+                                                        <p>
+                                                            As a :
+                                                            <spam class="dato">{{historia.As_A}}</spam>&nbsp;&nbsp; I Want :
+                                                            <span class="dato">{{historia.I_Want}}</span>&nbsp;&nbsp; So That :
+                                                            <span class="dato">{{historia.So_That}}</span>&nbsp;&nbsp;
+                                                        </p>
+                                                    </div>
+                                                    <div class=" historias" ng-show="!historiasSprintMultiple">
+                                                        <h2>No existen de Historias para multiples sprint</h2>
+                                                    </div>
+                                                </div>
+                                                <div ng-show="verdev">
+                                                    <div class=" historias" ng-repeat="historia in historiasDev ">
+                                                        <h3 class="titulosHistorias">{{ historia.Nombre }} </h3>
+                                                        <p>
+                                                            Prioridad :
+                                                            <spam class="dato">{{historia.Prioridad}}</spam>&nbsp;&nbsp; Dificultad :
+                                                            <span class="dato">{{historia.Dificultad}}</span>&nbsp;&nbsp; Horas acumuladas :
+                                                            <span class="dato">{{historia.Horas_Acumuladas}}</span>&nbsp;&nbsp; Estado :
+                                                            <span class="dato">{{historia.Status}}</span>
+                                                        </p>
+                                                        <p>Comentarios:
+                                                            <spam class="dato">{{historia.Comentarios}}</spam>
+                                                        </p>
+                                                        <p>
+                                                            As a :
+                                                            <spam class="dato">{{historia.As_A}}</spam>&nbsp;&nbsp; I Want :
+                                                            <span class="dato">{{historia.I_Want}}</span>&nbsp;&nbsp; So That :
+                                                            <span class="dato">{{historia.So_That}}</span>&nbsp;&nbsp;
+                                                        </p>
+                                                    </div>
+                                                    <div class=" historias" ng-show="!historiasDev">
+                                                        <h2>No existen de Historias de para este usuario</h2>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+
+
+
+								<div class="col-md-3" ></div>
+								
+								<br>
+
+
+								
+
+
+								<div class="col-md-2" ng-show="mostrarFormHistorias"></div>
+								<div class="col-md-3" ng-show="mostrarFormHistorias"></div>
+
+								<div ng-show="mostrarFormHistorias" id="collapseThree" class="col-xs-12  col-md-5 collapse" style="text-align: center;">		
+									<br>
+
+									<form>
+										<div class="form-group row">
+												<label  class="col-sm-2 col-form-label">Añadir</label>
+												<div class="col-sm-8">
+												 <input required type="text" class="form-control">
+												</div>
+											</div>
+										<div class="form-group row">
+											<label  class="col-sm-2 col-form-label">Eliminar</label>
+											<div class="col-sm-8">
+											 <input required type="email" class="form-control">
+											</div>
+										</div>
+										
+										<div class="form-group row">
+												<label  class="col-sm-2 col-form-label">Nombre</label>
+												<div class="col-sm-3">
+													<input required type="text" class="form-control">
+												</div>
+												<label  class="col-sm-2 col-form-label">Apellidos</label>
+												<div class="col-sm-3">
+														<input required type="text" class="form-control">
+												</div>
+	
+											</div>
+										<div class="form-group row">
+										  <div class="col-sm-10">
+											<button type="submit" class="btn btn-primary">Actualizar</button>
+											</div>
+										</div>
+								  </form>
+
+								</div>
+
+								<div class="col-md-1" ng-show="mostrarFormHistorias"></div>
+							
+
+
+							</div>		
+						</div>								
+					</section>
+					<br>				 
+</main>
+ <footer class="finP">
+		 <br>
+			<div class="container-fluid">
+							<div class="row">			 
+									<div class="col-xs-12 col-md-2" style="text-align: left;">
+
+										 <address>
+													<strong>Juan José Conesa</strong><br>
+													
+													<abbr title="Phone">P: (123) 456-7890</abbr>  
+												</address>
+
+											<address>
+													<strong>Correo</strong><br>
+													<a href="mailto:#">first.last@example.com</a>
+											</address>
+
+											<p><a href="https://www.upct.es" target="_blank">UPCT</a></p>
+
+						</div>
+
+						<div class="col-xs-12 col-md-2" style="text-align: left;">
+							<address>
+								<strong>Pablo Saura Jiménez</strong>
+								<br>
+								<abbr title="Phone">P: (123) 456-7890</abbr>
+							</address>
+							<address>
+								<strong>Correo</strong>
+								<br>
+								<a href="mailto:#">pablo_95_08@hotmail.com</a>
+							</address>
+
+							<p>
+								<a href="https://www.upct.es" target="_blank">UPCT</a>
+							</p>
+
+						</div>
+						<div class="col-xs-12 col-md-2" style="text-align: left;">
+
+							<address>
+								<strong>Rodrigo</strong>
+								<br>
+
+								<abbr title="Phone">P: (123) 456-7890</abbr>
+							</address>
+
+							<address>
+								<strong>Correo</strong>
+								<br>
+								<a href="mailto:#">first.last@example.com</a>
+							</address>
+
+							<p>
+								<a href="https://www.upct.es" target="_blank">UPCT</a>
+							</p>
+
+						</div>
+						<div class="col-xs-12 col-md-2" style="text-align: left;">
+
+							<address>
+								<strong>Raúl Navarro</strong>
+								<br>
+
+								<abbr title="Phone">P: (123) 456-7890</abbr>
+							</address>
+
+							<address>
+								<strong>Correo</strong>
+								<br>
+								<a href="mailto:#">first.last@example.com</a>
+							</address>
+
+							<p>
+								<a href="https://www.upct.es" target="_blank">UPCT</a>
+							</p>
+
+						</div>
+						<div class="col-xs-12 col-md-2" style="text-align: left;">
+
+							<address>
+								<strong>Victor Egea</strong>
+								<br>
+
+								<abbr title="Phone">P: (123) 456-7890</abbr>
+							</address>
+
+							<address>
+								<strong>Correo</strong>
+								<br>
+								<a href="mailto:#">first.last@example.com</a>
+							</address>
+
+							<p>
+								<a href="https://www.upct.es" target="_blank">UPCT</a>
+							</p>
+
+						</div>
+					</div>
+				</div>
+			</footer>
+
+			<script src="js/angular.min.js"></script>
+
+			<script src="js/controlador.js"></script>
+			<script src="js/angular-resource.min.js"></script>
+
+	<script src="js/jquery-3.3.1.min.js"></script> 
+	<script src="js/bootstrap.min.js"></script>
+	<!-- <script src="js/comprobacion.js"></script> -->
+</body>
+
+</html>
