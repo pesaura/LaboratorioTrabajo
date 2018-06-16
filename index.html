@@ -106,6 +106,7 @@
 					</div>
 				</div>
 			</header>
+		</div>
 			<div class="container-fluid " ng-show="verdatos">
 				<div class="row">
 					<div class="col-lg-3"></div>
@@ -166,27 +167,28 @@
 						</div>
 					</div>
 				</section>
-				<section>  <!-- Listado de historias de usuario (hecho por Pablo)  -->
+				<section>
+					<!-- Listado de historias de usuario (hecho por Pablo)  -->
 					<div class="container-fluid">
 						<div class="row">
 							<div class="col-md-3 separadorlateral">
 								<div class="Listado">
-									<h3>Listado de historias de usuario completadas </h3>
-									<button class="btn btn-outline-secondary" ng-click="HistoryStatus('terminada')" ng-show="!verTerminadas">Ver historias</button>
-									<button class="btn btn-outline-secondary" ng-click="HistoryStatus('terminada')" ng-show="verTerminadas">Cerrar historias</button>
+									<h4>Listado de historias de usuario completadas </h4>
+									<button class="btn btn-outline-secondary" ng-click="HistoryStatus('terminada')">Ver historias</button>
+
 								</div>
 								<div class="Listado">
-									<h3>Listado de historias de Usuario del sprint activo </h3>
-									<button class="btn btn-outline-secondary" ng-click="HistorySprintEstatus('Activo')" ng-show="!verActivo">Ver historias</button>
-									<button class="btn btn-outline-secondary" ng-click="HistorySprintEstatus('Activo')" ng-show="verActivo">Cerrar historias</button>
+									<h4>Listado de historias de Usuario del sprint activo </h4>
+									<button class="btn btn-outline-secondary" ng-click="HistorySprintEstatus('Activo')">Ver historias</button>
+
 								</div>
 								<div class="Listado">
-									<h3>Listado de historias de Usuario asignadas a más de un Sprint </h3>
-									<button class="btn btn-outline-secondary" ng-click="HistorySprintMultiple()" ng-show="!verMultiple">Ver historias</button>
-									<button class="btn btn-outline-secondary" ng-click="HistorySprintMultiple()" ng-show="verMultiple">Cerrar historias</button>
+									<h4>Listado de historias de Usuario asignadas a más de un Sprint </h4>
+									<button class="btn btn-outline-secondary" ng-click="HistorySprintMultiple()">Ver historias</button>
+
 								</div>
 								<div class="Listado">
-									<h3>Listado de historias de usuario asignadas a un desarrollador concreto </h3>
+									<h4>Listado de historias de usuario asignadas a un desarrollador concreto </h4>
 									<form ng-submit="Historydevelop(nombreDev)">
 										<div class="form-group">
 											<select required class="form-control" ng-model="nombreDev">
@@ -194,15 +196,15 @@
 											</select>
 										</div>
 										<div class="form-group">
-											<button type="submit" class="btn btn-outline-secondary"  ng-show="!verdev">Ver historias</button>
+											<button type="submit" class="btn btn-outline-secondary">Ver historias</button>
 										</div>
 									</form>
-									<button class="btn btn-outline-secondary" ng-click="Historydevelop(nombreDev)" ng-show="verdev">Cerrar historias</button>
+
 								</div>
 							</div>
 							<div class="col-md-6  ListadoDatos">
-								<div ng-show="verTerminadas">
-									<div class=" historias" ng-repeat="historia in historiasUsuarioTerminada ">
+								<div ng-show="verHistorias" >
+									<div class=" historias" ng-repeat="historia in historias ">
 										<h3 class="titulosHistorias">{{ historia.Nombre }} </h3>
 										<p>
 											Prioridad :
@@ -221,199 +223,131 @@
 											<span class="dato">{{historia.So_That}}</span>&nbsp;&nbsp;
 										</p>
 									</div>
-									<div class=" historias" ng-show="!historiasUsuarioTerminada">
-										<h2>No existen de Historias de Usuario completadas</h2>
+									<div class=" historias" ng-show="!historias">
+										<h3>No existen de Historias de Usuario </h3>
 									</div>
 								</div>
-								<div ng-show="verActivo">
-									<div class=" historias" ng-repeat="historia in historiasSprintActivo ">
-										<h3 class="titulosHistorias">{{ historia.Nombre }} </h3>
-										<p>
-											Prioridad :
-											<spam class="dato">{{historia.Prioridad}}</spam>&nbsp;&nbsp; Dificultad :
-											<span class="dato">{{historia.Dificultad}}</span>&nbsp;&nbsp; Horas acumuladas :
-											<span class="dato">{{historia.Horas_Acumuladas}}</span>&nbsp;&nbsp; Estado :
-											<span class="dato">{{historia.Status}}</span>
-										</p>
-										<p>Comentarios:
-											<spam class="dato">{{historia.Comentarios}}</spam>
-										</p>
-										<p>
-											As a :
-											<spam class="dato">{{historia.As_A}}</spam>&nbsp;&nbsp; I Want :
-											<span class="dato">{{historia.I_Want}}</span>&nbsp;&nbsp; So That :
-											<span class="dato">{{historia.So_That}}</span>&nbsp;&nbsp;
-										</p>
-									</div>
-									<div class="historias" ng-show="!historiasSprintActivo">
-										<h2>No existen Historias de Usuario del Sprint activo</h2>
-									</div>
-								</div>
-								<div ng-show="verMultiple">
-									<div class=" historias" ng-repeat="historia in historiasSprintMultiple ">
-										<h3 class="titulosHistorias">{{ historia.Nombre }} </h3>
-										<p>
-											Prioridad :
-											<spam class="dato">{{historia.Prioridad}}</spam>&nbsp;&nbsp; Dificultad :
-											<span class="dato">{{historia.Dificultad}}</span>&nbsp;&nbsp; Horas acumuladas :
-											<span class="dato">{{historia.Horas_Acumuladas}}</span>&nbsp;&nbsp; Estado :
-											<span class="dato">{{historia.Status}}</span>
-										</p>
-										<p>Comentarios:
-											<spam class="dato">{{historia.Comentarios}}</spam>
-										</p>
-										<p>
-											As a :
-											<spam class="dato">{{historia.As_A}}</spam>&nbsp;&nbsp; I Want :
-											<span class="dato">{{historia.I_Want}}</span>&nbsp;&nbsp; So That :
-											<span class="dato">{{historia.So_That}}</span>&nbsp;&nbsp;
-										</p>
-									</div>
-									<div class=" historias" ng-show="!historiasSprintMultiple">
-										<h2>No existen de Historias para multiples sprint</h2>
-									</div>
-								</div>
-								<div ng-show="verdev">
-									<div class=" historias" ng-repeat="historia in historiasDev ">
-										<h3 class="titulosHistorias">{{ historia.Nombre }} </h3>
-										<p>
-											Prioridad :
-											<spam class="dato">{{historia.Prioridad}}</spam>&nbsp;&nbsp; Dificultad :
-											<span class="dato">{{historia.Dificultad}}</span>&nbsp;&nbsp; Horas acumuladas :
-											<span class="dato">{{historia.Horas_Acumuladas}}</span>&nbsp;&nbsp; Estado :
-											<span class="dato">{{historia.Status}}</span>
-										</p>
-										<p>Comentarios:
-											<spam class="dato">{{historia.Comentarios}}</spam>
-										</p>
-										<p>
-											As a :
-											<spam class="dato">{{historia.As_A}}</spam>&nbsp;&nbsp; I Want :
-											<span class="dato">{{historia.I_Want}}</span>&nbsp;&nbsp; So That :
-											<span class="dato">{{historia.So_That}}</span>&nbsp;&nbsp;
-										</p>
-									</div>
-									<div class=" historias" ng-show="!historiasDev">
-										<h2>No existen de Historias de para este usuario</h2>
-									</div>
-								</div>
+				</section>
+				<!-- ////////////////////////////////////////////////////////////////////////////////////////////////////-->
+				<section>
+					<!-- Listado de historias de usuario (hecho por Raúl )  -->
+					<div class="container-fluid">
+						<div class="row">
+							<div class="col-md-3"></div>
+							<div class="col-xs-12  col-md-3 " style="text-align: center;">
+								<button type="button" ng-click="iniciado()" id="bhistorias" class="btn btn-success btn-lg btn-block myFontButtons" data-toggle="collapse"
+								    data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+									Listado de Historias
+								</button>
 							</div>
+
+							<div class="col-xs-12  col-md-3" style="text-align: center;">
+								<button type="button" ng-click="scrumComp()" id="bmodificar" class="btn btn-warning btn-lg btn-block myFontButtons" data-toggle="collapse"
+								    data-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+									Modificar Historias
+								</button>
+							</div>
+
+
+
+							<div class="col-md-3"></div>
+
+							<br>
+
+
+							<div class="col-md-2" ng-show="mostrarBotones"></div>
+
+							<div ng-show="mostrarBotones" id="collapseTwo" class="col-xs-12  col-md-5 collapse" style="text-align: center;">
+								<br>
+								<button type="button" class="btn btn-success" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+									Terminada
+								</button>
+								<button type="button" class="btn btn-success" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+									Sprint
+								</button>
+								<button type="button" class="btn btn-success" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+									Sprints
+								</button>
+								<button type="button" class="btn btn-success" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+									Desarrolador
+								</button>
+
+							</div>
+							<div class="col-md-3" ng-show="mostrarBotones"></div>
+							<div class="col-md-2" ng-show="mostrarBotones"></div>
+
+
+							<div class="col-md-2" ng-show="mostrarFormHistorias"></div>
+							<div class="col-md-3" ng-show="mostrarFormHistorias"></div>
+
+							<div ng-show="mostrarFormHistorias" id="collapseThree" class="col-xs-12  col-md-5 collapse" style="text-align: center;">
+								<br>
+
+								<form>
+									<div class="form-group row">
+										<label class="col-sm-2 col-form-label">Añadir</label>
+										<div class="col-sm-8">
+											<input required type="text" class="form-control">
+										</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-sm-2 col-form-label">Eliminar</label>
+										<div class="col-sm-8">
+											<input required type="email" class="form-control">
+										</div>
+									</div>
+
+									<div class="form-group row">
+										<label class="col-sm-2 col-form-label">Nombre</label>
+										<div class="col-sm-3">
+											<input required type="text" class="form-control">
+										</div>
+										<label class="col-sm-2 col-form-label">Apellidos</label>
+										<div class="col-sm-3">
+											<input required type="text" class="form-control">
+										</div>
+
+									</div>
+									<div class="form-group row">
+										<div class="col-sm-10">
+											<button type="submit" class="btn btn-primary">Actualizar</button>
+										</div>
+									</div>
+								</form>
+
+							</div>
+
+							<div class="col-md-1" ng-show="mostrarFormHistorias"></div>
+
+
+
 						</div>
 					</div>
 				</section>
-				<!-- ////////////////////////////////////////////////////////////////////////////////////////////////////-->
-				<section> <!-- Listado de historias de usuario (hecho por Raúl )  -->
-					<div class="container-fluid">
-						<div class="row">
-								<div class="col-md-3" ></div>
-								<div class="col-xs-12  col-md-3 " style="text-align: center;">		
-									<button type="button" ng-click="iniciado()" id="bhistorias" class="btn btn-success btn-lg btn-block myFontButtons" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-														 Listado de Historias
-									</button>
-								</div>
-	
-								<div class="col-xs-12  col-md-3" style="text-align: center;">
-									<button type="button" ng-click="scrumComp()" id="bmodificar" class="btn btn-warning btn-lg btn-block myFontButtons" data-toggle="collapse" data-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
-										Modificar Historias
-									</button>
-								</div>
+				<br>
+			</main>
+			<footer class="finP">
+				<br>
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-xs-12 col-md-2" style="text-align: left;">
 
-
-
-								<div class="col-md-3" ></div>
-								
+							<address>
+								<strong>Juan José Conesa</strong>
 								<br>
 
+								<abbr title="Phone">P: (123) 456-7890</abbr>
+							</address>
 
-								<div class="col-md-2" ng-show="mostrarBotones"></div>
+							<address>
+								<strong>Correo</strong>
+								<br>
+								<a href="mailto:#">first.last@example.com</a>
+							</address>
 
-								<div ng-show="mostrarBotones" id="collapseTwo" class="col-xs-12  col-md-5 collapse" style="text-align: center;">		
-									<br>
-									<button type="button" class="btn btn-success" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-														 Terminada
-									</button>
-									<button type="button" class="btn btn-success" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-										Sprint
-								    </button>
-									<button type="button" class="btn btn-success" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-										Sprints
-									</button>
-									<button type="button" class="btn btn-success" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-										Desarrolador
-				   					</button>   
-
-								</div>
-								<div class="col-md-3" ng-show="mostrarBotones"></div>
-								<div class="col-md-2" ng-show="mostrarBotones"></div>
-
-
-								<div class="col-md-2" ng-show="mostrarFormHistorias"></div>
-								<div class="col-md-3" ng-show="mostrarFormHistorias"></div>
-
-								<div ng-show="mostrarFormHistorias" id="collapseThree" class="col-xs-12  col-md-5 collapse" style="text-align: center;">		
-									<br>
-
-									<form>
-										<div class="form-group row">
-												<label  class="col-sm-2 col-form-label">Añadir</label>
-												<div class="col-sm-8">
-												 <input required type="text" class="form-control">
-												</div>
-											</div>
-										<div class="form-group row">
-											<label  class="col-sm-2 col-form-label">Eliminar</label>
-											<div class="col-sm-8">
-											 <input required type="email" class="form-control">
-											</div>
-										</div>
-										
-										<div class="form-group row">
-												<label  class="col-sm-2 col-form-label">Nombre</label>
-												<div class="col-sm-3">
-													<input required type="text" class="form-control">
-												</div>
-												<label  class="col-sm-2 col-form-label">Apellidos</label>
-												<div class="col-sm-3">
-														<input required type="text" class="form-control">
-												</div>
-	
-											</div>
-										<div class="form-group row">
-										  <div class="col-sm-10">
-											<button type="submit" class="btn btn-primary">Actualizar</button>
-											</div>
-										</div>
-								  </form>
-
-								</div>
-
-								<div class="col-md-1" ng-show="mostrarFormHistorias"></div>
-							
-
-
-							</div>		
-						</div>								
-					</section>
-					<br>				 
-</main>
- <footer class="finP">
-		 <br>
-			<div class="container-fluid">
-							<div class="row">			 
-									<div class="col-xs-12 col-md-2" style="text-align: left;">
-
-										 <address>
-													<strong>Juan José Conesa</strong><br>
-													
-													<abbr title="Phone">P: (123) 456-7890</abbr>  
-												</address>
-
-											<address>
-													<strong>Correo</strong><br>
-													<a href="mailto:#">first.last@example.com</a>
-											</address>
-
-											<p><a href="https://www.upct.es" target="_blank">UPCT</a></p>
+							<p>
+								<a href="https://www.upct.es" target="_blank">UPCT</a>
+							</p>
 
 						</div>
 
@@ -503,9 +437,9 @@
 			<script src="js/controlador.js"></script>
 			<script src="js/angular-resource.min.js"></script>
 
-	<script src="js/jquery-3.3.1.min.js"></script> 
-	<script src="js/bootstrap.min.js"></script>
-	<!-- <script src="js/comprobacion.js"></script> -->
+			<script src="js/jquery-3.3.1.min.js"></script>
+			<script src="js/bootstrap.min.js"></script>
+			<!-- <script src="js/comprobacion.js"></script> -->
 </body>
 
 </html>
