@@ -46,3 +46,13 @@ Name: sql2240443
 Username: sql2240443
 Password: dE2!uZ5!
 Port number: 3306
+
+/-------------------------------------------------------------------------------------------/
+22/06/2018:
+
+VIDEOS UTILES:
+Query parameters in express HTTP request
+https://www.youtube.com/watch?v=neMgU2GZD_0&list=PLxoOrmZMsAWxC3BaEeSvKkqtZmfzUk367&index=8
+
+Part 9 - Resource parameters in express HTTP request
+https://www.youtube.com/watch?v=hFtSp_Rym-E&list=PLxoOrmZMsAWxC3BaEeSvKkqtZmfzUk367&index=9
