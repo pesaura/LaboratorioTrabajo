@@ -56,3 +56,6 @@ https://www.youtube.com/watch?v=neMgU2GZD_0&list=PLxoOrmZMsAWxC3BaEeSvKkqtZmfzUk
 
 Part 9 - Resource parameters in express HTTP request
 https://www.youtube.com/watch?v=hFtSp_Rym-E&list=PLxoOrmZMsAWxC3BaEeSvKkqtZmfzUk367&index=9
+
+Simple file upload example using AngularJS
+https://www.angularcode.com/simple-file-upload-example-using-angularjs/

@@ -46,6 +46,8 @@ app.post('/api/v1.0/createSprint',scrumController.createSprint);
 //07-06-2018
 app.delete('/api/v1.0/deleteUserStoyById',scrumController.deleteUserStoyById);
 
+/**22-06-2018 - añadir Developer a User_Story del Sprint activo */
+app.post('/api/v1.0/addDeveloperToUserStory',devController.addDeveloperToUserStory);
 
 
 
@@ -58,9 +60,11 @@ app.get('/api/v1.0/user_story_sprint_status/:estado',devController.getUserHistor
 app.get('/api/v1.0/user_story_multiple_sprint',devController.getUserHistoryMultipleSprint);
 app.get('/api/v1.0/user_story_develop/:nombre',devController.getUserHistorydevelop);
 
+
+/*--------------------------------------------------------------------------- */
+
 /** OBTAIN TASK from id FROM DATABASE */
 //app.get('/api/v1.0/task/id/:taskId', taskController.getTableById);
-
 
 /** update TASK from id FROM DATABASE */
 app.put('/api/v1.0/task/id/:taskId:nombre', taskController.updateTaskById);
@@ -68,7 +72,7 @@ app.post('/api/v1.0/updateUser', devController.updateUser);
 
 /**borrar task */
 app.delete('/api/v1.0/task/id/:taskId', taskController.deleteTableById);
-
+/*--*/
 
 
 

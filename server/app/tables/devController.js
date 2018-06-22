@@ -156,25 +156,76 @@ module.exports = {
     /*Listado de Historias de Usuario asignadas a un Desarrollador concreto (en cualquier estado).
       "SELECT * FROM user_story where id_us in(
          select id_us from develop where id_tm=(
-             select id_tm from team_member where Login=?",[nombre]
+             select id_tm from team_member where Nombre=?",[nombre]
 				 )
 			)"
     */ 
    getUserHistorydevelop :function(req,res){
     var nombre = req.params.nombre;
-    console.log(nombre);
-    var query = 'SELECT * FROM user_story where Id in(select id_us from develop where id_tm=(select Id from team_member where Login=?))';
+    //console.log(nombre);
+    var query = 'SELECT * FROM user_story where Id in(select id_us from develop where id_tm=(select Id from team_member where Nombre=?))';
     connection.query(query, [nombre],function(err, result,fields){
         if(err){
             console.log(err);
-            return res.status(500).json({code:"get user_story By status Failed", message:"error en "+ estado});
+            return res.status(500).json({code:"get user_story By developer Failed", message:"error en "+ nombre});
         }
+        if(result.length===0){
+            return res.status(500).json({code:"get user_story By developer Failed", message: nombre+" asignado a 0 user story"});
+        }
+        
         return res.status(200).json({code:"one match task", data:result});
     });
 },
       
-
-    /*Listado de Historias de Usuario pendientes. Solo el Scrum Master puede ejecutar esta consulta.
+    /*APARTADO: Los Desarrolladores eligen qué Historias de Usuario van a desarrollar durante el Sprint.
+        Esto puede variar en funcion de como se implente el codigo angular y el HTML
         
-    */
+        1º DEBEMOS TENER LOS DATO -> 
+        id sprint activo
+        id (o toda la info) de las historias de usuario del sprint activo
+        id del Desarrollador
+
+        PARTIENDO DE QUE POSEAMOS ESTOS DATOS:
+
+        {
+            "Id_tm":1
+            "Id_sprint":1
+            "Id_us":1
+        }
+
+        No se haran verificaciones de estos ids puesto que se sobreentiende que ya existen previamente 
+        en sus respectivas tablas
+
+    */ 
+        addDeveloperToUserStory:function(req, res){
+            var tm=req.body.Id_tm;
+            var sprint=req.body.Id_sprint;
+            var us=req.body.Id_us;
+
+            var data={
+                Id_tm:tm,
+                Id_sprint:sprint,
+                Id_us:us,
+            };
+
+            connection.query("Select * from develop where Id_tm=? and Id_sprint=? and Id_us=?",[tm, sprint,us],function(err,result,fields){
+                if(err){
+                    return res.status(500).json({code:"addDeveloperToUserStory_failed", message:"error un query"});
+                }
+                if(result.length>0){
+                    return res.status(200).json({code:"addDeveloperToUserStory", message:"Developer ya asignado a User_Story"});
+                }
+
+                connection.query("INSERT INTO develop SET ?",data,function(err, result,fields){
+                    if(err){
+                        console.log(err);
+                        return res.status(500).json({code : "addDeveloperToUserStory_Insert_failed", message:"error Insert developer"});
+                    }
+                    return res.status(200).json({code:"addDeveloperToUserStory_Insert_OK", message:"Developer_asignado"});
+                });
+
+
+            });
+        }
+
 };
