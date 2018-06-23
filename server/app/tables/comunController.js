@@ -101,28 +101,28 @@ module.exports = {
     */
 
    deleteTableById : function(req,res){
-    var taskId=req.params.taskId;
-    var ruta = req.route.path; //obtener la ruta 
-    var tabla = req.route.path.substr(10,ruta.length - 21);  //obtener el nombre de la tabla
-    
-    connection.query("SELECT * FROM "+ tabla + " where id= ?",[taskId],function(err, result,fields){
-        if(err){
-            console.log(err);
-            return res.status(500).json({code:"taskDeletedFailed",message:"Error al buscar task"});
-        }
-        if(result.length===0){
-            return res.status(500).json({code:"taskDeletedFailed", message:"result.length===0"});
-        }            
+        var taskId=req.params.taskId;
+        var ruta = req.route.path; //obtener la ruta 
+        var tabla = req.route.path.substr(10,ruta.length - 21);  //obtener el nombre de la tabla
+        
+        connection.query("SELECT * FROM "+ tabla + " where id= ?",[taskId],function(err, result,fields){
+            if(err){
+                console.log(err);
+                return res.status(500).json({code:"taskDeletedFailed",message:"Error al buscar task"});
+            }
+            if(result.length===0){
+                return res.status(500).json({code:"taskDeletedFailed", message:"result.length===0"});
+            }            
 
         connection.query("DELETE FROM "+ tabla +" WHERE id=?",[taskId],function(err, result,fields){
             if(err){
                 return res.status(500).json({code:"taskDeletedFailed", message:"error borrando ese task"});
             }
             return res.status(200).json({code:"Taskdeleted"})
-        });
-    });    
+            });
+        });    
 
-}
+    },
   
 
 

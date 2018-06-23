@@ -226,6 +226,50 @@ module.exports = {
 
 
             });
+        },
+
+        
+        /*
+            4. Los Desarrolladores van trabajando y actualizando el estado de sus Historias de Usuario.
+
+            se espera recibir el id de la USER_STORY el la que el developer esta trabajando (usar funcion getUserHistorydevelop)
+            junto con su nuevo estado al que vamos a actualizar teniendo en cuenta que:
+
+            5. Solo el Scrum Master puede dar por terminada (colocar en estado “Terminada”) una Historia
+            de Usuario. 
+            El Desarrollador la marca como “Pendiente de Evaluación”, a la espera del cierre.
+
+            Estas condiciones no se verificaran, el cliente ha de crearse para que se cumplan,
+            en caso de no se pueda hacer avisad para que se modifique la funcion
+
+            {
+                "Id":
+                "US_status:"
+            }
+        */
+        updateUserStoryStatus:function(req,res){
+            var id=req.body.Id;
+            var status=req.body.US_status
+            
+            if(!id || !status){
+                return res.status(500).json({code:"updateUserStoryStatus_FAILED", message:"missing data in body id= "+id+" status= "+status });
+            }
+            connection.query("SELECT * FROM user_story WHERE id=?",[id],function(err,result,fields){
+                if(err){
+                    return res.status(500).json({code:"updateUserStoryStatus_FAILED", message:"Error in select where id= "+id+" "});
+                }
+                if(result.length===0){
+                    return res.status(500).json({code:"updateUserStoryStatus_FAILED", message:"NO match in select where id= "+id+" "});
+                }
+
+                connection.query("UPDATE user_story SET Status=? where Id=?",[status, id],function(err,result,fields){
+                    if(err){
+                        return res.status(500).json({code:"updateUserStoryStatus_FAILED", message:"ERROR in UPDATE where id= "+id+" "});
+                    }
+                    res.status(200).json({code:"updateUserStoryStatus_OK",message:"USER_STORY="+id+" UPDATED TO STATUS="+status});
+
+                });
+            });
         }
 
 };
