@@ -161,21 +161,21 @@ module.exports = {
 			)"
     */ 
    getUserHistorydevelop :function(req,res){
-    var nombre = req.params.nombre;
-    //console.log(nombre);
-    var query = 'SELECT * FROM user_story where Id in(select id_us from develop where id_tm=(select Id from team_member where Nombre=?))';
-    connection.query(query, [nombre],function(err, result,fields){
-        if(err){
-            console.log(err);
-            return res.status(500).json({code:"get user_story By developer Failed", message:"error en "+ nombre});
-        }
-        if(result.length===0){
-            return res.status(500).json({code:"get user_story By developer Failed", message: nombre+" asignado a 0 user story"});
-        }
-        
-        return res.status(200).json({code:"one match task", data:result});
-    });
-},
+        var nombre = req.params.nombre;
+        //console.log(nombre);
+        var query = 'SELECT * FROM user_story where Id in(select id_us from develop where id_tm=(select Id from team_member where Nombre=?))';
+        connection.query(query, [nombre],function(err, result,fields){
+            if(err){
+                console.log(err);
+                return res.status(500).json({code:"get user_story By developer Failed", message:"error en "+ nombre});
+            }
+            if(result.length===0){
+                return res.status(500).json({code:"get user_story By developer Failed", message: nombre+" asignado a 0 user story"});
+            }
+            
+            return res.status(200).json({code:"one match task", data:result});
+        });
+    },
       
     /*APARTADO: Los Desarrolladores eligen qué Historias de Usuario van a desarrollar durante el Sprint.
         Esto puede variar en funcion de como se implente el codigo angular y el HTML
@@ -270,6 +270,56 @@ module.exports = {
 
                 });
             });
+        },
+
+        /* EXTRA: FUNCION PARA AÑADIR ENTRADAS A LA TABLA stored_user_story (SNAPSHOTS DE UNA USER_STORY) USABLE CUANDO UN USIARIO 
+        SE HA REGISTRADO, LA INFO ENTRANTE QUE SE ESPERA
+        {
+            'Nombre':''
+     *      'Prioridad':''
+     *      'Dificultad': cuidado aqui un numero
+     *      'Comentarios':''
+     *      'Horas_Acumuladas':''
+     *      'Status':''
+     *      'As_a':''
+     *      'I_Want':''
+     *      'So_That':''
+     *      'Developer': char(50) <- nombre del Developer
+     *      'Sprint': char(50) <- nombre del Sprint ACTIVO (solo debe haber 1 activo)
         }
+        
+        */
+        addEntryToStoredUserStory:function(req,res){
+            var requestData = req.body;
+            //console.log(requestData);
+
+            if(!requestData){
+                return res.status(400).json({code:"user_story_Failed", message: "texto no disponible" })
+            }
+            console.log(requestData);
+            var data={
+
+                Nombre:requestData.Nombre,
+                Prioridad:requestData.Prioridad,
+                Dificultad: requestData.Dificultad,
+                Comentarios:requestData.Comentarios,
+                Horas_Acumuladas:requestData.Horas_Acumuladas,
+                Status:requestData.Status,
+                As_a:requestData.As_a,
+                I_Want:requestData.I_Want,
+                So_That:requestData.So_That,
+                Developer:requestData.Developer,
+                Sprint:requestData.Sprint
+
+            };
+
+            connection.query("INSERT INTO stored_user_story SET ?",data,function(err, result,fields){
+                if(err){
+                    console.log(err);
+                    return res.status(500).json({code : "stored_user_story failed", message:"error Insert stored_user_story failed"});
+                }
+                return res.status(200).json({code:"stored_user_story _OK", message:"Almacenada nueva instantanea"});
+            }); 
+        },
 
 };
