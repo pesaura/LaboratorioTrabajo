@@ -63,12 +63,10 @@ module.exports = {
     },
     /*
         {
-
-            "Fecha_Inicio":2018-01-01,
-            "Fecha_Fin": 2018-01-15,
-            "Nombre": cabeza,
-            "Status": Activo o Terminado  (solo uno de los dos)
-            "Review": texto,
+            "Fecha_Inicio":"2018-02-01",
+            "Fecha_Fin": "2018-02-15",
+            "Nombre": "oreja",
+            "Review": "texto3"
         };
      */
 
@@ -85,25 +83,17 @@ module.exports = {
             Fecha_Inicio:requestData.Fecha_Inicio,
             Fecha_Fin:requestData.Fecha_Fin,
             Nombre: requestData.Nombre,
-            Status:requestData.Status,
+            Status:"",
             Review:requestData.Review,
         };
 
-        connection.query("SELECT * FROM sprint WHERE Status=Activo",data,function(err, result,fields){
-            if(err){
-                console.log(err);
-            }
-            if(result.length>0){
-                return res.status(500).json({code : "sprint_Failed failed", message:"Existe un Sprint en estado Activo"});
-            }  
-        });
 
         connection.query("INSERT INTO sprint SET ?",data,function(err, result,fields){
             if(err){
                 console.log(err);
                 return res.status(500).json({code : "sprint_Failed failed", message:"error Insert"});
             }
-            return res.status(200).json({code:"sprint_created", message:"Task creada"});
+            return res.status(200).json({code:"sprint_created", message:"Sprint creado creada"});
         });
     },
 
@@ -269,7 +259,7 @@ module.exports = {
         var Id=req.body.Id;             // Lo pasamos {"Id":"", "stat":""} mediante HTTP PUT
         var stat=req.body.stat;
 
-        console.log(!Id || !(stat=="Activo" || stat=="Terminado"));  
+        //console.log(!Id || !(stat=="Activo" || stat=="Terminado"));  
 
         if(!Id || !(stat=="Activo" || stat=="Terminado") ){
             return res.status(500).json({code:"changeSprintStatus_failed",message:"Invalid Data ->Id="+Id+" Status="+stat});
