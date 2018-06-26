@@ -25,21 +25,19 @@ module.exports = {
         "Dificultad": 2,
         "Comentarios":"no hay prisa",
         "Horas_Acumuladas": 200,
-        "Status":"terminada",
+        "Status":"No_iniciada",
         "As_a":"",
         "I_Want":"",
         "So_That":""                        
-}
+        }
      */
     createUserHistory : function(req,res){
 
         var requestData = req.body;
-        console.log(requestData);
 
         if(!requestData){
             return res.status(400).json({code:"user_story_Failed", message: "texto no disponible" })
         }
-        console.log(requestData);
         var data={
 
             Nombre:requestData.Nombre,
