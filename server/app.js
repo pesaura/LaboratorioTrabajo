@@ -57,14 +57,15 @@ app.get('/api/v1.0/user_story_multiple_sprint',devController.getUserHistoryMulti
 app.get('/api/v1.0/user_story_develop/:nombre',devController.getUserHistorydevelop);
 
 
-
-
-
 /**22-06-2018 - añadir Developer a User_Story del Sprint activo */
 app.post('/api/v1.0/addDeveloperToUserStory',devController.addDeveloperToUserStory);
 
 /*23-06-2018*/
-app.put('/api/v1.0/updateUserStoryStatus',devController.updateUserStoryStatus)
+app.put('/api/v1.0/updateUserStoryStatus',devController.updateUserStoryStatus);
+
+//26-06
+app.get('/api/v1.0/obtainListOfSprint', scrumController.obtainListOfSprint);
+app.put('/api/v1.0/changeSprintStatus', scrumController.changeSprintStatus);
 
 /*--------------------------------------------------------------------------- */
 

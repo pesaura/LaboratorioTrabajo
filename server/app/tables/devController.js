@@ -272,6 +272,9 @@ module.exports = {
             });
         },
 
+
+           /*OTRAS FUNCIONES DE UTILIDAD*/
+
         /* EXTRA: FUNCION PARA AÑADIR ENTRADAS A LA TABLA stored_user_story (SNAPSHOTS DE UNA USER_STORY) USABLE CUANDO UN USIARIO 
         SE HA REGISTRADO, LA INFO ENTRANTE QUE SE ESPERA
         {
@@ -285,7 +288,7 @@ module.exports = {
      *      'I_Want':''
      *      'So_That':''
      *      'Developer': char(50) <- nombre del Developer
-     *      'Sprint': char(50) <- nombre del Sprint ACTIVO (solo debe haber 1 activo)
+     *      'Sprint':    char(50) <- nombre del Sprint ACTIVO (solo debe haber 1 activo)
         }
         
         */
@@ -294,7 +297,7 @@ module.exports = {
             //console.log(requestData);
 
             if(!requestData){
-                return res.status(400).json({code:"user_story_Failed", message: "texto no disponible" })
+                return res.status(500).json({code:"user_story_Failed", message: "texto no disponible" })
             }
             console.log(requestData);
             var data={

@@ -89,6 +89,15 @@ module.exports = {
             Review:requestData.Review,
         };
 
+        connection.query("SELECT * FROM sprint WHERE Status=Activo",data,function(err, result,fields){
+            if(err){
+                console.log(err);
+            }
+            if(result.length>0){
+                return res.status(500).json({code : "sprint_Failed failed", message:"Existe un Sprint en estado Activo"});
+            }  
+        });
+
         connection.query("INSERT INTO sprint SET ?",data,function(err, result,fields){
             if(err){
                 console.log(err);
@@ -240,6 +249,41 @@ module.exports = {
             });
         }   
 
+    },
+
+    /*OTRAS FUNCIONES DE UTILIDAD*/
+    obtainListOfSprint:function(req, res){
+        
+        connection.query("SELECT * FROM sprint ",[],function(err,result,fields){
+            if(err){
+                console.log(err);
+                return res.status(500).json({code:"obtainListOfSprint_failed",message:"error in obtainListOfSprint"});
+            }
+            
+            return res.status(200).json({code:"obtainListOfSprint_ok",data:result});
+        });
+    },
+
+    changeSprintStatus:function(req, res){
+
+        var Id=req.body.Id;             // Lo pasamos {"Id":"", "stat":""} mediante HTTP PUT
+        var stat=req.body.stat;
+
+        console.log(!Id || !(stat=="Activo" || stat=="Terminado"));  
+
+        if(!Id || !(stat=="Activo" || stat=="Terminado") ){
+            return res.status(500).json({code:"changeSprintStatus_failed",message:"Invalid Data ->Id="+Id+" Status="+stat});
+        }
+
+
+        connection.query("UPDATE sprint SET Status=? WHERE Id=? ",[stat,Id],function(err,result,fields){
+            if(err){
+                console.log(err);
+                return res.status(500).json({code:"changeSprintStatus_failed",message:"error in obtainListOfSprint"});
+            }
+            
+            return res.status(200).json({code:"changeSprintStatus_ok"});
+        });
     },
 
 
