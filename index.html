@@ -26,7 +26,7 @@
 <body ng-app="scrumApp">
 	<div ng-controller="iniciarSesion">
 		<nav class="navbar navbar-expand-lg  navbar-light bg-light ">
-			<a class="navbar-brand " href="http://www.upct.es/">
+			<a class="navbar-brand " href="index.html">
 				<img alt="logo" src="imagenes/Logo_Scrum.png" style="width:200px;height: 70px;">
 			</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText"
@@ -204,25 +204,35 @@
 							</div>
 							<div class="col-md-6  ListadoDatos">
 								<div ng-show="verHistorias" >
-									<div class=" historias" ng-repeat="historia in historias ">
-										<h3 class="titulosHistorias">{{ historia.Nombre }} </h3>
-										<p>
-											Prioridad :
-											<spam class="dato">{{historia.Prioridad}}</spam>&nbsp;&nbsp; Dificultad :
-											<span class="dato">{{historia.Dificultad}}</span>&nbsp;&nbsp; Horas acumuladas :
-											<span class="dato">{{historia.Horas_Acumuladas}}</span>&nbsp;&nbsp; Estado :
-											<span class="dato">{{historia.Status}}</span>
-										</p>
-										<p>Comentarios:
-											<spam class="dato">{{historia.Comentarios}}</spam>
-										</p>
-										<p>
-											As a :
-											<spam class="dato">{{historia.As_A}}</spam>&nbsp;&nbsp; I Want :
-											<span class="dato">{{historia.I_Want}}</span>&nbsp;&nbsp; So That :
-											<span class="dato">{{historia.So_That}}</span>&nbsp;&nbsp;
-										</p>
-									</div>
+											<h3 class="titulosHistorias">{{ historia.Nombre }} </h3>
+											<table class="table table-striped historias" ng-repeat="historia in historias ">
+													<thead class="thead-dark">
+														<tr>                        
+															<th>Prioridad</th>
+															<th>Dificultad</th>
+															<th>Comentarios</th>
+															<th >Horas_acumuladas</th>
+															<th >Status</th>
+															<th >As a</th>
+															<th >I want</th>
+															<th >So that</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr>
+															<td class="dato">{{historia.Prioridad}}</td>
+															<td class="dato">{{historia.Dificultad}}</td>
+															<td class="dato">{{historia.Comentarios}}</td>
+															<td class="dato">{{historia.Comentarios}}</td>
+															<td class="dato">{{historia.Status}}</td>
+															<td class="dato">{{historia.As_A}}</td>
+															<td class="dato">{{historia.I_Want}}</td>
+															<td class="dato">{{historia.So_That}}</td>
+														</tr>
+														
+													</tbody>
+											</table>
+									
 									<div class=" historias" ng-show="!historias">
 										<h3>No existen de Historias de Usuario </h3>
 									</div>
