@@ -2,9 +2,6 @@ var app = angular.module('scrumApp', [])
 
 app.factory("cookie", function () {
     return {
-        id: "",
-        nombre: "",
-        rol: "",
         writeCookie: function (name, value, days) {
             var date, expires;
             if (days) {
@@ -75,9 +72,9 @@ app.controller('iniciarSesion', function ($scope, $http, cookie) {
     }
     ///////////////////////////////////////////////////////
     $scope.asignarCookies = function () {
-        cookie.nombre, $scope.nombre = cookie.readCookie('sesionName');
-        cookie.id, $scope.Id = cookie.readCookie('sesionId');
-        cookie.rol, $scope.Rol = cookie.readCookie('sesionRol');
+         $scope.nombre = cookie.readCookie('sesionName');
+         $scope.Id = cookie.readCookie('sesionId');
+         $scope.Rol = cookie.readCookie('sesionRol');
     }
     $scope.asignarCookies();
 
@@ -85,7 +82,7 @@ app.controller('iniciarSesion', function ($scope, $http, cookie) {
         cookie.writeCookie('sesionName', "")
         cookie.writeCookie('sesionId', "");
         cookie.writeCookie('sesionRol', "");
-        location.reload();
+        location.reload(true);
     }
 
     $scope.verdatos = false;
@@ -144,8 +141,31 @@ app.controller('iniciarSesion', function ($scope, $http, cookie) {
     //http://localhost:5000/api/v1.0/team_member_datos/1/team_member
 
 });
-app.controller('MainCtrl', function ($scope, $http) {
+app.controller('MainCtrl', function ($scope, $http, cookie) {
 
+    $scope.Id_usuario = cookie.readCookie('sesionId');
+    $scope.Rol_usuario = cookie.readCookie('sesionRol');
+    console.log($scope.Id_usuario)
+    ///Funcion para ver el menu de listas de usuario
+    $scope.vermenu = false;
+    $scope.mostrarMenuListas = function(){
+        if($scope.vermenu){
+            $scope.vermenu = false;
+        }   
+        else{
+            $scope.vermenu  = true; 
+            $scope.vermenuSM = false;
+        }             
+    }
+    $scope.mostrarMenuSM = function(){
+        if($scope.vermenuSM){
+            $scope.vermenuSM = false;
+        }   
+        else{
+            $scope.vermenuSM  = true;
+            $scope.vermenu = false; 
+        } 
+    }
 
     //////// Función para el Listado de Historias de Usuario completadas //////////
     $scope.HistoryStatus_general = function () { // Usando la funcion general getTableBy

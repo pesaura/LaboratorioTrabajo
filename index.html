@@ -158,34 +158,40 @@
 				<section id="Historias_ref">
 					<div class="container-fluid">
 						<div class="row">
-							<div class="col-xs-12 col-md-12" style="text-align: center;">
+							<div class=" col-md-6" style="text-align: center;">
 								<h1 id="descripcion">Historias de usuario</h1>
 								<p class="derecha">
 									<strong>Historias de usuario que se pueden consultar</strong>
 								</p>
+								<button ng-show="Id_usuario"  class="btn btn-secondary" ng-click="mostrarMenuListas()">Listado de Historias</button>
+								<spam ng-show="!Id_usuario">Debes iniciar sesión</spam>
+							</div>
+							<div class=" col-md-6" style="text-align: center;">
+								<h1 id="descripcion">Scrum Master </h1>
+								<p class="derecha">
+									<strong>Modificaciones que solo puede hacer el Scrum Master </strong>
+								</p>
+								<button ng-if="Rol_usuario == 'Scrum_manager'"  class="btn btn-secondary" ng-click="mostrarMenuSM()">Scrum Master Menu</button>
+								<spam ng-if="Rol_usuario != 'Scrum_manager'">Debes ser Scrum Master</spam>
 							</div>
 						</div>
 					</div>
 				</section>
 				<section>
-					<!-- Listado de historias de usuario (hecho por Pablo)  -->
-					<div class="container-fluid">
+					<div class="container-fluid" ng-show="vermenu" >
 						<div class="row">
 							<div class="col-md-3 separadorlateral">
 								<div class="Listado">
 									<h4>Listado de historias de usuario completadas </h4>
 									<button class="btn btn-outline-secondary" ng-click="HistoryStatus('terminada')">Ver historias</button>
-
 								</div>
 								<div class="Listado">
 									<h4>Listado de historias de Usuario del sprint activo </h4>
 									<button class="btn btn-outline-secondary" ng-click="HistorySprintEstatus('Activo')">Ver historias</button>
-
 								</div>
 								<div class="Listado">
 									<h4>Listado de historias de Usuario asignadas a más de un Sprint </h4>
 									<button class="btn btn-outline-secondary" ng-click="HistorySprintMultiple()">Ver historias</button>
-
 								</div>
 								<div class="Listado">
 									<h4>Listado de historias de usuario asignadas a un desarrollador concreto </h4>
@@ -200,7 +206,6 @@
 											<button type="submit" class="btn btn-outline-secondary">Ver historias</button>
 										</div>
 									</form>
-
 								</div>
 							</div>
 							<div class="col-md-9  ListadoDatos">
@@ -243,97 +248,14 @@
 				</section>
 				<!-- ////////////////////////////////////////////////////////////////////////////////////////////////////-->
 				<section>
-					<!-- Listado de historias de usuario (hecho por Raúl )  -->
-					<div class="container-fluid">
+					<div class="container-fluid" ng-show="vermenuSM" >
 						<div class="row">
-							<div class="col-md-3"></div>
-							<div class="col-xs-12  col-md-3 " style="text-align: center;">
-								<button type="button" ng-click="iniciado()" id="bhistorias" class="btn btn-success btn-lg btn-block myFontButtons" data-toggle="collapse"
-								    data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-									Listado de Historias
-								</button>
+							<div class="col-md-3 separadorlateral">
+								<div class="Listado">
+									<h4>Listado de historias de usuario completadas </h4>
+									<button class="btn btn-outline-secondary" ng-click="HistoryStatus('terminada')">Ver historias</button>
+								</div>
 							</div>
-
-							<div class="col-xs-12  col-md-3" style="text-align: center;">
-								<button type="button" ng-click="scrumComp()" id="bmodificar" class="btn btn-warning btn-lg btn-block myFontButtons" data-toggle="collapse"
-								    data-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
-									Modificar Historias
-								</button>
-							</div>
-
-
-
-							<div class="col-md-3"></div>
-
-							<br>
-
-
-							<div class="col-md-2" ng-show="mostrarBotones"></div>
-
-							<div ng-show="mostrarBotones" id="collapseTwo" class="col-xs-12  col-md-5 collapse" style="text-align: center;">
-								<br>
-								<button type="button" class="btn btn-success" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-									Terminada
-								</button>
-								<button type="button" class="btn btn-success" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-									Sprint
-								</button>
-								<button type="button" class="btn btn-success" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-									Sprints
-								</button>
-								<button type="button" class="btn btn-success" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-									Desarrolador
-								</button>
-							</div>
-							
-							<div class="col-md-3" ng-show="mostrarBotones"></div>
-							<div class="col-md-2" ng-show="mostrarBotones"></div>
-
-
-							<div class="col-md-2" ng-show="mostrarFormHistorias"></div>
-							<div class="col-md-3" ng-show="mostrarFormHistorias"></div>
-
-							<div ng-show="mostrarFormHistorias" id="collapseThree" class="col-xs-12  col-md-5 collapse" style="text-align: center;">
-								<br>
-
-								<form>
-									<div class="form-group row">
-										<label class="col-sm-2 col-form-label">Añadir</label>
-										<div class="col-sm-8">
-											<input required type="text" class="form-control">
-										</div>
-									</div>
-									<div class="form-group row">
-										<label class="col-sm-2 col-form-label">Eliminar</label>
-										<div class="col-sm-8">
-											<input required type="email" class="form-control">
-										</div>
-									</div>
-
-									<div class="form-group row">
-										<label class="col-sm-2 col-form-label">Nombre</label>
-										<div class="col-sm-3">
-											<input required type="text" class="form-control">
-										</div>
-										<label class="col-sm-2 col-form-label">Apellidos</label>
-										<div class="col-sm-3">
-											<input required type="text" class="form-control">
-										</div>
-
-									</div>
-									<div class="form-group row">
-										<div class="col-sm-10">
-											<button type="submit" class="btn btn-primary">Actualizar</button>
-										</div>
-									</div>
-								</form>
-
-							</div>
-
-							<div class="col-md-1" ng-show="mostrarFormHistorias"></div>
-
-
-
 						</div>
 					</div>
 				</section>
