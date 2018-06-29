@@ -192,7 +192,8 @@
 									<form ng-submit="Historydevelop(nombreDev)">
 										<div class="form-group">
 											<select required class="form-control" ng-model="nombreDev">
-												<option ng-repeat="dev  in datosDevs " value="{{dev.Login}}">{{dev.Login}}</option>
+													<option value="" disabled selected>--seleccione desarrollador--</option>
+												<option ng-repeat="dev  in datosDevs "  value="{{dev.Login}}">{{dev.Login}} </option>
 											</select>
 										</div>
 										<div class="form-group">
@@ -202,10 +203,11 @@
 
 								</div>
 							</div>
-							<div class="col-md-6  ListadoDatos">
+							<div class="col-md-9  ListadoDatos">
 								<div ng-show="verHistorias" >
-											<h3 class="titulosHistorias">{{ historia.Nombre }} </h3>
-											<table class="table table-striped historias" ng-repeat="historia in historias ">
+											<div class="historias" ng-repeat="historia in historias ">
+											<h4 class="titulosHistorias">{{ historia.Nombre }} </h4>
+											<table class="table historias_t">
 													<thead class="thead-dark">
 														<tr>                        
 															<th>Prioridad</th>
@@ -232,6 +234,7 @@
 														
 													</tbody>
 											</table>
+											</div>
 									
 									<div class=" historias" ng-show="!historias">
 										<h3>No existen de Historias de Usuario </h3>
@@ -281,8 +284,8 @@
 								<button type="button" class="btn btn-success" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
 									Desarrolador
 								</button>
-
 							</div>
+							
 							<div class="col-md-3" ng-show="mostrarBotones"></div>
 							<div class="col-md-2" ng-show="mostrarBotones"></div>
 
@@ -341,103 +344,77 @@
 				<div class="container-fluid">
 					<div class="row">
 						<div class="col-xs-12 col-md-2" style="text-align: left;">
-
 							<address>
 								<strong>Juan José Conesa</strong>
 								<br>
 
 								<abbr title="Phone">P: (123) 456-7890</abbr>
 							</address>
-
 							<address>
 								<strong>Correo</strong>
 								<br>
 								<a href="mailto:#">first.last@example.com</a>
 							</address>
-
-							<p>
-								<a href="https://www.upct.es" target="_blank">UPCT</a>
-							</p>
-
+							<p><a href="https://www.upct.es" target="_blank">UPCT</a></p>
 						</div>
 
 						<div class="col-xs-12 col-md-2" style="text-align: left;">
 							<address>
 								<strong>Pablo Saura Jiménez</strong>
 								<br>
-								<abbr title="Phone">P: (123) 456-7890</abbr>
+								<abbr title="Phone">P: (123) 456-7891</abbr>
 							</address>
 							<address>
 								<strong>Correo</strong>
 								<br>
 								<a href="mailto:#">pablo_95_08@hotmail.com</a>
 							</address>
-
-							<p>
-								<a href="https://www.upct.es" target="_blank">UPCT</a>
-							</p>
-
+							<p><a href="https://www.upct.es" target="_blank">UPCT</a></p>
 						</div>
-						<div class="col-xs-12 col-md-2" style="text-align: left;">
 
+						<div class="col-xs-12 col-md-2" style="text-align: left;">
 							<address>
-								<strong>Rodrigo</strong>
+								<strong>Rodrigo García Albarracín</strong>
 								<br>
 
-								<abbr title="Phone">P: (123) 456-7890</abbr>
+								<abbr title="Phone">P: (123) 456-7892</abbr>
 							</address>
-
 							<address>
 								<strong>Correo</strong>
 								<br>
-								<a href="mailto:#">first.last@example.com</a>
+								<a href="mailto:#">rodgar12@hotmail.com</a>
 							</address>
-
-							<p>
-								<a href="https://www.upct.es" target="_blank">UPCT</a>
-							</p>
-
+							<p><a href="https://www.upct.es" target="_blank">UPCT</a></p>
 						</div>
-						<div class="col-xs-12 col-md-2" style="text-align: left;">
 
+						<div class="col-xs-12 col-md-2" style="text-align: left;">
 							<address>
 								<strong>Raúl Navarro</strong>
 								<br>
-
-								<abbr title="Phone">P: (123) 456-7890</abbr>
+								<abbr title="Phone">P: (123) 456-7893</abbr>
 							</address>
-
 							<address>
 								<strong>Correo</strong>
 								<br>
 								<a href="mailto:#">first.last@example.com</a>
 							</address>
-
-							<p>
-								<a href="https://www.upct.es" target="_blank">UPCT</a>
-							</p>
-
+							<p><a href="https://www.upct.es" target="_blank">UPCT</a></p>
 						</div>
-						<div class="col-xs-12 col-md-2" style="text-align: left;">
 
+						<div class="col-xs-12 col-md-2" style="text-align: left;">
 							<address>
 								<strong>Victor Egea</strong>
 								<br>
-
-								<abbr title="Phone">P: (123) 456-7890</abbr>
+								<abbr title="Phone">P: (123) 456-7894</abbr>
 							</address>
-
 							<address>
 								<strong>Correo</strong>
 								<br>
 								<a href="mailto:#">first.last@example.com</a>
 							</address>
-
-							<p>
-								<a href="https://www.upct.es" target="_blank">UPCT</a>
-							</p>
-
+							<p><a href="https://www.upct.es" target="_blank">UPCT</a></p>
 						</div>
+
 					</div>
 				</div>
 			</footer>

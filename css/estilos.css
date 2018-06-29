@@ -142,14 +142,24 @@ strong, abbr{
 }
 
 .historias {
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-bottom: 5px;
+
 	margin-top: 11px;
-	padding-left: 20px;
-	border-radius: 33px;
 	margin-bottom: 15px;
-	background-color: #273746;
 	margin-left: 5px;
 	margin-right: 10px;
+
+	width: 100%;
 }
+
+.historias_t {
+	border-radius: 33px;
+	background-color: #273746;
+	width: 100%;
+}
+
 
 .ListadoDatos {
 	float: left;
@@ -167,3 +177,8 @@ strong, abbr{
 	border-right-width: 2px;
 	
 }
+
+table{
+	position: relative;
+}
+

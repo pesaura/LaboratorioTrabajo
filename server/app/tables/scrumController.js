@@ -175,7 +175,7 @@ module.exports = {
                 });
             });
 
-        }else if(nombre){ /* BORRAR story_user MEDIANTE NOMBRE, PUEDE SER UTIL*/
+        }else if(S){ /* BORRAR story_user MEDIANTE NOMBRE, PUEDE SER UTIL*/
             connection.query("SELECT Id FROM user_story WHERE Nombre=?",[nombre],function(err, result,fields){
                 if(err){
                     return res.status(500).json({code:"deleteUserStoyByIdFailed_using_nombre", message:"error en NOMBRE: "+nombre});
