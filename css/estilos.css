@@ -72,6 +72,11 @@ address{
     background-color: #222222;
 }
 
+.iniP {
+	padding-bottom: 20px;
+	padding-top: 20px;
+    background-color: #222222;
+}
 /*img {
     height: auto;
     max-width: 100%;
@@ -168,8 +173,6 @@ strong, abbr{
 
 .Listado {
 	margin-bottom: 30px;
-	
-
 }
 
 .separadorlateral {
@@ -182,3 +185,10 @@ table{
 	position: relative;
 }
 
+hr {
+	border: 0 ; border-top: 5px solid white; width: 100%;
+}
+
+.margin_style{
+	margin-top: 70px;
+}

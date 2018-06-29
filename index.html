@@ -25,7 +25,7 @@
 
 <body ng-app="scrumApp">
 	<div ng-controller="iniciarSesion">
-		<nav class="navbar navbar-expand-lg  navbar-light bg-light ">
+		<nav class="navbar navbar-expand-lg  navbar-light bg-light">
 			<a class="navbar-brand " href="index.html">
 				<img alt="logo" src="imagenes/Logo_Scrum.png" style="width:200px;height: 70px;">
 			</a>
@@ -36,13 +36,13 @@
 			<div class="collapse navbar-collapse" id="navbarText">
 				<ul class="navbar-nav mr-auto">
 					<li class="nav-item ">
-						<a class="nav-link" href="#Historias_ref">Historias de usuario</a>
+						<a class="nav-link" href="#button_historias">Historias de usuario</a>
 					</li>
 					<li class="nav-item ">
-						<a class="nav-link" href="#Sprint">Sprint </a>
+						<a class="nav-link" href="#button_historias">Sprint </a>
 					</li>
 					<li class="nav-item ">
-						<a class="nav-link" href="#">Contacto </a>
+						<a class="nav-link" href="#final">Contacto </a>
 					</li>
 				</ul>
 				<br>
@@ -83,7 +83,7 @@
 						<div class="btn-group dropleft">
 							<a class="btn btn-outline-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
 							    aria-haspopup="true" aria-expanded="false">
-								Hola {{nombre}}
+								Hola {{nombre}} ({{Rol}})
 							</a>
 							<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 								<a class="dropdown-item" href="#" ng-click="mostrarModificarDatos()">Datos Personales</a>
@@ -98,6 +98,7 @@
 				</ul>
 			</div>
 		</nav>
+		
 		<div class="container-fluid" id="cubrir">
 			<header id="CabP" ng-show="!verdatos">
 				<div class="row">
@@ -107,7 +108,7 @@
 				</div>
 			</header>
 		</div>
-			<div class="container-fluid " ng-show="verdatos">
+			<div class="container-fluid iniP" ng-show="verdatos">
 				<div class="row">
 					<div class="col-lg-3"></div>
 					<button class="btn btn-outline-secondary" ng-click="mostrarModificarDatos()">Cerrar </button>
@@ -145,25 +146,26 @@
 							</div>
 							<div class="form-group row">
 								<div class="col-sm-10">
-									<button type="submit" class="btn btn-primary">Actualizar</button>
+									<button class="btn btn-lg btn-primary" type="submit" class="btn btn-primary" style="width: 100%">Actualizar</button>
 								</div>
 							</div>
 						</form>
+						<br/>
 					</div>
 				</div>
+				
 			</div>
 
 			<main ng-controller="MainCtrl">
-
-				<section id="Historias_ref">
-					<div class="container-fluid">
+				<section class="margin_style" id="button_historias">
+					<div class="container-fluid margin_style">
 						<div class="row">
 							<div class=" col-md-6" style="text-align: center;">
 								<h1 id="descripcion">Historias de usuario</h1>
 								<p class="derecha">
 									<strong>Historias de usuario que se pueden consultar</strong>
 								</p>
-								<button ng-show="Id_usuario"  class="btn btn-secondary" ng-click="mostrarMenuListas()">Listado de Historias</button>
+								<button  ng-show="Id_usuario"  class="btn btn-secondary" ng-click="mostrarMenuListas()">Listado de Historias</button>
 								<spam ng-show="!Id_usuario">Debes iniciar sesión</spam>
 							</div>
 							<div class=" col-md-6" style="text-align: center;">
@@ -207,9 +209,14 @@
 										</div>
 									</form>
 								</div>
+								<div class="Listado">
+										<h4>Añadirse como desorrador a historias de usuario</h4>
+										<button class="btn btn-outline-secondary" value="pru" ng-click="HistorySprintEstatusbuton('Activo')">Ver historias</button>
+								</div>
 							</div>
+
 							<div class="col-md-9  ListadoDatos">
-								<div ng-show="verHistorias" >
+								<div ng-show="verHistorias">
 											<div class="historias" ng-repeat="historia in historias ">
 											<h4 class="titulosHistorias">{{ historia.Nombre }} </h4>
 											<table class="table historias_t">
@@ -223,6 +230,7 @@
 															<th >As a</th>
 															<th >I want</th>
 															<th >So that</th>
+															<th> </th>
 														</tr>
 													</thead>
 													<tbody>
@@ -235,6 +243,9 @@
 															<td class="dato">{{historia.As_A}}</td>
 															<td class="dato">{{historia.I_Want}}</td>
 															<td class="dato">{{historia.So_That}}</td>
+															<td>
+																<button type="button" class="btn btn-danger" ng-click="" value="Eliminar">Añadirse</button>
+															</td>
 														</tr>
 														
 													</tbody>
@@ -245,7 +256,11 @@
 										<h3>No existen de Historias de Usuario </h3>
 									</div>
 								</div>
+							</div>
 				</section>
+
+
+
 				<!-- ////////////////////////////////////////////////////////////////////////////////////////////////////-->
 				<section>
 					<div class="container-fluid" ng-show="vermenuSM" >
@@ -261,10 +276,11 @@
 				</section>
 				<br>
 			</main>
-			<footer class="finP">
+			<footer class="finP" id="final">
 				<br>
 				<div class="container-fluid">
 					<div class="row">
+						<div class="col-md-1"></div>
 						<div class="col-xs-12 col-md-2" style="text-align: left;">
 							<address>
 								<strong>Juan José Conesa</strong>
