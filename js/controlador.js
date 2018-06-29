@@ -288,6 +288,7 @@ app.controller('MainCtrl', function ($scope, $http, cookie) {
             alert("Inicia sesión");
         } else {
             $scope.mostrarBotones = true;
+            //$("#collapseThree").collapse({toggle});
         }
     }
     //$scope.Id = cookie.readCookie('sesionId');
@@ -301,6 +302,7 @@ app.controller('MainCtrl', function ($scope, $http, cookie) {
             alert("No eres Scrum Master");
         } else {
             $scope.mostrarFormHistorias = true;
+            //$("#collapseTwo").collapse({toggle});
         }
     }
 
