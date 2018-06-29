@@ -225,10 +225,9 @@ app.controller('MainCtrl', function ($scope, $http, cookie) {
         }, function myError(response) {
             console.log(response.data.code);
         });
-
     }
     ///////////////////////////////////////////////////
-    //$scope.HistorySprintEstatus($scope.estadoSprint);
+    //$scope.HistorySprintEstatus($scope.estadoSprint);    
 
     ///////Función para el Listado de Historias de Usuario asignadas a más de un Sprint(en cualquier estado)/////
     $scope.HistorySprintMultiple = function () {
