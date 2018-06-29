@@ -184,140 +184,87 @@
 									</button>
                                 </div>
                                 
-                                <section id="collapseTwo" ng-show="mostrarBotones" >  <!-- Listado de historias de usuario (hecho por Pablo)  -->
-                                    <div class="container-fluid">
-                                        <div class="row">
-                                            <div class="col-md-3 separadorlateral">
-                                                <div class="Listado">
-                                                    <h3>Listado de historias de usuario completadas </h3>
-                                                    <button class="btn btn-outline-secondary" ng-click="HistoryStatus('terminada')" ng-show="!verTerminadas">Ver historias</button>
-                                                    <button class="btn btn-outline-secondary" ng-click="HistoryStatus('terminada')" ng-show="verTerminadas">Cerrar historias</button>
-                                                </div>
-                                                <div class="Listado">
-                                                    <h3>Listado de historias de Usuario del sprint activo </h3>
-                                                    <button class="btn btn-outline-secondary" ng-click="HistorySprintEstatus('Activo')" ng-show="!verActivo">Ver historias</button>
-                                                    <button class="btn btn-outline-secondary" ng-click="HistorySprintEstatus('Activo')" ng-show="verActivo">Cerrar historias</button>
-                                                </div>
-                                                <div class="Listado">
-                                                    <h3>Listado de historias de Usuario asignadas a más de un Sprint </h3>
-                                                    <button class="btn btn-outline-secondary" ng-click="HistorySprintMultiple()" ng-show="!verMultiple">Ver historias</button>
-                                                    <button class="btn btn-outline-secondary" ng-click="HistorySprintMultiple()" ng-show="verMultiple">Cerrar historias</button>
-                                                </div>
-                                                <div class="Listado">
-                                                    <h3>Listado de historias de usuario asignadas a un desarrollador concreto </h3>
-                                                    <form ng-submit="Historydevelop(nombreDev)">
-                                                        <div class="form-group">
-                                                            <select required class="form-control" ng-model="nombreDev">
-                                                                <option ng-repeat="dev  in datosDevs " value="{{dev.Login}}">{{dev.Login}}</option>
-                                                            </select>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <button type="submit" class="btn btn-outline-secondary"  ng-show="!verdev">Ver historias</button>
-                                                        </div>
-                                                    </form>
-                                                    <button class="btn btn-outline-secondary" ng-click="Historydevelop(nombreDev)" ng-show="verdev">Cerrar historias</button>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6  ListadoDatos">
-                                                <div ng-show="verTerminadas">
-                                                    <div class=" historias" ng-repeat="historia in historiasUsuarioTerminada ">
-                                                        <h3 class="titulosHistorias">{{ historia.Nombre }} </h3>
-                                                        <p>
-                                                            Prioridad :
-                                                            <spam class="dato">{{historia.Prioridad}}</spam>&nbsp;&nbsp; Dificultad :
-                                                            <span class="dato">{{historia.Dificultad}}</span>&nbsp;&nbsp; Horas acumuladas :
-                                                            <span class="dato">{{historia.Horas_Acumuladas}}</span>&nbsp;&nbsp; Estado :
-                                                            <span class="dato">{{historia.Status}}</span>
-                                                        </p>
-                                                        <p>Comentarios:
-                                                            <spam class="dato">{{historia.Comentarios}}</spam>
-                                                        </p>
-                                                        <p>
-                                                            As a :
-                                                            <spam class="dato">{{historia.As_A}}</spam>&nbsp;&nbsp; I Want :
-                                                            <span class="dato">{{historia.I_Want}}</span>&nbsp;&nbsp; So That :
-                                                            <span class="dato">{{historia.So_That}}</span>&nbsp;&nbsp;
-                                                        </p>
-                                                    </div>
-                                                    <div class=" historias" ng-show="!historiasUsuarioTerminada">
-                                                        <h2>No existen de Historias de Usuario completadas</h2>
-                                                    </div>
-                                                </div>
-                                                <div ng-show="verActivo">
-                                                    <div class=" historias" ng-repeat="historia in historiasSprintActivo ">
-                                                        <h3 class="titulosHistorias">{{ historia.Nombre }} </h3>
-                                                        <p>
-                                                            Prioridad :
-                                                            <spam class="dato">{{historia.Prioridad}}</spam>&nbsp;&nbsp; Dificultad :
-                                                            <span class="dato">{{historia.Dificultad}}</span>&nbsp;&nbsp; Horas acumuladas :
-                                                            <span class="dato">{{historia.Horas_Acumuladas}}</span>&nbsp;&nbsp; Estado :
-                                                            <span class="dato">{{historia.Status}}</span>
-                                                        </p>
-                                                        <p>Comentarios:
-                                                            <spam class="dato">{{historia.Comentarios}}</spam>
-                                                        </p>
-                                                        <p>
-                                                            As a :
-                                                            <spam class="dato">{{historia.As_A}}</spam>&nbsp;&nbsp; I Want :
-                                                            <span class="dato">{{historia.I_Want}}</span>&nbsp;&nbsp; So That :
-                                                            <span class="dato">{{historia.So_That}}</span>&nbsp;&nbsp;
-                                                        </p>
-                                                    </div>
-                                                    <div class="historias" ng-show="!historiasSprintActivo">
-                                                        <h2>No existen Historias de Usuario del Sprint activo</h2>
-                                                    </div>
-                                                </div>
-                                                <div ng-show="verMultiple">
-                                                    <div class=" historias" ng-repeat="historia in historiasSprintMultiple ">
-                                                        <h3 class="titulosHistorias">{{ historia.Nombre }} </h3>
-                                                        <p>
-                                                            Prioridad :
-                                                            <spam class="dato">{{historia.Prioridad}}</spam>&nbsp;&nbsp; Dificultad :
-                                                            <span class="dato">{{historia.Dificultad}}</span>&nbsp;&nbsp; Horas acumuladas :
-                                                            <span class="dato">{{historia.Horas_Acumuladas}}</span>&nbsp;&nbsp; Estado :
-                                                            <span class="dato">{{historia.Status}}</span>
-                                                        </p>
-                                                        <p>Comentarios:
-                                                            <spam class="dato">{{historia.Comentarios}}</spam>
-                                                        </p>
-                                                        <p>
-                                                            As a :
-                                                            <spam class="dato">{{historia.As_A}}</spam>&nbsp;&nbsp; I Want :
-                                                            <span class="dato">{{historia.I_Want}}</span>&nbsp;&nbsp; So That :
-                                                            <span class="dato">{{historia.So_That}}</span>&nbsp;&nbsp;
-                                                        </p>
-                                                    </div>
-                                                    <div class=" historias" ng-show="!historiasSprintMultiple">
-                                                        <h2>No existen de Historias para multiples sprint</h2>
-                                                    </div>
-                                                </div>
-                                                <div ng-show="verdev">
-                                                    <div class=" historias" ng-repeat="historia in historiasDev ">
-                                                        <h3 class="titulosHistorias">{{ historia.Nombre }} </h3>
-                                                        <p>
-                                                            Prioridad :
-                                                            <spam class="dato">{{historia.Prioridad}}</spam>&nbsp;&nbsp; Dificultad :
-                                                            <span class="dato">{{historia.Dificultad}}</span>&nbsp;&nbsp; Horas acumuladas :
-                                                            <span class="dato">{{historia.Horas_Acumuladas}}</span>&nbsp;&nbsp; Estado :
-                                                            <span class="dato">{{historia.Status}}</span>
-                                                        </p>
-                                                        <p>Comentarios:
-                                                            <spam class="dato">{{historia.Comentarios}}</spam>
-                                                        </p>
-                                                        <p>
-                                                            As a :
-                                                            <spam class="dato">{{historia.As_A}}</spam>&nbsp;&nbsp; I Want :
-                                                            <span class="dato">{{historia.I_Want}}</span>&nbsp;&nbsp; So That :
-                                                            <span class="dato">{{historia.So_That}}</span>&nbsp;&nbsp;
-                                                        </p>
-                                                    </div>
-                                                    <div class=" historias" ng-show="!historiasDev">
-                                                        <h2>No existen de Historias de para este usuario</h2>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+								
+								
+								<section id="collapseTwo" ng-show="mostrarBotones" >  <!-- Listado de historias de usuario (hecho por Pablo)  -->
+									
+									
+									
+									
+									<div class="container-fluid">
+										<div class="row">
+											<div class="col-md-3 separadorlateral">
+												<div class="Listado">
+													<h4>Listado de historias de usuario completadas </h4>
+													<button class="btn btn-outline-secondary" ng-click="HistoryStatus('terminada')">Ver historias</button>
+				
+												</div>
+												<div class="Listado">
+													<h4>Listado de historias de Usuario del sprint activo </h4>
+													<button class="btn btn-outline-secondary" ng-click="HistorySprintEstatus('Activo')">Ver historias</button>
+				
+												</div>
+												<div class="Listado">
+													<h4>Listado de historias de Usuario asignadas a más de un Sprint </h4>
+													<button class="btn btn-outline-secondary" ng-click="HistorySprintMultiple()">Ver historias</button>
+				
+												</div>
+												<div class="Listado">
+													<h4>Listado de historias de usuario asignadas a un desarrollador concreto </h4>
+													<form ng-submit="Historydevelop(nombreDev)">
+														<div class="form-group">
+															<select required class="form-control" ng-model="nombreDev">
+																	<option value="" disabled selected>--seleccione desarrollador--</option>
+																<option ng-repeat="dev  in datosDevs "  value="{{dev.Login}}">{{dev.Login}} </option>
+															</select>
+														</div>
+														<div class="form-group">
+															<button type="submit" class="btn btn-outline-secondary">Ver historias</button>
+														</div>
+													</form>
+				
+												</div>
+											</div>
+											<div class="col-md-9  ListadoDatos">
+												<div ng-show="verHistorias" >
+															<div class="historias" ng-repeat="historia in historias ">
+															<h4 class="titulosHistorias">{{ historia.Nombre }} </h4>
+															<table class="table historias_t">
+																	<thead class="thead-dark">
+																		<tr>                        
+																			<th>Prioridad</th>
+																			<th>Dificultad</th>
+																			<th>Comentarios</th>
+																			<th >Horas_acumuladas</th>
+																			<th >Status</th>
+																			<th >As a</th>
+																			<th >I want</th>
+																			<th >So that</th>
+																		</tr>
+																	</thead>
+																	<tbody>
+																		<tr>
+																			<td class="dato">{{historia.Prioridad}}</td>
+																			<td class="dato">{{historia.Dificultad}}</td>
+																			<td class="dato">{{historia.Comentarios}}</td>
+																			<td class="dato">{{historia.Comentarios}}</td>
+																			<td class="dato">{{historia.Status}}</td>
+																			<td class="dato">{{historia.As_A}}</td>
+																			<td class="dato">{{historia.I_Want}}</td>
+																			<td class="dato">{{historia.So_That}}</td>
+																		</tr>
+																		
+																	</tbody>
+															</table>
+															</div>
+													
+													<div class=" historias" ng-show="!historias">
+														<h3>No existen de Historias de Usuario </h3>
+													</div>
+												</div>
+									
+
+
                                 </section>
 
 
