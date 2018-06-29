@@ -25,7 +25,7 @@ module.exports = {
      * cuando angular recibe los datos puede crear una cookie local
      * https://www.w3schools.com/js/js_cookies.asp
     */
-    getUser: function(req,res){  // Por alguna razón no devuelve los datos del usuario
+    getUser: function(req,res){  
         var requestData = req.body;
 
         var user=requestData.Login;
@@ -44,6 +44,20 @@ module.exports = {
             return res.status(200).json({code:"identificacion correcta", data:result});
         });
     },
+
+    getSprint: function(req,res){ 
+        var Status = req.params.estado;
+        
+        connection.query("SELECT * FROM sprint WHERE Status=?",[Status],function (err,result,fields){
+            //console.log(fields)
+            if(err){
+                console.log(err);
+                return res.status(500).json({code : "BusquedaFallida", message:"error al buscar"});
+            }
+            
+            return res.status(200).json({code:"Busqueda correcta", data:result});
+        });
+     },
 
     /**El usuario debe poder editar sus datos personales.
      * suponiendo que los datos se han enviado al serivor en un json

@@ -34,8 +34,7 @@ app.use(bodyParser.urlencoded({extended:true}))
 
 
 /** INCLUDE TASK ON DATABASE */
-app.post('/api/v1.0/task', taskController.createTask);
-//app.post('/api/v1.0/team_member', comunController.getTableBy);
+
 app.post('/api/v1.0/team_member', devController.getUser);
 app.post('/api/v1.0/user_story_terminada',comunController.getTableBy);
 
@@ -51,6 +50,7 @@ app.delete('/api/v1.0/deleteUserStoyById',scrumController.deleteUserStoyById);
 app.get('/api/v1.0/team_member_datos/:id_tm/:tabla', comunController.getTableById);
 //app.get('/api/v1.0/task', taskController.getTable);
 app.get('/api/v1.0/table/:tabla', comunController.getTable);
+app.get('/api/v1.0/sprint/:estado', devController.getSprint);
 app.get('/api/v1.0/user_story_status/:estado',devController.getUserHistory);
 app.get('/api/v1.0/user_story_sprint_status/:estado',devController.getUserHistorySprint);
 app.get('/api/v1.0/user_story_multiple_sprint',devController.getUserHistoryMultipleSprint);

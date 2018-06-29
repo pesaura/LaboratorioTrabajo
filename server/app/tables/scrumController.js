@@ -81,7 +81,7 @@ module.exports = {
             Fecha_Inicio:requestData.Fecha_Inicio,
             Fecha_Fin:requestData.Fecha_Fin,
             Nombre: requestData.Nombre,
-            Status:"",
+            Status:"Pendiente",
             Review:requestData.Review,
         };
 

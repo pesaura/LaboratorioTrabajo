@@ -68,7 +68,7 @@ app.controller('iniciarSesion', function ($scope, $http, cookie) {
             console.log(response.data.message);
             $scope.loginError = response.data.message;
         });
-
+        location.reload(true);
     }
     ///////////////////////////////////////////////////////
     $scope.asignarCookies = function () {
@@ -145,7 +145,8 @@ app.controller('MainCtrl', function ($scope, $http, cookie) {
 
     $scope.Id_usuario = cookie.readCookie('sesionId');
     $scope.Rol_usuario = cookie.readCookie('sesionRol');
-    console.log($scope.Id_usuario)
+    
+    
     ///Funcion para ver el menu de listas de usuario
     $scope.vermenu = false;
     $scope.mostrarMenuListas = function(){
@@ -219,12 +220,8 @@ app.controller('MainCtrl', function ($scope, $http, cookie) {
         }).then(function mySuccess(response) {
             console.log(response.data.data);
             $scope.verHistorias = true;
-            if (estado === 'Activo') {
-                $scope.historias = response.data.data;
-            } else {
-                $scope.historiasUsuario = response.data.data;
-            }
-
+            if (estado === 'Activo') 
+                $scope.historiasUsuario = response.data.data;    
         }, function myError(response) {
             console.log(response.data.code);
         });
@@ -275,6 +272,95 @@ app.controller('MainCtrl', function ($scope, $http, cookie) {
     }
     ///////////////////////////////////////////////////
     // $scope.Historydevelop($scope.nombre);
+
+
+////////////////////////////////////////////////////////
+/// Funciones del Scrum Master //////
+
+    $scope.mostrarSM = function(entrada){
+        switch(entrada) {
+            case 'sprint':
+                $scope.verSprint  = true;
+                $scope.comprobacionSprintActivo();
+                $scope.historiaUsuarioP  = false;
+                break;
+            case 'historiaUsuarioP':
+                $scope.historiaUsuarioP  = true;
+                $scope.showHistoriasUsuarioSprintPendiente();
+                $scope.verSprint  = false;
+                $scope.verCreacionHistoriasUsuario  = false;
+                break;
+            default:
+                
+        }
+    }
+
+    $scope.comprobacionSprintActivo = function(){
+        $http.get("http://localhost:5000/api/v1.0/user_story_sprint_status/Activo")
+        .then(function mySuccess(response) {
+           $scope.Activo = response.data.data;
+           if($scope.Activo.length != 0) 
+                $scope.SprintActivo = true;
+           else
+                $scope.SprintActivo = false;
+        });
+    }
+    
+    $scope.crearSprint = function(){ 
+        var data = {
+            Fecha_Inicio: $scope.fechaInicio,
+            Fecha_Fin: $scope.fechaFin,
+            Nombre: $scope.nombreSprint,
+            Review: $scope.descSprint
+        };
+        $http({
+            url: 'http://localhost:5000/api/v1.0/createSprint',
+            method: 'POST',
+            data: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function mySuccess(response) {
+            console.log(response.data);
+            $scope.showHistoriasUsuarioSprintPendiente();
+            $scope.verSprint = false;
+            $scope.verCreacionHistoriasUsuario  = false;
+            $scope.historiaUsuarioP  = true;
+        }, function myError(response) {
+            console.log(response.data.code);
+        });
+
+    }
+
+    $scope.showHistoriasUsuarioSprintPendiente = function(){
+        $http.get("http://localhost:5000/api/v1.0/sprint/Pendiente")
+        .then(function mySuccess(response) {
+           $scope.SprintPendientes = response.data.data;
+           console.log($scope.SprintPendientes);
+        });
+    }
+
+    $scope.mostrarHistoriaUsuario = function(Id){
+        $scope.Id_sprint = Id;
+        $scope.verCreacionHistoriasUsuario = true;
+        console.log($scope.Id_sprint);
+    }
+    $scope.addHistoriasUsuarioSprintPendiente = function(){
+
+    }
+
+    
+
+
+
+
+
+
+
+
+
+
+
 
 
     ///////////////////////////////////////////////////
