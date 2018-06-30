@@ -221,7 +221,7 @@ app.controller('MainCtrl', function ($scope, $http, cookie) {
             console.log(response.data.data);
             $scope.verHistorias = true;
             if (estado === 'Activo') 
-                $scope.historiasUsuario = response.data.data;    
+                $scope.historias = response.data.data;    
         }, function myError(response) {
             console.log(response.data.code);
         });

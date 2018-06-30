@@ -213,10 +213,6 @@
 								<h4>Añadirse como desorrador a historias de usuario</h4>
 								<button class="btn btn-outline-secondary" value="pru" ng-click="HistorySprintEstatusbuton('Activo')">Ver historias</button>
 							</div>
-							<div class="Listado" ng-if="Rol_usuario == 'Scrum_manager'">
-								<h4>Listado de historias de usuario completadas </h4>
-								<button class="btn btn-outline-secondary" ng-click="HistoryStatus('terminada')">Ver historias</button>
-							</div>
 						</div>
 					</div>
 					<div class="col-md-9  ListadoDatos">
@@ -255,7 +251,7 @@
 								</table>
 							</div>
 
-							<div class=" historias" ng-show="!historias">
+							<div class=" historias" ng-if="historias.length == 0">
 								<h3>No existen de Historias de Usuario </h3>
 							</div>
 						</div>

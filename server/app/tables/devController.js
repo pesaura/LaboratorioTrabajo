@@ -176,8 +176,8 @@ module.exports = {
     */ 
    getUserHistorydevelop :function(req,res){
         var nombre = req.params.nombre;
-        //console.log(nombre);
-        var query = 'SELECT * FROM user_story where Id in(select id_us from develop where id_tm=(select Id from team_member where Nombre=?))';
+        console.log(nombre);
+        var query = 'SELECT * FROM user_story where Id in(select id_us from develop where id_tm=(select Id from team_member where Login=?))';
         connection.query(query, [nombre],function(err, result,fields){
             if(err){
                 console.log(err);
