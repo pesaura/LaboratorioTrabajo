@@ -11,7 +11,7 @@
 	<!-- <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"> -->
 	<link href="css/bootstrap.min_4.1.css" rel="stylesheet" type="text/css">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/all.css" integrity="sha384-G0fIWCsCzJIMAVNQPfjH08cyYaUtMwjJwqiRKxxE/rx96Uroj1BtIQ6MLJuheaO9"
-	 crossorigin="anonymous">
+	    crossorigin="anonymous">
 
 	<link rel="stylesheet" href="css/estilos.css">
 
@@ -32,7 +32,7 @@
 				<img alt="logo" src="imagenes/Logo_Scrum.png" style="width:200px;height: 70px;">
 			</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText"
-			 aria-expanded="false" aria-label="Toggle navigation">
+			    aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
 			<div class="collapse navbar-collapse" id="navbarText">
@@ -52,7 +52,7 @@
 					<li class="nav-item " ng-show="!Id">
 						<div class="btn-group dropleft">
 							<a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownSesion" data-toggle="dropdown" aria-haspopup="true"
-							 aria-expanded="false">
+							    aria-expanded="false">
 								Iniciar sesión
 							</a>
 							<div class="dropdown-menu" id="dropdownSesion">
@@ -83,7 +83,7 @@
 					<li class="nav-item" ng-show="Id">
 						<div class="btn-group dropleft">
 							<a class="btn btn-outline-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
-							 aria-haspopup="true" aria-expanded="false">
+							    aria-haspopup="true" aria-expanded="false">
 								Hola {{nombre}} ({{Rol}})
 							</a>
 							<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
@@ -213,7 +213,7 @@
 								<h4>Añadirse como desorrador a historias de usuario</h4>
 								<button class="btn btn-outline-secondary" value="pru" ng-click="HistorySprintEstatusbuton('Activo')">Ver historias</button>
 							</div>
-							<div class="Listado" ng-show="vermenuSM">
+							<div class="Listado" ng-if="Rol_usuario == 'Scrum_manager'">
 								<h4>Listado de historias de usuario completadas </h4>
 								<button class="btn btn-outline-secondary" ng-click="HistoryStatus('terminada')">Ver historias</button>
 							</div>
@@ -298,7 +298,7 @@
 									<input required type="date" class="form-control" ng-model="fechaFin">
 								</div>
 							</div>
-							<button ng-show="!SprintActivo" type="submit" class="btn btn-secondary">Crear</button>
+							<button type="submit" class="btn btn-secondary">Crear</button>
 							<spam ng-show="SprintActivo"> Solo puede haber un sprint activo a la vez </spam>
 						</form>
 						<br>
@@ -338,52 +338,55 @@
 									<div class="form-group col-md-3">
 										<label>Prioridad</label>
 										<select required class="form-control" ng-model="prioridad">
-											<option value="Unknown" disabled selected>Desconocida</option>
-											<option value="baja" disabled selected>Baja</option>
-											<option value="media" disabled selected>Media</option>
-											<option value="Alta" disabled selected>Alta</option>
+											<option value="Unknown" >Desconocida</option>
+											<option value="baja" >Baja</option>
+											<option value="media" >Media</option>
+											<option value="Alta" >Alta</option>
 										</select>
 									</div>
-									<div class="form-group col-md-3">
+									<div class="form-group col-md-1">
 										<label>Dificultad</label>
 										<input required type="number" min="1" max="99" class="form-control  " ng-model="dificultad ">
 									</div>
-									<div class="form-group col-md-8">
-										<label>Comentarios</label>
-										<textarea required type="text" class="form-control" ng-model="comentarios" rows="3"></textarea>
+								</div>
+								<div class=" form-group col-md-8">
+									<label>Comentarios</label>
+									<textarea  type="text" class="form-control" ng-model="comentarios" rows="3"></textarea>
+								</div>
+								<div class="form-row">
+									<div class="form-group col-md-4">
+										<label>As a</label>
+										<input  type="text" class="form-control " ng-model="as_a">
 									</div>
-									<div class="form-row">
-										<div class="form-group col-md-3">
-											<label>As a</label>
-											<input required type="text" class="form-control " ng-model="nombreHistoria">
-										</div>
-										<div class="form-group col-md-3">
-											<label>I want</label>
-											<input required type="text" class="form-control " ng-model="nombreHistoria">
-										</div>
-										<div class="form-group col-md-3">
-											<label>So that</label>
-											<input required type="text" class="form-control " ng-model="nombreHistoria">
-										</div>
+									<div class="form-group col-md-4">
+										<label>I want</label>
+										<input  type="text" class="form-control " ng-model="i_want">
 									</div>
-									<button type="submit" class="btn btn-secondary">Crear</button>
+									<div class="form-group col-md-4">
+										<label>So that</label>
+										<input  type="text" class="form-control " ng-model="so_that">
+									</div>
+								</div>
+								<div class="form-group col-md-3  ">
+									<button type="submit" class=" form-control  btn btn-secondary">Crear</button>
+								</div>
 							</form>
-							</div>
 						</div>
 					</div>
-					<!-- Subir Archivos -->
-
-					<div ng-controller="myCtrl" class="form-group row">
-							<div class="col-sm-8">
-								<input type="file" class="form-control" file-model="myFile" />
-							</div>
-							<button ng-click="uploadFile()" class="btn btn-primary">Upload File</button>
-					</div>
-
-					<!-- Subir Archivos -->
-
-
 				</div>
+				<!-- Subir Archivos -->
+
+				<div ng-controller="myCtrl" class="form-group row">
+					<div class="col-sm-8">
+						<input type="file" class="form-control" file-model="myFile" />
+					</div>
+					<button ng-click="uploadFile()" class="btn btn-primary">Upload File</button>
+				</div>
+
+				<!-- Subir Archivos -->
+
+
+			</div>
 		</section>
 		<br>
 	</main>
@@ -391,7 +394,7 @@
 		<br>
 		<div class="container-fluid">
 			<div class="row">
-				<div class="col-xs-12 col-md-2 footerStyle" >
+				<div class="col-xs-12 col-md-2 footerStyle">
 
 					<address>
 						<strong>Juan José Conesa</strong>

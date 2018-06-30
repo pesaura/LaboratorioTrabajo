@@ -345,7 +345,49 @@ app.controller('MainCtrl', function ($scope, $http, cookie) {
         console.log($scope.Id_sprint);
     }
     $scope.addHistoriasUsuarioSprintPendiente = function(){
+        var data = {
+            Nombre:$scope.nombreHistoria,
+            Prioridad:$scope.prioridad,
+            Dificultad: $scope.dificultad,
+            Comentarios:$scope.comentarios,
+            As_a:$scope.as_a,
+            I_Want:$scope.i_want,
+            So_That:$scope.so_that
+        };
+        $http({
+            url: 'http://localhost:5000/api/v1.0/createUserHistory',
+            method: 'POST',
+            data: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function mySuccess(response) {
+            console.log(response.data.data.insertId);
+            $scope.Id_historiasUsuario = response.data.data.insertId;
+            $scope.crearDevelop();
+           
+        }, function myError(response) {
+            console.log(response.data.code);
+        });
+    }
 
+    $scope.crearDevelop = function(){
+        var data = {
+            Id_sprint:$scope.Id_sprint,
+            Id_us:$scope.Id_historiasUsuario
+        };
+        $http({
+            url: 'http://localhost:5000/api/v1.0/addDeveloperToUserStory',
+            method: 'POST',
+            data: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function mySuccess(response) {
+            console.log(response.data);
+        }, function myError(response) {
+            console.log(response.data.code);
+        });
     }
 
     

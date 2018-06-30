@@ -44,8 +44,8 @@ module.exports = {
             Prioridad:requestData.Prioridad,
             Dificultad: requestData.Dificultad,
             Comentarios:requestData.Comentarios,
-            Horas_Acumuladas:requestData.Horas_Acumuladas,
-            Status:requestData.Status,
+            Horas_Acumuladas:0,
+            Status:"No_iniciada",
             As_a:requestData.As_a,
             I_Want:requestData.I_Want,
             So_That:requestData.So_That
@@ -56,7 +56,8 @@ module.exports = {
                 console.log(err);
                 return res.status(500).json({code : "user_story failed", message:"error Insert"});
             }
-            return res.status(200).json({code:"user_story created", message:"Task creada"});
+            console.log(result);
+            return res.status(200).json({code:"user_story created", message:"Task creada",data:result});
         });
     },
     /*
