@@ -121,14 +121,20 @@
 								<input required type="text" class="form-control" placeholder="Login" ng-model="nombreLog" value={{nombreLog}}>
 							</div>
 						</div>
+<<<<<<< HEAD
 
+=======
+>>>>>>> d5b3bf170fd056fd25e4249a8e5babe4da1fa64c
 						<div class="form-group row">
 							<label class="col-sm-2 col-form-label">Correo</label>
 							<div class="col-sm-8">
 								<input required type="email" class="form-control" placeholder="Correo" ng-model="correo" value={{correo}}>
 							</div>
 						</div>
+<<<<<<< HEAD
 
+=======
+>>>>>>> d5b3bf170fd056fd25e4249a8e5babe4da1fa64c
 						<div class="form-group row">
 							<label class="col-sm-2 col-form-label">Nick</label>
 							<div class="col-sm-3">
@@ -144,7 +150,10 @@
 							<div class="col-sm-3">
 								<input required type="text" class="form-control" placeholder="Apellido" ng-model="apellidos" value={{apellidos}}>
 							</div>
+<<<<<<< HEAD
 
+=======
+>>>>>>> d5b3bf170fd056fd25e4249a8e5babe4da1fa64c
 						</div>
 						<div class="form-group row">
 							<div class="col-sm-10">
@@ -153,7 +162,10 @@
 						</div>
 					</form>
 				</div>
+<<<<<<< HEAD
 
+=======
+>>>>>>> d5b3bf170fd056fd25e4249a8e5babe4da1fa64c
 			</div>
 		</div>
 
@@ -209,52 +221,37 @@
 										<button type="submit" class="btn btn-outline-secondary">Ver historias</button>
 									</div>
 								</form>
-								<div class="Listado">
-									<h4>Añadirse como desorrador a historias de usuario</h4>
-									<button class="btn btn-outline-secondary" value="pru" ng-click="HistorySprintEstatusbuton('Activo')">Ver historias</button>
-								</div>
 							</div>
 						</div>
-						<div class="col-md-6  ListadoDatos " ng-show="verHistorias ">
+						<div class="col-md-9 ListadoDatos " ng-show="verHistorias ">
 							<div class="historias " ng-repeat="historia in historias ">
 								<h4 class="titulosHistorias">{{ historia.Nombre }} </h4>
-								<table class="table historias_t ">
-									<tr>
-										<th>Prioridad</th>
-										<td class="dato">{{historia.Prioridad}}</td>
-									</tr>
-									<tr>
-										<th>Dificultad</th>
-										<td class="dato">{{historia.Dificultad}}</td>
-									</tr>
-									<tr>
-										<th>Comentarios</th>
-										<td class="dato">{{historia.Comentarios}}</td>
-									</tr>
-									<tr>
-										<th>Horas_acumuladas</th>
-										<td class="dato">{{historia.Horas_Acumuladas}}</td>
-									</tr>
-									<tr>
-										<th>Status</th>
-										<td class="dato">{{historia.Status}}</td>
-									</tr>
-									<tr>
-										<th>As a</th>
-										<td class="dato">{{historia.As_A}}</td>
-									</tr>
-									<tr>
-										<th>I want</th>
-										<td class="dato">{{historia.I_Want}}</td>
-									</tr>
-									<tr>
-										<th>So that</th>
-										<td class="dato">{{historia.So_That}}</td>
-									</tr>
-									<tbody ng-show="sprintActivo">
+								<table class="table historias_t">
+									<thead class="thead-dark">
 										<tr>
-											<td>
-												<button type="button" class="btn btn-secondary" ng-click="" value="Eliminar">Añadirse</button>
+											<th>Prioridad</th>
+											<th>Dificultad</th>
+											<th>Comentarios</th>
+											<th>Horas_acumuladas</th>
+											<th>Status</th>
+											<th>As a</th>
+											<th>I want</th>
+											<th>So that</th>
+											<th ng-show="sprintActivo"></th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td class="dato">{{historia.Prioridad}}</td>
+											<td class="dato">{{historia.Dificultad}}</td>
+											<td class="dato">{{historia.Comentarios}}</td>
+											<td class="dato">{{historia.Horas_Acumuladas}}</td>
+											<td class="dato">{{historia.Status}}</td>
+											<td class="dato">{{historia.As_A}}</td>
+											<td class="dato">{{historia.I_Want}}</td>
+											<td class="dato">{{historia.So_That}}</td>
+											<td ng-show="sprintActivo">
+												<button type="button" class="btn btn-secondary" ng-click="addDeveloperAHistoria(Id)" value="Eliminar">Añadirse</button>
 											</td>
 										</tr>
 									</tbody>
@@ -335,10 +332,10 @@
 									</thead>
 									<tbody>
 										<tr ng-repeat="SprintPendiente in SprintPendientes ">
-											<td class="dato">{{SprintPendiente.Nombre}}</td>
-											<td class="dato">{{SprintPendiente.Fecha_Fin | date:"yyyy/MM/dd"}}</td>
-											<td class="dato">{{SprintPendiente.Fecha_Inicio| date:"yyyy/MM/dd"}}</td>
-											<td class="dato">{{SprintPendiente.Review}}</td>
+											<td class="dato2">{{SprintPendiente.Nombre}}</td>
+											<td class="dato2">{{SprintPendiente.Fecha_Fin | date:"yyyy/MM/dd"}}</td>
+											<td class="dato2">{{SprintPendiente.Fecha_Inicio| date:"yyyy/MM/dd"}}</td>
+											<td class="dato2">{{SprintPendiente.Review}}</td>
 											<td ng-show="!activarSprint">
 												<!-- //////Modificación para activar el Sprint con la misma tabla  /////-->
 												<i class="fas fa-plus-circle" ng-click="mostrarHistoriaUsuario(SprintPendiente.Id)"></i>
@@ -402,40 +399,40 @@
 							</div>
 							<!-- //////Crear una historia de usuario y añadirla a un sprint /////-->
 							<div ng-show="verHistoriasPendientes">
-								<div class="historias " ng-repeat="historia in Pendientes ">
+								<div class="historias col-md-9 " ng-repeat="historia in Pendientes ">
 									<h4 class="titulosHistorias">{{ historia.Nombre }} </h4>
 									<table class="table historias_t ">
 										<tr>
 											<th>Prioridad</th>
-											<td class="dato">{{historia.Prioridad}}</td>
+											<td class="dato2">{{historia.Prioridad}}</td>
 										</tr>
 										<tr>
 											<th>Dificultad</th>
-											<td class="dato">{{historia.Dificultad}}</td>
+											<td class="dato2">{{historia.Dificultad}}</td>
 										</tr>
 										<tr>
 											<th>Comentarios</th>
-											<td class="dato">{{historia.Comentarios}}</td>
+											<td class="dato2">{{historia.Comentarios}}</td>
 										</tr>
 										<tr>
 											<th>Horas_acumuladas</th>
-											<td class="dato">{{historia.Horas_Acumuladas}}</td>
+											<td class="dato2">{{historia.Horas_Acumuladas}}</td>
 										</tr>
 										<tr>
 											<th>Status</th>
-											<td class="dato">{{historia.Status}}</td>
+											<td class="dato2">{{historia.Status}}</td>
 										</tr>
 										<tr>
 											<th>As a</th>
-											<td class="dato">{{historia.As_A}}</td>
+											<td class="dato2">{{historia.As_A}}</td>
 										</tr>
 										<tr>
 											<th>I want</th>
-											<td class="dato">{{historia.I_Want}}</td>
+											<td class="dato2">{{historia.I_Want}}</td>
 										</tr>
 										<tr>
 											<th>So that</th>
-											<td class="dato">{{historia.So_That}}</td>
+											<td class="dato2">{{historia.So_That}}</td>
 										</tr>
 										<tbody ng-show="sprintActivo">
 											<tr>
@@ -464,15 +461,17 @@
 					<!-- Subir Archivos -->
 
 
-				</div>
-			</section>
-			<br>
-		</main>
-		<footer class="finP" id="final">
-			<br>
-			<div class="container-fluid">
-				<div class="row">
-					<div class="col-xs-12 col-md-2 footerStyle">
+			</div>
+		</section>
+		<br>
+	</main>
+	<footer class="finP" id="final">
+		<br>
+		
+		<div class="container-fluid">
+			<div class="row">
+					<div class="col-md-1"></div>
+				<div class="col-xs-12 col-md-2 footerStyle">
 
 						<address>
 							<strong>Juan José Conesa</strong>
@@ -512,18 +511,18 @@
 					</div>
 					<div class="col-xs-12 col-md-2 footerStyle">
 
-						<address>
-							<strong>Rodrigo</strong>
-							<br>
+					<address>
+						<strong>Rodrigo García Albarracín</strong>
+						<br>
 
 							<abbr title="Phone">P: (123) 456-7890</abbr>
 						</address>
 
-						<address>
-							<strong>Correo</strong>
-							<br>
-							<a href="mailto:#">first.last@example.com</a>
-						</address>
+					<address>
+						<strong>Correo</strong>
+						<br>
+						<a href="mailto:#">rodgar12@hotmail.com</a>
+					</address>
 
 						<p>
 							<a href="https://www.upct.es" target="_blank">UPCT</a>
