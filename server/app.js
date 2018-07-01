@@ -58,6 +58,7 @@ app.get('/api/v1.0/user_story_status/:estado',devController.getUserHistory);
 app.get('/api/v1.0/user_story_sprint_status/:estado',devController.getUserHistorySprint);
 app.get('/api/v1.0/user_story_multiple_sprint',devController.getUserHistoryMultipleSprint);
 app.get('/api/v1.0/user_story_develop/:nombre',devController.getUserHistorydevelop);
+app.get('/api/v1.0/getUserHistoryStatus/:estado',scrumController.getUserHistoryStatus);
 
 
 /**22-06-2018 - añadir Developer a User_Story del Sprint activo */

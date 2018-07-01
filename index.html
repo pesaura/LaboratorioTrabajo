@@ -121,385 +121,467 @@
 								<input required type="text" class="form-control" placeholder="Login" ng-model="nombreLog" value={{nombreLog}}>
 							</div>
 						</div>
-				</div>
-				<div class="form-group row">
-					<label class="col-sm-2 col-form-label">Correo</label>
-					<div class="col-sm-8">
-						<input required type="email" class="form-control" placeholder="Correo" ng-model="correo" value={{correo}}>
-					</div>
-				</div>
 
-				<div class="form-group row">
-					<label class="col-sm-2 col-form-label">Nick</label>
-					<div class="col-sm-3">
-						<input required type="text" class="form-control" placeholder="Nick" ng-model="nick" value={{nick}}>
-					</div>
-				</div>
-				<div class="form-group row">
-					<label class="col-sm-2 col-form-label">Nombre</label>
-					<div class="col-sm-3">
-						<input required type="text" class="form-control" placeholder="Nombre" ng-model="nombre" value={{nombre}}>
-					</div>
-					<label class="col-sm-2 col-form-label">Apellidos</label>
-					<div class="col-sm-3">
-						<input required type="text" class="form-control" placeholder="Apellido" ng-model="apellidos" value={{apellidos}}>
-					</div>
-
-				</div>
-				<div class="form-group row">
-					<div class="col-sm-10">
-						<button type="submit" class="btn btn-primary" style="width: 100%">Actualizar</button>
-					</div>
-				</div>
-				</form>
-			</div>
-
-		</div>
-	</div>
-
-	<main ng-controller="MainCtrl">
-		<section class="margin_style" id="button_historias">
-			<div class="container-fluid margin_style">
-				<div class="row">
-					<div class=" col-md-6" style="text-align: center;">
-						<h1 id="descripcion">Historias de usuario</h1>
-						<p class="derecha">
-							<strong>Historias de usuario que se pueden consultar</strong>
-						</p>
-						<button ng-show="Id_usuario" class="btn btn-secondary" ng-click="mostrarMenuListas()">Listado de Historias</button>
-						<spam ng-show="!Id_usuario">Debes iniciar sesión</spam>
-					</div>
-					<div class=" col-md-6" style="text-align: center;">
-						<h1 id="descripcion">Scrum Master </h1>
-						<p class="derecha">
-							<strong>Modificaciones que solo puede hacer el Scrum Master </strong>
-						</p>
-						<button ng-if="Rol_usuario == 'Scrum_manager'" class="btn btn-secondary" ng-click="mostrarMenuSM()">Scrum Master Menu</button>
-						<spam ng-if="Rol_usuario != 'Scrum_manager'">Debes ser Scrum Master</spam>
-					</div>
-				</div>
-			</div>
-		</section>
-		<section>
-			<div class="container-fluid" ng-show="vermenu">
-				<div class="row">
-					<div class="col-md-3 separadorlateral">
-						<div class="Listado">
-							<h4>Listado de historias de usuario completadas </h4>
-							<button class="btn btn-outline-secondary" ng-click="HistoryStatus('terminada')">Ver historias</button>
-						</div>
-						<div class="Listado">
-							<h4>Listado de historias de Usuario del sprint activo </h4>
-							<button class="btn btn-outline-secondary" ng-click="HistorySprintEstatus('Activo')">Ver historias</button>
-						</div>
-						<div class="Listado">
-							<h4>Listado de historias de Usuario asignadas a más de un Sprint </h4>
-							<button class="btn btn-outline-secondary" ng-click="HistorySprintMultiple()">Ver historias</button>
-						</div>
-						<div class="Listado">
-							<h4>Listado de historias de usuario asignadas a un desarrollador concreto </h4>
-							<form ng-submit="Historydevelop(nombreDev)">
-								<div class="form-group">
-									<select required class="form-control" ng-model="nombreDev">
-										<option value="" disabled selected>--seleccione desarrollador--</option>
-										<option ng-repeat="dev  in datosDevs " value="{{dev.Login}}">{{dev.Login}} </option>
-									</select>
-								</div>
-								<div class="form-group">
-									<button type="submit" class="btn btn-outline-secondary">Ver historias</button>
-								</div>
-							</form>
-							<div class="Listado">
-								<h4>Añadirse como desorrador a historias de usuario</h4>
-								<button class="btn btn-outline-secondary" value="pru" ng-click="HistorySprintEstatusbuton('Activo')">Ver historias</button>
+						<div class="form-group row">
+							<label class="col-sm-2 col-form-label">Correo</label>
+							<div class="col-sm-8">
+								<input required type="email" class="form-control" placeholder="Correo" ng-model="correo" value={{correo}}>
 							</div>
 						</div>
+
+						<div class="form-group row">
+							<label class="col-sm-2 col-form-label">Nick</label>
+							<div class="col-sm-3">
+								<input required type="text" class="form-control" placeholder="Nick" ng-model="nick" value={{nick}}>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label class="col-sm-2 col-form-label">Nombre</label>
+							<div class="col-sm-3">
+								<input required type="text" class="form-control" placeholder="Nombre" ng-model="nombre" value={{nombre}}>
+							</div>
+							<label class="col-sm-2 col-form-label">Apellidos</label>
+							<div class="col-sm-3">
+								<input required type="text" class="form-control" placeholder="Apellido" ng-model="apellidos" value={{apellidos}}>
+							</div>
+
+						</div>
+						<div class="form-group row">
+							<div class="col-sm-10">
+								<button type="submit" class="btn btn-primary" style="width: 100%">Actualizar</button>
+							</div>
+						</div>
+					</form>
+				</div>
+
+			</div>
+		</div>
+
+		<main ng-controller="MainCtrl">
+			<section class="margin_style" id="button_historias">
+				<div class="container-fluid margin_style">
+					<div class="row">
+						<div class=" col-md-6" style="text-align: center;">
+							<h1 id="descripcion">Historias de usuario</h1>
+							<p class="derecha">
+								<strong>Historias de usuario que se pueden consultar</strong>
+							</p>
+							<button ng-show="Id_usuario" class="btn btn-secondary" ng-click="mostrarMenuListas()">Listado de Historias</button>
+							<spam ng-show="!Id_usuario">Debes iniciar sesión</spam>
+						</div>
+						<div class=" col-md-6" style="text-align: center;">
+							<h1 id="descripcion">Scrum Master </h1>
+							<p class="derecha">
+								<strong>Modificaciones que solo puede hacer el Scrum Master </strong>
+							</p>
+							<button ng-if="Rol_usuario == 'Scrum_manager'" class="btn btn-secondary" ng-click="mostrarMenuSM()">Scrum Master Menu</button>
+							<spam ng-if="Rol_usuario != 'Scrum_manager'">Debes ser Scrum Master</spam>
+						</div>
 					</div>
-					<div class="col-md-9  ListadoDatos">
-						<div ng-show="verHistorias">
-							<div class="historias" ng-repeat="historia in historias ">
+				</div>
+			</section>
+			<section>
+				<div class="container-fluid" ng-show="vermenu">
+					<div class="row">
+						<div class="col-md-3  separadorlateral">
+							<div class="Listado">
+								<h4>Listado de historias de usuario completadas </h4>
+								<button class="btn btn-outline-secondary" ng-click="HistoryStatus('terminada')">Ver historias</button>
+							</div>
+							<div class="Listado">
+								<h4>Listado de historias de Usuario del sprint activo </h4>
+								<button class="btn btn-outline-secondary" ng-click="HistorySprintEstatus('Activo')">Ver historias</button>
+							</div>
+							<div class="Listado">
+								<h4>Listado de historias de Usuario asignadas a más de un Sprint </h4>
+								<button class="btn btn-outline-secondary" ng-click="HistorySprintMultiple()">Ver historias</button>
+							</div>
+							<div class="Listado">
+								<h4>Listado de historias de usuario asignadas a un desarrollador concreto </h4>
+								<form ng-submit="Historydevelop(nombreDev)">
+									<div class="form-group">
+										<select required class="form-control" ng-model="nombreDev">
+											<option value="" disabled selected>--seleccione desarrollador--</option>
+											<option ng-repeat="login  in datosDevs " value="{{login}}">{{login}} </option>
+										</select>
+									</div>
+									<div class="form-group">
+										<button type="submit" class="btn btn-outline-secondary">Ver historias</button>
+									</div>
+								</form>
+								<div class="Listado">
+									<h4>Añadirse como desorrador a historias de usuario</h4>
+									<button class="btn btn-outline-secondary" value="pru" ng-click="HistorySprintEstatusbuton('Activo')">Ver historias</button>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6  ListadoDatos " ng-show="verHistorias ">
+							<div class="historias " ng-repeat="historia in historias ">
 								<h4 class="titulosHistorias">{{ historia.Nombre }} </h4>
-								<table class="table historias_t">
-									<thead class="thead-dark">
+								<table class="table historias_t ">
+									<tr>
+										<th>Prioridad</th>
+										<td class="dato">{{historia.Prioridad}}</td>
+									</tr>
+									<tr>
+										<th>Dificultad</th>
+										<td class="dato">{{historia.Dificultad}}</td>
+									</tr>
+									<tr>
+										<th>Comentarios</th>
+										<td class="dato">{{historia.Comentarios}}</td>
+									</tr>
+									<tr>
+										<th>Horas_acumuladas</th>
+										<td class="dato">{{historia.Horas_Acumuladas}}</td>
+									</tr>
+									<tr>
+										<th>Status</th>
+										<td class="dato">{{historia.Status}}</td>
+									</tr>
+									<tr>
+										<th>As a</th>
+										<td class="dato">{{historia.As_A}}</td>
+									</tr>
+									<tr>
+										<th>I want</th>
+										<td class="dato">{{historia.I_Want}}</td>
+									</tr>
+									<tr>
+										<th>So that</th>
+										<td class="dato">{{historia.So_That}}</td>
+									</tr>
+									<tbody ng-show="sprintActivo">
 										<tr>
-											<th>Prioridad</th>
-											<th>Dificultad</th>
-											<th>Comentarios</th>
-											<th>Horas_acumuladas</th>
-											<th>Status</th>
-											<th>As a</th>
-											<th>I want</th>
-											<th>So that</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td class="dato">{{historia.Prioridad}}</td>
-											<td class="dato">{{historia.Dificultad}}</td>
-											<td class="dato">{{historia.Comentarios}}</td>
-											<td class="dato">{{historia.Comentarios}}</td>
-											<td class="dato">{{historia.Status}}</td>
-											<td class="dato">{{historia.As_A}}</td>
-											<td class="dato">{{historia.I_Want}}</td>
-											<td class="dato">{{historia.So_That}}</td>
 											<td>
-												<button type="button" class="btn btn-danger" ng-click="" value="Eliminar">Añadirse</button>
+												<button type="button" class="btn btn-secondary" ng-click="" value="Eliminar">Añadirse</button>
 											</td>
 										</tr>
-
 									</tbody>
 								</table>
-							</div>
-
-							<div class=" historias" ng-if="historias.length == 0">
-								<h3>No existen de Historias de Usuario </h3>
+								<div class=" historias" ng-if="historias.length == 0">
+									<h3>No existen de Historias de Usuario </h3>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-		</section>
-		<!-- ////////////////////////////////////////////////////////////////////////////////////////////////////-->
-		<section>
-			<div class="container-fluid" ng-show="vermenuSM">
-				<div class="row">
-					<div class="col-md-3 separadorlateral">
-						<div class="Listado">
-							<h4>Crear un sprint </h4>
-							<button class="btn btn-outline-secondary" ng-click="mostrarSM('sprint')">sprint</button>
-						</div>
-						<div class="Listado">
-							<h4>Añadir Historias de Usuario a un Sprint pendiente </h4>
-							<button class="btn btn-outline-secondary" ng-click="mostrarSM('historiaUsuarioP')">Añadir</button>
-						</div>
-					</div>
-					<div class="col-md-9  ListadoDatos">
-						<form ng-submit="crearSprint()" ng-show="verSprint">
-							<div class="form-row">
-								<div class="form-group col-md-3">
-									<label>Nombre</label>
-									<input required type="text" class="form-control " placeholder="Nombre" ng-model="nombreSprint">
-								</div>
-								<div class="form-group col-md-6">
-									<label>Descripción</label>
-									<input required type="text" class="form-control  " placeholder="Descripción" ng-model="descSprint ">
-								</div>
+			</section>
+			<!-- ////////////////////////////////////////////////////////////////////////////////////////////////////-->
+			<section>
+				<div class="container-fluid" ng-show="vermenuSM">
+					<!-- //////Menu  del Scrum master/////-->
+					<div class="row">
+						<div class="col-md-3 separadorlateral">
+							<div class="Listado">
+								<h4>Crear un sprint </h4>
+								<button class="btn btn-outline-secondary" ng-click="mostrarSM('sprint')">sprint</button>
 							</div>
-							<div class="form-row">
-								<div class="form-group col-md-4">
-									<label>Fecha de inicio</label>
-									<input required type="date" class="form-control" ng-model="fechaInicio">
-								</div>
-								<div class="form-group col-md-4">
-									<label>Fecha de finalización</label>
-									<input required type="date" class="form-control" ng-model="fechaFin">
-								</div>
+							<div class="Listado">
+								<h4>Añadir historias de usuario a un sprint pendiente </h4>
+								<button class="btn btn-outline-secondary" ng-click="mostrarSM('historiaUsuarioP')">Añadir</button>
 							</div>
-							<button type="submit" class="btn btn-secondary">Crear</button>
-							<spam ng-show="SprintActivo"> Solo puede haber un sprint activo a la vez </spam>
-						</form>
-						<br>
-						<br>
-						<div ng-show="historiaUsuarioP && !verCreacionHistoriasUsuario">
-							<h4>Lista de Sprit pendientes</h4>
-							<table class="table historias_t">
-								<thead class="thead-dark">
-									<tr>
-										<th>Nombre</th>
-										<th>Fecha de inicio</th>
-										<th>Fecha de fin</th>
-										<th>Descripción</th>
-										<th>Add</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr ng-repeat="SprintPendiente in SprintPendientes ">
-										<td class="dato">{{SprintPendiente.Nombre}}</td>
-										<td class="dato">{{SprintPendiente.Fecha_Fin | date:"yyyy/MM/dd"}}</td>
-										<td class="dato">{{SprintPendiente.Fecha_Inicio| date:"yyyy/MM/dd"}}</td>
-										<td class="dato">{{SprintPendiente.Review}}</td>
-										<td>
-											<i class="fas fa-plus-circle" ng-click="mostrarHistoriaUsuario(SprintPendiente.Id)"></i>
-										</td>
-									</tr>
-								</tbody>
-							</table>
+							<div class="Listado">
+								<h4>Activar un sprint pendiente </h4>
+								<button class="btn btn-outline-secondary" ng-click="mostrarSM('activarSprint')">Añadir</button>
+							</div>
+							<div class="Listado">
+								<h4>Ver listado de historias pendientes </h4>
+								<button class="btn btn-outline-secondary" ng-click="mostrarSM('verHistoriasPendientes')">Añadir</button>
+							</div>
 						</div>
-						<div ng-show="verCreacionHistoriasUsuario">
-							<form ng-submit="addHistoriasUsuarioSprintPendiente()">
+						<!-- //////Zona donde se ven las funcionalidades del Scrum master/////-->
+						<div class="col-md-9  ListadoDatos">
+							<!-- //////Crear un sprint /////-->
+							<form ng-submit="crearSprint()" ng-show="verSprint">
 								<div class="form-row">
 									<div class="form-group col-md-3">
 										<label>Nombre</label>
-										<input required type="text" class="form-control " placeholder="Nombre" ng-model="nombreHistoria">
+										<input required type="text" class="form-control " placeholder="Nombre" ng-model="nombreSprint">
 									</div>
-									<div class="form-group col-md-3">
-										<label>Prioridad</label>
-										<select required class="form-control" ng-model="prioridad">
-											<option value="Unknown" >Desconocida</option>
-											<option value="baja" >Baja</option>
-											<option value="media" >Media</option>
-											<option value="Alta" >Alta</option>
-										</select>
+									<div class="form-group col-md-6">
+										<label>Descripción</label>
+										<input required type="text" class="form-control  " placeholder="Descripción" ng-model="descSprint ">
 									</div>
-									<div class="form-group col-md-1">
-										<label>Dificultad</label>
-										<input required type="number" min="1" max="99" class="form-control  " ng-model="dificultad ">
-									</div>
-								</div>
-								<div class=" form-group col-md-8">
-									<label>Comentarios</label>
-									<textarea  type="text" class="form-control" ng-model="comentarios" rows="3"></textarea>
 								</div>
 								<div class="form-row">
 									<div class="form-group col-md-4">
-										<label>As a</label>
-										<input  type="text" class="form-control " ng-model="as_a">
+										<label>Fecha de inicio</label>
+										<input required type="date" class="form-control" ng-model="fechaInicio">
 									</div>
 									<div class="form-group col-md-4">
-										<label>I want</label>
-										<input  type="text" class="form-control " ng-model="i_want">
-									</div>
-									<div class="form-group col-md-4">
-										<label>So that</label>
-										<input  type="text" class="form-control " ng-model="so_that">
+										<label>Fecha de finalización</label>
+										<input required type="date" class="form-control" ng-model="fechaFin">
 									</div>
 								</div>
-								<div class="form-group col-md-3  ">
-									<button type="submit" class=" form-control  btn btn-secondary">Crear</button>
-								</div>
+								<button type="submit" class="btn btn-secondary">Crear</button>
+								<spam ng-show="SprintActivo"> Solo puede haber un sprint activo a la vez </spam>
 							</form>
+							<br>
+							<br>
+							<!-- //////Ver los Sprint Pendientes /////-->
+							<div ng-show="historiaUsuarioP && !verCreacionHistoriasUsuario">
+								<h4>Lista de Sprit pendientes</h4>
+								<table class="table historias_t">
+									<thead class="thead-dark">
+										<tr>
+											<th>Nombre</th>
+											<th>Fecha de inicio</th>
+											<th>Fecha de fin</th>
+											<th>Descripción</th>
+											<th ng-show="!activarSprint">Añadir historia</th>
+											<th ng-show="activarSprint">Activar Sprint</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr ng-repeat="SprintPendiente in SprintPendientes ">
+											<td class="dato">{{SprintPendiente.Nombre}}</td>
+											<td class="dato">{{SprintPendiente.Fecha_Fin | date:"yyyy/MM/dd"}}</td>
+											<td class="dato">{{SprintPendiente.Fecha_Inicio| date:"yyyy/MM/dd"}}</td>
+											<td class="dato">{{SprintPendiente.Review}}</td>
+											<td ng-show="!activarSprint">
+												<!-- //////Modificación para activar el Sprint con la misma tabla  /////-->
+												<i class="fas fa-plus-circle" ng-click="mostrarHistoriaUsuario(SprintPendiente.Id)"></i>
+											</td>
+											<td ng-show="activarSprint">
+												<i ng-show="!SprintActivo" class="fas fa-plus-circle" ng-click="cambiarEstadoSprint(SprintPendiente.Id,'Activo')"></i>
+												<spam ng-show="SprintActivo"> Solo puede haber un sprint activo a la vez </spam>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<!-- //////Crear una historia de usuario y añadirla a un sprint /////-->
+							<div ng-show="verCreacionHistoriasUsuario">
+								<form ng-submit="addHistoriasUsuarioSprintPendiente()">
+									<div class="form-row">
+										<div class="form-group col-md-3">
+											<label>Nombre</label>
+											<input required type="text" class="form-control " placeholder="Nombre" ng-model="nombreHistoria">
+										</div>
+										<div class="form-group col-md-3">
+											<label>Prioridad</label>
+											<select required class="form-control" ng-model="prioridad">
+												<option value="Unknown">Desconocida</option>
+												<option value="baja">Baja</option>
+												<option value="media">Media</option>
+												<option value="Alta">Alta</option>
+											</select>
+										</div>
+										<div class="form-group col-md-1">
+											<label>Dificultad</label>
+											<input required type="number" min="1" max="99" class="form-control  " ng-model="dificultad ">
+										</div>
+									</div>
+									<div class="form-row">
+										<div class=" form-group col-md-7">
+											<label>Comentarios</label>
+											<textarea type="text" class="form-control" ng-model="comentarios" rows="3"></textarea>
+										</div>
+									</div>
+									<div class="form-row">
+										<div class="form-group col-md-2">
+											<label>As a</label>
+											<input type="text" class="form-control " ng-model="as_a">
+										</div>
+										<div class="form-group col-md-2">
+											<label>I want</label>
+											<input type="text" class="form-control " ng-model="i_want">
+										</div>
+										<div class="form-group col-md-3">
+											<label>So that</label>
+											<input type="text" class="form-control " ng-model="so_that">
+										</div>
+									</div>
+									<div class="form-row">
+										<div class="form-group col-md-2  ">
+											<button type="submit" class=" form-control  btn btn-secondary">Crear</button>
+										</div>
+									</div>
+								</form>
+							</div>
+							<!-- //////Crear una historia de usuario y añadirla a un sprint /////-->
+							<div ng-show="verHistoriasPendientes">
+								<div class="historias " ng-repeat="historia in Pendientes ">
+									<h4 class="titulosHistorias">{{ historia.Nombre }} </h4>
+									<table class="table historias_t ">
+										<tr>
+											<th>Prioridad</th>
+											<td class="dato">{{historia.Prioridad}}</td>
+										</tr>
+										<tr>
+											<th>Dificultad</th>
+											<td class="dato">{{historia.Dificultad}}</td>
+										</tr>
+										<tr>
+											<th>Comentarios</th>
+											<td class="dato">{{historia.Comentarios}}</td>
+										</tr>
+										<tr>
+											<th>Horas_acumuladas</th>
+											<td class="dato">{{historia.Horas_Acumuladas}}</td>
+										</tr>
+										<tr>
+											<th>Status</th>
+											<td class="dato">{{historia.Status}}</td>
+										</tr>
+										<tr>
+											<th>As a</th>
+											<td class="dato">{{historia.As_A}}</td>
+										</tr>
+										<tr>
+											<th>I want</th>
+											<td class="dato">{{historia.I_Want}}</td>
+										</tr>
+										<tr>
+											<th>So that</th>
+											<td class="dato">{{historia.So_That}}</td>
+										</tr>
+										<tbody ng-show="sprintActivo">
+											<tr>
+												<td>
+													<button type="button" class="btn btn-secondary" ng-click="" value="Eliminar">Añadirse</button>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+									<div class=" historias" ng-if="historias.length == 0">
+										<h3>No existen de Historias de Usuario </h3>
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>
-				</div>
-				<!-- Subir Archivos -->
+					<!-- Subir Archivos -->
 
-				<div ng-controller="myCtrl" class="form-group row">
-					<div class="col-sm-8">
-						<input type="file" class="form-control" file-model="myFile" />
+					<div ng-controller="myCtrl" class="form-group row">
+						<div class="col-sm-8">
+							<input type="file" class="form-control" file-model="myFile" />
+						</div>
+						<button ng-click="uploadFile()" class="btn btn-primary">Upload File</button>
 					</div>
-					<button ng-click="uploadFile()" class="btn btn-primary">Upload File</button>
+
+					<!-- Subir Archivos -->
+
+
 				</div>
+			</section>
+			<br>
+		</main>
+		<footer class="finP" id="final">
+			<br>
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-xs-12 col-md-2 footerStyle">
 
-				<!-- Subir Archivos -->
+						<address>
+							<strong>Juan José Conesa</strong>
+							<br>
 
+							<abbr title="Phone">P: (123) 456-7890</abbr>
+						</address>
 
+						<address>
+							<strong>Correo</strong>
+							<br>
+							<a href="mailto:#">first.last@example.com</a>
+						</address>
+
+						<p>
+							<a href="https://www.upct.es" target="_blank">UPCT</a>
+						</p>
+
+					</div>
+
+					<div class="col-xs-12 col-md-2 footerStyle">
+						<address>
+							<strong>Pablo Saura Jiménez</strong>
+							<br>
+							<abbr title="Phone">P: (123) 456-7890</abbr>
+						</address>
+						<address>
+							<strong>Correo</strong>
+							<br>
+							<a href="mailto:#">pablo_95_08@hotmail.com</a>
+						</address>
+
+						<p>
+							<a href="https://www.upct.es" target="_blank">UPCT</a>
+						</p>
+
+					</div>
+					<div class="col-xs-12 col-md-2 footerStyle">
+
+						<address>
+							<strong>Rodrigo</strong>
+							<br>
+
+							<abbr title="Phone">P: (123) 456-7890</abbr>
+						</address>
+
+						<address>
+							<strong>Correo</strong>
+							<br>
+							<a href="mailto:#">first.last@example.com</a>
+						</address>
+
+						<p>
+							<a href="https://www.upct.es" target="_blank">UPCT</a>
+						</p>
+
+					</div>
+					<div class="col-xs-12 col-md-2 footerStyle">
+
+						<address>
+							<strong>Raúl Navarro</strong>
+							<br>
+
+							<abbr title="Phone">P: (123) 456-7890</abbr>
+						</address>
+
+						<address>
+							<strong>Correo</strong>
+							<br>
+							<a href="mailto:#">first.last@example.com</a>
+						</address>
+
+						<p>
+							<a href="https://www.upct.es" target="_blank">UPCT</a>
+						</p>
+
+					</div>
+					<div class="col-xs-12 col-md-2 footerStyle">
+
+						<address>
+							<strong>Victor Egea</strong>
+							<br>
+
+							<abbr title="Phone">P: (123) 456-7890</abbr>
+						</address>
+
+						<address>
+							<strong>Correo</strong>
+							<br>
+							<a href="mailto:#">first.last@example.com</a>
+						</address>
+
+						<p>
+							<a href="https://www.upct.es" target="_blank">UPCT</a>
+						</p>
+
+					</div>
+				</div>
 			</div>
-		</section>
-		<br>
-	</main>
-	<footer class="finP" id="final">
-		<br>
-		<div class="container-fluid">
-			<div class="row">
-				<div class="col-xs-12 col-md-2 footerStyle">
+		</footer>
 
-					<address>
-						<strong>Juan José Conesa</strong>
-						<br>
+		<script src="js/angular.min.js"></script>
 
-						<abbr title="Phone">P: (123) 456-7890</abbr>
-					</address>
+		<script src="js/controlador.js"></script>
+		<script src="js/angular-resource.min.js"></script>
 
-					<address>
-						<strong>Correo</strong>
-						<br>
-						<a href="mailto:#">first.last@example.com</a>
-					</address>
-
-					<p>
-						<a href="https://www.upct.es" target="_blank">UPCT</a>
-					</p>
-
-				</div>
-
-				<div class="col-xs-12 col-md-2 footerStyle">
-					<address>
-						<strong>Pablo Saura Jiménez</strong>
-						<br>
-						<abbr title="Phone">P: (123) 456-7890</abbr>
-					</address>
-					<address>
-						<strong>Correo</strong>
-						<br>
-						<a href="mailto:#">pablo_95_08@hotmail.com</a>
-					</address>
-
-					<p>
-						<a href="https://www.upct.es" target="_blank">UPCT</a>
-					</p>
-
-				</div>
-				<div class="col-xs-12 col-md-2 footerStyle">
-
-					<address>
-						<strong>Rodrigo</strong>
-						<br>
-
-						<abbr title="Phone">P: (123) 456-7890</abbr>
-					</address>
-
-					<address>
-						<strong>Correo</strong>
-						<br>
-						<a href="mailto:#">first.last@example.com</a>
-					</address>
-
-					<p>
-						<a href="https://www.upct.es" target="_blank">UPCT</a>
-					</p>
-
-				</div>
-				<div class="col-xs-12 col-md-2 footerStyle">
-
-					<address>
-						<strong>Raúl Navarro</strong>
-						<br>
-
-						<abbr title="Phone">P: (123) 456-7890</abbr>
-					</address>
-
-					<address>
-						<strong>Correo</strong>
-						<br>
-						<a href="mailto:#">first.last@example.com</a>
-					</address>
-
-					<p>
-						<a href="https://www.upct.es" target="_blank">UPCT</a>
-					</p>
-
-				</div>
-				<div class="col-xs-12 col-md-2 footerStyle">
-
-					<address>
-						<strong>Victor Egea</strong>
-						<br>
-
-						<abbr title="Phone">P: (123) 456-7890</abbr>
-					</address>
-
-					<address>
-						<strong>Correo</strong>
-						<br>
-						<a href="mailto:#">first.last@example.com</a>
-					</address>
-
-					<p>
-						<a href="https://www.upct.es" target="_blank">UPCT</a>
-					</p>
-
-				</div>
-			</div>
-		</div>
-	</footer>
-
-	<script src="js/angular.min.js"></script>
-
-	<script src="js/controlador.js"></script>
-	<script src="js/angular-resource.min.js"></script>
-
-	<script src="js/jquery-3.3.1.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<!-- <script src="js/comprobacion.js"></script> -->
+		<script src="js/jquery-3.3.1.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<!-- <script src="js/comprobacion.js"></script> -->
 </body>
 
 </html>

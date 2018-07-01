@@ -72,9 +72,9 @@ app.controller('iniciarSesion', function ($scope, $http, cookie) {
     }
     ///////////////////////////////////////////////////////
     $scope.asignarCookies = function () {
-         $scope.nombre = cookie.readCookie('sesionName');
-         $scope.Id = cookie.readCookie('sesionId');
-         $scope.Rol = cookie.readCookie('sesionRol');
+        $scope.nombre = cookie.readCookie('sesionName');
+        $scope.Id = cookie.readCookie('sesionId');
+        $scope.Rol = cookie.readCookie('sesionRol');
     }
     $scope.asignarCookies();
 
@@ -145,27 +145,25 @@ app.controller('MainCtrl', function ($scope, $http, cookie) {
 
     $scope.Id_usuario = cookie.readCookie('sesionId');
     $scope.Rol_usuario = cookie.readCookie('sesionRol');
-    
-    
+
+
     ///Funcion para ver el menu de listas de usuario
     $scope.vermenu = false;
-    $scope.mostrarMenuListas = function(){
-        if($scope.vermenu){
+    $scope.mostrarMenuListas = function () {
+        if ($scope.vermenu) {
             $scope.vermenu = false;
-        }   
-        else{
-            $scope.vermenu  = true; 
+        } else {
+            $scope.vermenu = true;
             $scope.vermenuSM = false;
-        }             
+        }
     }
-    $scope.mostrarMenuSM = function(){
-        if($scope.vermenuSM){
+    $scope.mostrarMenuSM = function () {
+        if ($scope.vermenuSM) {
             $scope.vermenuSM = false;
-        }   
-        else{
-            $scope.vermenuSM  = true;
-            $scope.vermenu = false; 
-        } 
+        } else {
+            $scope.vermenuSM = true;
+            $scope.vermenu = false;
+        }
     }
 
     //////// Función para el Listado de Historias de Usuario completadas //////////
@@ -202,6 +200,7 @@ app.controller('MainCtrl', function ($scope, $http, cookie) {
             } else {
                 $scope.historiasUsuario = response.data.data;
             }
+            $scope.sprintActivo = false;
         }, function myError(response) {
 
             console.log(response.data.code);
@@ -220,8 +219,10 @@ app.controller('MainCtrl', function ($scope, $http, cookie) {
         }).then(function mySuccess(response) {
             console.log(response.data.data);
             $scope.verHistorias = true;
-            if (estado === 'Activo') 
-                $scope.historias = response.data.data;    
+            if (estado === 'Activo') {
+                $scope.historias = response.data.data;
+                $scope.sprintActivo = true;
+            }
         }, function myError(response) {
             console.log(response.data.code);
         });
@@ -238,6 +239,7 @@ app.controller('MainCtrl', function ($scope, $http, cookie) {
             console.log(response.data.data);
             $scope.verHistorias = true;
             $scope.historias = response.data.data;
+            $scope.sprintActivo = false;
 
         }, function myError(response) {
             console.log(response.data.code);
@@ -249,12 +251,13 @@ app.controller('MainCtrl', function ($scope, $http, cookie) {
     //// Función para obtener los datos de los desarrolladores (necesaraia para la siguiente función)
     $http.get("http://localhost:5000/api/v1.0/table/team_member")
         .then(function mySuccess(response) {
-            $scope.datosDevs = response.data.data;
+            $scope.datosDevs = new Array()
+            angular.forEach(response.data.data, function (v, k) {
+                $scope.datosDevs[k] = v.Login;
+            });
             console.log($scope.datosDevs);
         });
 
-
-    
     ///////Listado de Historias de Usuario asignadas a un Desarrollador concreto/////    
     $scope.Historydevelop = function (nombre) {
         console.log(nombre)
@@ -265,6 +268,7 @@ app.controller('MainCtrl', function ($scope, $http, cookie) {
             $scope.verHistorias = true;
             console.log(response.data.data);
             $scope.historias = response.data.data;
+            $scope.sprintActivo = false;
         }, function myError(response) {
             console.log(response.data.code);
         });
@@ -273,39 +277,48 @@ app.controller('MainCtrl', function ($scope, $http, cookie) {
     // $scope.Historydevelop($scope.nombre);
 
 
-////////////////////////////////////////////////////////
-/// Funciones del Scrum Master //////
+    ////////////////////////////////////////////////////////
+    /// Funciones del Scrum Master //////
 
-    $scope.mostrarSM = function(entrada){
-        switch(entrada) {
+    $scope.mostrarSM = function (entrada) {
+        switch (entrada) {
             case 'sprint':
-                $scope.verSprint  = true;
+                $scope.verSprint = true;
                 $scope.comprobacionSprintActivo();
-                $scope.historiaUsuarioP  = false;
+                $scope.historiaUsuarioP = false, $scope.verCreacionHistoriasUsuario = false, $scope.verHistoriasPendientes = false,$scope.activarSprint = false;
                 break;
             case 'historiaUsuarioP':
-                $scope.historiaUsuarioP  = true;
+                $scope.historiaUsuarioP = true;
                 $scope.showHistoriasUsuarioSprintPendiente();
-                $scope.verSprint  = false;
-                $scope.verCreacionHistoriasUsuario  = false;
+                $scope.verSprint = false, $scope.verCreacionHistoriasUsuario = false, $scope.verHistoriasPendientes = false,$scope.activarSprint = false;
                 break;
-            default:
-                
+            case 'activarSprint':
+                $scope.activarSprint = true;
+                $scope.historiaUsuarioP = true;
+                $scope.showHistoriasUsuarioSprintPendiente();
+                $scope.comprobacionSprintActivo();
+                $scope.verSprint = false, $scope.verCreacionHistoriasUsuario = false, $scope.verHistoriasPendientes = false;
+                break;
+            case 'verHistoriasPendientes':
+                $scope.verHistoriasPendientes = true;
+                $scope.HistoriasPendientes()
+                $scope.activarSprint  = false, $scope.historiaUsuarioP  = false, $scope.verSprint = false, $scope.verCreacionHistoriasUsuario = false;
+                break;
         }
     }
-
-    $scope.comprobacionSprintActivo = function(){
+   
+    $scope.comprobacionSprintActivo = function () {
         $http.get("http://localhost:5000/api/v1.0/user_story_sprint_status/Activo")
-        .then(function mySuccess(response) {
-           $scope.Activo = response.data.data;
-           if($scope.Activo.length != 0) 
-                $scope.SprintActivo = true;
-           else
-                $scope.SprintActivo = false;
-        });
+            .then(function mySuccess(response) {
+                $scope.Activo = response.data.data;
+                if ($scope.Activo.length != 0)
+                    $scope.SprintActivo = true;
+                else
+                    $scope.SprintActivo = false;
+            });
     }
-    
-    $scope.crearSprint = function(){ 
+
+    $scope.crearSprint = function () {
         var data = {
             Fecha_Inicio: $scope.fechaInicio,
             Fecha_Fin: $scope.fechaFin,
@@ -323,36 +336,36 @@ app.controller('MainCtrl', function ($scope, $http, cookie) {
             console.log(response.data);
             $scope.showHistoriasUsuarioSprintPendiente();
             $scope.verSprint = false;
-            $scope.verCreacionHistoriasUsuario  = false;
-            $scope.historiaUsuarioP  = true;
+            $scope.verCreacionHistoriasUsuario = false;
+            $scope.historiaUsuarioP = true;
         }, function myError(response) {
             console.log(response.data.code);
         });
 
     }
 
-    $scope.showHistoriasUsuarioSprintPendiente = function(){
+    $scope.showHistoriasUsuarioSprintPendiente = function () {
         $http.get("http://localhost:5000/api/v1.0/sprint/Pendiente")
-        .then(function mySuccess(response) {
-           $scope.SprintPendientes = response.data.data;
-           console.log($scope.SprintPendientes);
-        });
+            .then(function mySuccess(response) {
+                $scope.SprintPendientes = response.data.data;
+                console.log($scope.SprintPendientes);
+            });
     }
 
-    $scope.mostrarHistoriaUsuario = function(Id){
+    $scope.mostrarHistoriaUsuario = function (Id) {
         $scope.Id_sprint = Id;
         $scope.verCreacionHistoriasUsuario = true;
         console.log($scope.Id_sprint);
     }
-    $scope.addHistoriasUsuarioSprintPendiente = function(){
+    $scope.addHistoriasUsuarioSprintPendiente = function () {
         var data = {
-            Nombre:$scope.nombreHistoria,
-            Prioridad:$scope.prioridad,
+            Nombre: $scope.nombreHistoria,
+            Prioridad: $scope.prioridad,
             Dificultad: $scope.dificultad,
-            Comentarios:$scope.comentarios,
-            As_a:$scope.as_a,
-            I_Want:$scope.i_want,
-            So_That:$scope.so_that
+            Comentarios: $scope.comentarios,
+            As_a: $scope.as_a,
+            I_Want: $scope.i_want,
+            So_That: $scope.so_that
         };
         $http({
             url: 'http://localhost:5000/api/v1.0/createUserHistory',
@@ -365,16 +378,17 @@ app.controller('MainCtrl', function ($scope, $http, cookie) {
             console.log(response.data.data.insertId);
             $scope.Id_historiasUsuario = response.data.data.insertId;
             $scope.crearDevelop();
-           
+
         }, function myError(response) {
             console.log(response.data.code);
         });
     }
 
-    $scope.crearDevelop = function(){
+
+    $scope.crearDevelop = function () {
         var data = {
-            Id_sprint:$scope.Id_sprint,
-            Id_us:$scope.Id_historiasUsuario
+            Id_sprint: $scope.Id_sprint,
+            Id_us: $scope.Id_historiasUsuario
         };
         $http({
             url: 'http://localhost:5000/api/v1.0/addDeveloperToUserStory',
@@ -390,7 +404,33 @@ app.controller('MainCtrl', function ($scope, $http, cookie) {
         });
     }
 
-    
+    $scope.cambiarEstadoSprint = function (Id, status) {
+        var data = {
+            Id_sprint: Id,
+            Id_us: status
+        };
+        $http({
+            url: 'http://localhost:5000/api/v1.0/changeSprintStatus',
+            method: 'POST',
+            data: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function mySuccess(response) {
+            console.log(response.data);
+        }, function myError(response) {
+            console.log(response.data.code);
+        });
+
+    }
+    $scope.HistoriasPendientes = function () {
+        $http.get("http://localhost:5000/api/v1.0/getUserHistoryStatus/Pendiente_de_validacion")
+            .then(function mySuccess(response) {
+                $scope.Pendientes = response.data.data;
+                console.log($scope.Pendientes);
+            });
+    }
+
 
 
 
@@ -444,41 +484,43 @@ app.controller('MainCtrl', function ($scope, $http, cookie) {
 
 app.directive('fileModel', ['$parse', function ($parse) {
     return {
-       restrict: 'A',
-       link: function(scope, element, attrs) {
-          var model = $parse(attrs.fileModel);
-          var modelSetter = model.assign;
-          element.bind('change', function(){
-             scope.$apply(function(){
-                modelSetter(scope, element[0].files[0]);
-             });
-          });
-       }
+        restrict: 'A',
+        link: function (scope, element, attrs) {
+            var model = $parse(attrs.fileModel);
+            var modelSetter = model.assign;
+            element.bind('change', function () {
+                scope.$apply(function () {
+                    modelSetter(scope, element[0].files[0]);
+                });
+            });
+        }
     };
- }]);
+}]);
 
- app.service('fileUpload', ['$http', function ($http) {
-    this.uploadFileToUrl = function(file, uploadUrl){
-       var fd = new FormData();
-       fd.append('file', file);
-       $http.post(uploadUrl, fd, {
-          transformRequest: angular.identity,
-          headers: {'Content-Type': undefined}
-       })
-       .success(function(){
-            console.log("GOOD");
-       })
-       .error(function(){
-            console.log("BAD");
+app.service('fileUpload', ['$http', function ($http) {
+    this.uploadFileToUrl = function (file, uploadUrl) {
+        var fd = new FormData();
+        fd.append('file', file);
+        $http.post(uploadUrl, fd, {
+                transformRequest: angular.identity,
+                headers: {
+                    'Content-Type': undefined
+                }
+            })
+            .success(function () {
+                console.log("GOOD");
+            })
+            .error(function () {
+                console.log("BAD");
 
-       });
+            });
     }
- }]);
+}]);
 
- app.controller('myCtrl', ['$scope', 'fileUpload', function($scope, fileUpload){
-    $scope.uploadFile = function(){
-       var file = $scope.myFile;
-       var uploadUrl = "http://localhost:5000/savedata";
-       fileUpload.uploadFileToUrl(file, uploadUrl);
+app.controller('myCtrl', ['$scope', 'fileUpload', function ($scope, fileUpload) {
+    $scope.uploadFile = function () {
+        var file = $scope.myFile;
+        var uploadUrl = "http://localhost:5000/savedata";
+        fileUpload.uploadFileToUrl(file, uploadUrl);
     };
- }]);
+}]);

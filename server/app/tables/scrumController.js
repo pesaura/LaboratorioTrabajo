@@ -239,6 +239,19 @@ module.exports = {
         }   
 
     },
+    getUserHistoryStatus :function(req,res){
+        var estado = req.params.estado;
+        console.log(estado);
+        var query = 'SELECT * FROM user_story where  Status = ?';
+    
+        connection.query(query, [estado],function(err, result,fields){
+            if(err){
+                console.log(err);
+                return res.status(500).json({code:"get user_story By status Failed", message:"error en "+ estado});
+            }
+            return res.status(200).json({code:"one match task", data:result});
+        });
+    },
 
     /*OTRAS FUNCIONES DE UTILIDAD*/
     obtainListOfSprint:function(req, res){
