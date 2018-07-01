@@ -142,7 +142,9 @@ strong, abbr{
 }
 
 .dato {
-    color: aquamarine;
+	color: aquamarine;
+	font-size: 90%;
+	text-align: center;
 }
 
 .titulosHistorias {
@@ -167,6 +169,7 @@ strong, abbr{
 	border-radius: 4px;
 	background-color: #273746;
 	width: 100%;
+	text-align: center;
 }
 
 

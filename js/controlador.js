@@ -371,6 +371,30 @@ app.controller('MainCtrl', function ($scope, $http, cookie) {
         });
     }
 
+    $scope.addDeveloperAHistoria= function(){
+        var data = {
+            id_tm:parseInt(cookie.readCookie('sesionId'))
+            
+        };
+        /*$http({
+            url: 'http://localhost:5000/api/v1.0/createUserHistory',
+            method: 'POST',
+            data: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function mySuccess(response) {
+            console.log(response.data.data.insertId);
+            $scope.Id_historiasUsuario = response.data.data.insertId;
+            $scope.crearDevelop();
+           
+        }, function myError(response) {
+            console.log(response.data.code);
+        });*/
+    }
+
+
+
     $scope.crearDevelop = function(){
         var data = {
             Id_sprint:$scope.Id_sprint,
