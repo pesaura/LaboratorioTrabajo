@@ -157,6 +157,11 @@ strong, abbr{
     text-align: center;
    
 }
+.button_stile{
+	text-align: right;
+	margin-bottom: 10px;
+}
+
 
 .historias {
 	padding-left: 10px;

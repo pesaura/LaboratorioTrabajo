@@ -206,9 +206,10 @@
 									</div>
 								</form>
 							</div>
+							<div style="color: red">ver las historias de un usuario en concreto y poder modificar su estado</div>
 						</div>
 						<div class="col-md-9 col-sm-12 ListadoDatos " ng-show="verHistorias ">
-							<div class="historias" ng-repeat="historia in historias ">
+							<div class="historias" ng-repeat="historia in historias">
 								<h4 class="titulosHistorias">{{ historia.Nombre }} </h4>
 								<table class="table historias_t table-responsive-md table-responsive-lg table-responsive-sm table-responsive-xl">
 									<thead class="thead-dark">
@@ -221,7 +222,6 @@
 											<th>As a</th>
 											<th>I want</th>
 											<th>So that</th>
-											<th ng-show="sprintActivo"></th>
 										</tr>
 									</thead>
 									<tbody>
@@ -234,12 +234,13 @@
 											<td class="dato">{{historia.As_A}}</td>
 											<td class="dato">{{historia.I_Want}}</td>
 											<td class="dato">{{historia.So_That}}</td>
-											<td ng-show="sprintActivo">
-												<button type="button" class="btn btn-secondary" ng-click="addDeveloperAHistoria(Id)" value="Eliminar">Añadirse</button>
-											</td>
 										</tr>
 									</tbody>
 								</table>
+
+								<div class="button_stile col-md-12 col-sm-12" ng-show="sprintActivo">
+									<button type="button" class="btn btn-secondary" ng-click="addDeveloperAHistoria(historia.Id)" value="Eliminar">Añadirse a la historia</button>
+								</div>
 								<div class=" historias" ng-if="historias.length == 0">
 									<h3>No existen de Historias de Usuario </h3>
 								</div>

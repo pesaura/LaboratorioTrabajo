@@ -290,27 +290,40 @@ app.controller('MainCtrl', function ($scope, $http, cookie) {
     }
     ///////////////////////////////////////////////////
     // $scope.Historydevelop($scope.nombre);
-
-    $scope.addDeveloperAHistoria= function(){
-        var data = {
-            id_tm:parseInt(cookie.readCookie('sesionId'))
+    $scope.obtenerIdSprintActivo= function(){
+        $http({
+            url: 'http://localhost:5000/api/v1.0/obtainSprintActive',
+            method: 'GET'
+        }).then(function mySuccess(response) {
+            $scope.Id_sprintActivo = response.data.data[0].Id;
+            //console.log($scope.Id_sprintActivo);
             
+        }, function myError(response) {
+            console.log(response.data.code);
+        });  
+    }
+
+        $scope.obtenerIdSprintActivo(); //prueba
+
+    $scope.addDeveloperAHistoria= function(Id_us){
+        var data = {
+            Id_tm:parseInt(cookie.readCookie('sesionId')),
+            Id_sprint: $scope.Id_sprintActivo,
+            Id_us: Id_us
         };
-        /*$http({
-            url: 'http://localhost:5000/api/v1.0/createUserHistory',
+        console.log(data);
+        $http({
+            url: 'http://localhost:5000/api/v1.0/addDeveloperToUserStory',
             method: 'POST',
             data: JSON.stringify(data),
             headers: {
                 'Content-Type': 'application/json'
             }
         }).then(function mySuccess(response) {
-            console.log(response.data.data.insertId);
-            $scope.Id_historiasUsuario = response.data.data.insertId;
-            $scope.crearDevelop();
-           
+            console.log(response.data.data);
         }, function myError(response) {
             console.log(response.data.code);
-        });*/
+        });
     }
 //////////////////////////////////////////////////////////////////
 
