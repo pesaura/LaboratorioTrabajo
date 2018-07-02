@@ -259,11 +259,15 @@ module.exports = {
             {
                 "Id":
                 "US_status:"
+                "Horas_Acumuladas:"
+                "Comentarios":
             }
         */
         updateUserStoryStatus:function(req,res){
             var id=req.body.Id;
-            var status=req.body.US_status
+            var status=req.body.US_status;
+            var Horas_Acumuladas=req.body.Horas_Acumuladas;
+            var Comentarios=req.body.Comentarios;
             
             if(!id || !status){
                 return res.status(500).json({code:"updateUserStoryStatus_FAILED", message:"missing data in body id= "+id+" status= "+status });
@@ -276,7 +280,7 @@ module.exports = {
                     return res.status(500).json({code:"updateUserStoryStatus_FAILED", message:"NO match in select where id= "+id+" "});
                 }
 
-                connection.query("UPDATE user_story SET Status=? where Id=?",[status, id],function(err,result,fields){
+                connection.query("UPDATE user_story SET Comentarios=?, Horas_Acumuladas=?, Status=?  where Id=?",[Comentarios, Horas_Acumuladas, status, id],function(err,result,fields){
                     if(err){
                         return res.status(500).json({code:"updateUserStoryStatus_FAILED", message:"ERROR in UPDATE where id= "+id+" "});
                     }
