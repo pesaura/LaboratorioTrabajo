@@ -266,6 +266,18 @@ module.exports = {
         });
     },
 
+    obtainSprintActive:function(req, res){
+        
+        connection.query("SELECT * FROM sprint WHERE Status = 'Activo'",[],function(err,result,fields){
+            if(err){
+                console.log(err);
+                return res.status(500).json({code:"obtainSprintActive_failed",message:"error in obtainSprintActive"});
+            }
+            
+            return res.status(200).json({code:"obtainSprintActive_ok",data:result});
+        });
+    },
+
     changeSprintStatus:function(req, res){
 
         var Id=req.body.Id;             // Lo pasamos {"Id":"", "stat":""} mediante HTTP PUT
