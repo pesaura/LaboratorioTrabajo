@@ -256,7 +256,7 @@
 						<div class="col-md-3 separadorlateral">
 							<div class="Listado">
 								<h4>Crear un sprint </h4>
-								<button class="btn btn-outline-secondary" ng-click="mostrarSM('sprint')">Sprint</button>
+								<button class="btn btn-outline-secondary" ng-click="mostrarSM('verSprint')">Sprint</button>
 							</div>
 							<div class="Listado">
 								<h4>Añadir historias de usuario a un sprint pendiente </h4>
@@ -278,11 +278,15 @@
 									<h4>Ver listado de historias no iniciadas y suspendidas </h4>
 									<button class="btn btn-outline-secondary" ng-click="mostrarSM('verEliminarHistorias')">Mostrar historias</button>
 							</div>
+							<div class="Listado">
+									<h4>Cerrar el sprint activo </h4>
+									<button class="btn btn-outline-secondary" ng-click="mostrarSM('verTerminarSprint')">Cerrar</button>
+							</div>
 						</div>
 						<!-- //////Zona donde se ven las funcionalidades del Scrum master/////-->
 						<div class="col-md-9  ListadoDatos">
 							<!-- //////Crear un sprint /////-->
-							<form ng-submit="crearSprint()" ng-show="verSprint">
+							<form ng-submit="crearSprint()"  ng-if="verSeccionSM =='verSprint' ">
 								<div class="form-row">
 									<div class="form-group col-md-3">
 										<label>Nombre</label>
@@ -309,7 +313,7 @@
 							<br>
 							<br>
 							<!-- //////Ver los Sprint Pendientes /////-->
-							<div ng-show="historiaUsuarioP && !verCreacionHistoriasUsuario">
+							<div ng-if="verSeccionSM =='historiaUsuarioP' ">
 								<h4>Lista de Sprit pendientes</h4>
 								<table class="table historias_t" ng-if="SprintPendientes.length != 0">
 									<thead class="thead-dark">
@@ -344,7 +348,7 @@
 								</div>
 							</div>
 							<!-- //////Crear una historia de usuario y añadirla a un sprint /////-->
-							<div ng-show="verCreacionHistoriasUsuario">
+							<div  ng-if="verSeccionSM =='verCreacionHistoriasUsuario' ">
 								<form ng-submit="addHistoriasUsuarioSprint()">
 									<div class="form-row">
 										<div class="form-group col-md-3">
@@ -393,8 +397,10 @@
 								</form>
 							</div>
 							<!-- //////Crear una historia de usuario y añadirla a un sprint /////-->
-							<div ng-show="verHistoriasPendientes">
-								<h3>Historias pendientes de validación</h3>
+							<div  ng-if="verSeccionSM =='verHistoriasSM' " >
+								<h3 ng-show="!verSprintActivo && !verEliminarHistorias">Historias pendientes de validación</h3>
+								<h3 ng-show="verSprintActivo">Historias del Sprint activo</h3>
+								<h3 ng-show="verEliminarHistorias">Historias a eliminar</h3>
 								<div class="row justify-content-md-center">
 									<div class="historias historias_w col-md-5 col-sm-10 col-10" ng-repeat="historia in Pendientes">
 											<h4 class="titulosHistorias">{{ historia.Nombre }} </h4>
@@ -434,7 +440,9 @@
 												<tbody>
 													<tr>
 														<td>
-															<button type="button" class="btn btn-secondary" ng-click="validarHistoria(historia.Id)" >Validar</button>
+															<button ng-show="!verSprintActivo && !verEliminarHistorias" type="button" class="btn btn-secondary" ng-click="validarHistoria(historia.Id)" >Validar</button>
+															<button ng-show="verSprintActivo" type="button" class="btn btn-secondary" ng-click="addHistoriasUsuarioSprint(historia.Id)" >Añadir Historia</button>
+															<button ng-show="verEliminarHistorias" type="button" class="btn btn-secondary" ng-click="EliminarHistorias(historia.Id)" >Eliminar</button>
 														</td>
 													</tr>
 												</tbody>
@@ -444,6 +452,10 @@
 											</div>
 									</div>
 								</div>
+							</div>
+							<div  ng-if="verSeccionSM =='verTerminarSprint' ">
+									<h3>Dar por terminado el sprint activo</h3>
+									<button class="btn btn-secondary" ng-click="">Terminar</button>
 							</div>
 						</div>
 					</div>
