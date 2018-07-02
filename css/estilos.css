@@ -168,14 +168,21 @@ strong, abbr{
 	margin-left: 5px;
 	margin-right: 10px;
 
+	width: 100%;
+
 }
+
 
 .historias_t {
 	background-color: #273746;
-	width: 100%;
-	
+	width: 100%;	
 }
 
+pad_hist{
+	margin-right: 100px;
+	margin-left: 100px;
+	margin-bottom: 100px;
+}
 
 .ListadoDatos {
 	float: left;
