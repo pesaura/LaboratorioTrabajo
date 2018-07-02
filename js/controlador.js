@@ -195,11 +195,23 @@ app.controller('MainCtrl', function ($scope, $http, cookie) {
             url: "http://localhost:5000/api/v1.0/user_story_status/" + estado,
         }).then(function mySuccess(response) {
             $scope.verHistorias = true;
-            if (estado === 'terminada') {
-                $scope.historias = response.data.data;
-            } else {
-                $scope.historiasUsuario = response.data.data;
+            switch (estado) {
+                case 'terminada':
+                    $scope.historias = response.data.data;
+                    break;
+                case 'No_iniciada':
+                    $scope.historiasNo_iniciada = response.data.data;
+                    console.log($scope.historiasNo_iniciada);
+                    break;
+                case 'Suspendida':
+                     $scope.historiasSuspendida = response.data.data;
+                     console.log($scope.historiasSuspendida);
+                     $scope.JuntarHistorias();
+                    break;
+                default:
+                    break;
             }
+           
             $scope.sprintActivo = false;
         }, function myError(response) {
 
@@ -221,6 +233,7 @@ app.controller('MainCtrl', function ($scope, $http, cookie) {
             $scope.verHistorias = true;
             if (estado === 'Activo') {
                 $scope.historias = response.data.data;
+                $scope.Pendientes = response.data.data;
                 $scope.sprintActivo = true;
             }
         }, function myError(response) {
@@ -259,7 +272,7 @@ app.controller('MainCtrl', function ($scope, $http, cookie) {
             console.log($scope.datosDevs);
         });
     }
-    
+    $scope.NombresUser();
     ///////Listado de Historias de Usuario asignadas a un Desarrollador concreto/////    
     $scope.Historydevelop = function (nombre) {
         console.log(nombre)
@@ -342,10 +355,17 @@ app.controller('MainCtrl', function ($scope, $http, cookie) {
                 $scope.mostrarHistoriasPendientes()
                 $scope.activarSprint  = false, $scope.historiaUsuarioP  = false, $scope.verSprint = false, $scope.verCreacionHistoriasUsuario = false, $scope.verEliminarHistorias = false;
                 break;
+            case 'verSprintActivo':
+                $scope.verSprintActivo = true;
+                $scope.verHistoriasPendientes = true;
+                $scope.HistorySprintEstatus('Activo');
+                $scope.activarSprint  = false, $scope.historiaUsuarioP  = false, $scope.verSprint = false, $scope.verCreacionHistoriasUsuario = false, $scope.verEliminarHistorias = false;
+                break;
             case 'verEliminarHistorias':
                 $scope.verEliminarHistorias = true;
-                $scope.mostrarHistoriasEliminar()
-                $scope.verHistoriasPendientes = false ,$scope.activarSprint  = false, $scope.historiaUsuarioP  = false, $scope.verSprint = false, $scope.verCreacionHistoriasUsuario = false;
+                $scope.verHistoriasPendientes = true;
+                $scope.mostrarHistoriasEliminar();
+                $scope.activarSprint  = false, $scope.historiaUsuarioP  = false, $scope.verSprint = false, $scope.verCreacionHistoriasUsuario = false;
                 break;
         }
     }
@@ -447,6 +467,7 @@ app.controller('MainCtrl', function ($scope, $http, cookie) {
             }
         }).then(function mySuccess(response) {
             console.log(response.data);
+            $scope.MensajeDevelop = "Historia de usuario creada y asociada a un sprint correctamente";
         }, function myError(response) {
             console.log(response.data.code);
         });
@@ -505,7 +526,32 @@ app.controller('MainCtrl', function ($scope, $http, cookie) {
 
     //Funcion para ver las historias No iniciadas y pendientes
     $scope.mostrarHistoriasEliminar = function(){
-        
+        $scope.HistoryStatus('No_iniciada');
+        $scope.HistoryStatus('Suspendida');
+    }
+    $scope.JuntarHistorias= function(){
+       console.log($scope.historiasNo_iniciada);
+       console.log($scope.historiasSuspendida);
+       $scope.Pendientes = $scope.historiasNo_iniciada.concat($scope.historiasSuspendida);
+       console.log($scope.Pendientes)
+    }
+    $scope.EliminarHistorias = function(ID){
+        var data = {
+            Id: ID,
+        };
+        $http({
+            url: 'http://localhost:5000/api/v1.0/deleteUserStoyById',
+            method: 'DELETE',
+            data: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function mySuccess(response) {
+            console.log(response.data);
+            $scope.mostrarHistoriasPendientes();
+        }, function myError(response) {
+            console.log(response.data.code);
+        });
     }
 
 
