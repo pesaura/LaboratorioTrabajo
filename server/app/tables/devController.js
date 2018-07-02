@@ -345,7 +345,7 @@ module.exports = {
                     console.log(err);
                     return res.status(500).json({code : "getUserStoryWithoutDeveloper failed", message:"error Insert getUserStoryWithoutDeveloper"});
                 }
-                return res.status(200).json({code:"getUserStoryWithoutDeveloper _OK", message:"Tabla getUserStoryWithoutDeveloper "});
+                return res.status(200).json({code:"getUserStoryWithoutDeveloper _OK", data:result});
             });
         },
 
