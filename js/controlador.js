@@ -249,7 +249,8 @@ app.controller('MainCtrl', function ($scope, $http, cookie) {
     ///////////////////////////////////////////////////
     // $scope.HistorySprintMultiple();
     //// Función para obtener los datos de los desarrolladores (necesaraia para la siguiente función)
-    $http.get("http://localhost:5000/api/v1.0/table/team_member")
+    $scope.NombresUser = function(){
+        $http.get("http://localhost:5000/api/v1.0/table/team_member")
         .then(function mySuccess(response) {
             $scope.datosDevs = new Array()
             angular.forEach(response.data.data, function (v, k) {
@@ -257,7 +258,8 @@ app.controller('MainCtrl', function ($scope, $http, cookie) {
             });
             console.log($scope.datosDevs);
         });
-
+    }
+    
     ///////Listado de Historias de Usuario asignadas a un Desarrollador concreto/////    
     $scope.Historydevelop = function (nombre) {
         console.log(nombre)
@@ -276,6 +278,29 @@ app.controller('MainCtrl', function ($scope, $http, cookie) {
     ///////////////////////////////////////////////////
     // $scope.Historydevelop($scope.nombre);
 
+    $scope.addDeveloperAHistoria= function(){
+        var data = {
+            id_tm:parseInt(cookie.readCookie('sesionId'))
+            
+        };
+        /*$http({
+            url: 'http://localhost:5000/api/v1.0/createUserHistory',
+            method: 'POST',
+            data: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function mySuccess(response) {
+            console.log(response.data.data.insertId);
+            $scope.Id_historiasUsuario = response.data.data.insertId;
+            $scope.crearDevelop();
+           
+        }, function myError(response) {
+            console.log(response.data.code);
+        });*/
+    }
+//////////////////////////////////////////////////////////////////
+
 
     ////////////////////////////////////////////////////////
     /// Funciones del Scrum Master //////
@@ -285,24 +310,29 @@ app.controller('MainCtrl', function ($scope, $http, cookie) {
             case 'sprint':
                 $scope.verSprint = true;
                 $scope.comprobacionSprintActivo();
-                $scope.historiaUsuarioP = false, $scope.verCreacionHistoriasUsuario = false, $scope.verHistoriasPendientes = false,$scope.activarSprint = false;
+                $scope.historiaUsuarioP = false, $scope.verCreacionHistoriasUsuario = false, $scope.verHistoriasPendientes = false,$scope.activarSprint = false, $scope.verEliminarHistorias = false;
                 break;
             case 'historiaUsuarioP':
                 $scope.historiaUsuarioP = true;
-                $scope.showHistoriasUsuarioSprintPendiente();
-                $scope.verSprint = false, $scope.verCreacionHistoriasUsuario = false, $scope.verHistoriasPendientes = false,$scope.activarSprint = false;
+                $scope.mostrarHistoriasUsuarioSprintPendiente();
+                $scope.verSprint = false, $scope.verCreacionHistoriasUsuario = false, $scope.verHistoriasPendientes = false,$scope.activarSprint = false, $scope.verEliminarHistorias = false;
                 break;
             case 'activarSprint':
                 $scope.activarSprint = true;
                 $scope.historiaUsuarioP = true;
-                $scope.showHistoriasUsuarioSprintPendiente();
+                $scope.mostrarHistoriasUsuarioSprintPendiente();
                 $scope.comprobacionSprintActivo();
-                $scope.verSprint = false, $scope.verCreacionHistoriasUsuario = false, $scope.verHistoriasPendientes = false;
+                $scope.verSprint = false, $scope.verCreacionHistoriasUsuario = false, $scope.verHistoriasPendientes = false,$scope.verEliminarHistorias = false;
                 break;
             case 'verHistoriasPendientes':
                 $scope.verHistoriasPendientes = true;
-                $scope.HistoriasPendientes()
-                $scope.activarSprint  = false, $scope.historiaUsuarioP  = false, $scope.verSprint = false, $scope.verCreacionHistoriasUsuario = false;
+                $scope.mostrarHistoriasPendientes()
+                $scope.activarSprint  = false, $scope.historiaUsuarioP  = false, $scope.verSprint = false, $scope.verCreacionHistoriasUsuario = false, $scope.verEliminarHistorias = false;
+                break;
+            case 'verEliminarHistorias':
+                $scope.verEliminarHistorias = true;
+                $scope.mostrarHistoriasEliminar()
+                $scope.verHistoriasPendientes = false ,$scope.activarSprint  = false, $scope.historiaUsuarioP  = false, $scope.verSprint = false, $scope.verCreacionHistoriasUsuario = false;
                 break;
         }
     }
@@ -318,6 +348,7 @@ app.controller('MainCtrl', function ($scope, $http, cookie) {
             });
     }
 
+    //// Funcion para Crear Un Sprnt
     $scope.crearSprint = function () {
         var data = {
             Fecha_Inicio: $scope.fechaInicio,
@@ -334,7 +365,7 @@ app.controller('MainCtrl', function ($scope, $http, cookie) {
             }
         }).then(function mySuccess(response) {
             console.log(response.data);
-            $scope.showHistoriasUsuarioSprintPendiente();
+            $scope.mostrarHistoriasUsuarioSprintPendiente();
             $scope.verSprint = false;
             $scope.verCreacionHistoriasUsuario = false;
             $scope.historiaUsuarioP = true;
@@ -343,21 +374,24 @@ app.controller('MainCtrl', function ($scope, $http, cookie) {
         });
 
     }
+    /////////////// Fin de función/////////////////////////////////
 
-    $scope.showHistoriasUsuarioSprintPendiente = function () {
+    ///////Función para ver los Sprint pendietes, necesaria para añadirles historias de usuario
+    $scope.mostrarHistoriasUsuarioSprintPendiente = function () {
         $http.get("http://localhost:5000/api/v1.0/sprint/Pendiente")
             .then(function mySuccess(response) {
                 $scope.SprintPendientes = response.data.data;
                 console.log($scope.SprintPendientes);
             });
     }
-
+    //////Función para recivir el ID de sprint al que la añadiremos la historia de usuario
     $scope.mostrarHistoriaUsuario = function (Id) {
         $scope.Id_sprint = Id;
         $scope.verCreacionHistoriasUsuario = true;
         console.log($scope.Id_sprint);
     }
-    $scope.addHistoriasUsuarioSprintPendiente = function () {
+    //Función que crea la hisroria de usuario
+    $scope.addHistoriasUsuarioSprint = function () {
         var data = {
             Nombre: $scope.nombreHistoria,
             Prioridad: $scope.prioridad,
@@ -383,31 +417,9 @@ app.controller('MainCtrl', function ($scope, $http, cookie) {
             console.log(response.data.code);
         });
     }
+    ////////////////Fin de la función
 
-    $scope.addDeveloperAHistoria= function(){
-        var data = {
-            id_tm:parseInt(cookie.readCookie('sesionId'))
-            
-        };
-        /*$http({
-            url: 'http://localhost:5000/api/v1.0/createUserHistory',
-            method: 'POST',
-            data: JSON.stringify(data),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }).then(function mySuccess(response) {
-            console.log(response.data.data.insertId);
-            $scope.Id_historiasUsuario = response.data.data.insertId;
-            $scope.crearDevelop();
-           
-        }, function myError(response) {
-            console.log(response.data.code);
-        });*/
-    }
-
-
-
+    ///// Relacionamos el Id del sprint con el Id de la historia en la tabla develop
     $scope.crearDevelop = function(){
         var data = {
             Id_sprint: $scope.Id_sprint,
@@ -427,33 +439,61 @@ app.controller('MainCtrl', function ($scope, $http, cookie) {
         });
     }
 
+    ////// Función que cambia el estado del del Sprint
     $scope.cambiarEstadoSprint = function (Id, status) {
         var data = {
-            Id_sprint: Id,
-            Id_us: status
+            Id:Id,
+            stat: status
         };
+        
         $http({
             url: 'http://localhost:5000/api/v1.0/changeSprintStatus',
-            method: 'POST',
+            method: 'PUT',
             data: JSON.stringify(data),
             headers: {
                 'Content-Type': 'application/json'
             }
         }).then(function mySuccess(response) {
             console.log(response.data);
+            $scope.mostrarHistoriasUsuarioSprintPendiente();
         }, function myError(response) {
-            console.log(response.data.code);
+            console.log(response.data);
         });
 
     }
-    $scope.HistoriasPendientes = function () {
+
+    /////////////Funciones para devolver las Historias pendientes y validarlas//////////
+    $scope.mostrarHistoriasPendientes = function () {
         $http.get("http://localhost:5000/api/v1.0/getUserHistoryStatus/Pendiente_de_validacion")
             .then(function mySuccess(response) {
                 $scope.Pendientes = response.data.data;
                 console.log($scope.Pendientes);
             });
     }
+    $scope.validarHistoria = function(Id){
+        var data = {
+            Id: Id,
+            US_status: "Terminada"
+        };
+        $http({
+            url: 'http://localhost:5000/api/v1.0/updateUserStoryStatus',
+            method: 'PUT',
+            data: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function mySuccess(response) {
+            console.log(response.data);
+            $scope.mostrarHistoriasPendientes();
+        }, function myError(response) {
+            console.log(response.data.code);
+        });
+    }
 
+    //Funcion para ver las historias No iniciadas y pendientes
+    $scope.mostrarHistoriasEliminar = function(){
+        
+    }
 
 
 

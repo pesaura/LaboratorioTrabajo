@@ -273,7 +273,7 @@ module.exports = {
 
         //console.log(!Id || !(stat=="Activo" || stat=="Terminado"));  
 
-        if(!Id || !(stat=="Activo" || stat=="Terminado") ){
+        if(!Id || !(stat=="Activo" || stat=="Terminado"|| stat=="Pendiente") ){
             return res.status(500).json({code:"changeSprintStatus_failed",message:"Invalid Data ->Id="+Id+" Status="+stat});
         }
 
