@@ -71,6 +71,9 @@ app.put('/api/v1.0/updateUserStoryStatus',devController.updateUserStoryStatus);
 app.get('/api/v1.0/obtainListOfSprint', scrumController.obtainListOfSprint);
 app.put('/api/v1.0/changeSprintStatus', scrumController.changeSprintStatus);
 
+//02/07
+app.get('/api/v1.0/getUserStoryWithoutDeveloper',devController.getUserStoryWithoutDeveloper);
+
 /*--------------------------------------------------------------------------- */
 
 /** OBTAIN TASK from id FROM DATABASE */

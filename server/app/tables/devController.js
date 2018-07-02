@@ -339,4 +339,14 @@ module.exports = {
             }); 
         },
 
+        getUserStoryWithoutDeveloper:function(req,res){
+            connection.query("SELECT * FROM `develop` INNER JOIN user_story ON develop.Id_us=user_story.id WHERE develop.Id_tm='Null'",[],function(err, result,fields){
+                if(err){
+                    console.log(err);
+                    return res.status(500).json({code : "getUserStoryWithoutDeveloper failed", message:"error Insert getUserStoryWithoutDeveloper"});
+                }
+                return res.status(200).json({code:"getUserStoryWithoutDeveloper _OK", data:result});
+            });
+        },
+
 };
