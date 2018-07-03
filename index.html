@@ -99,7 +99,6 @@
 				</ul>
 			</div>
 		</nav>
-
 		<div class="container-fluid" id="cubrir">
 			<header id="CabP" ng-show="!verdatos">
 				<div class="row">
@@ -152,7 +151,7 @@
 				</div>
 			</div>
 		</div>
-
+	</div>
 		<main ng-controller="MainCtrl">
 			<section class="margin_style" id="button_historias">
 				<div class="container-fluid margin_style">
@@ -175,7 +174,7 @@
 						</div>
 					</div>
 				</div>
-			</section>
+			</section> 
 			<section>
 				<div class="container-fluid" ng-show="vermenu">
 					<div class="row">
@@ -287,7 +286,7 @@
 						<!-- //////Zona donde se ven las funcionalidades del Scrum master/////-->
 						<div class="col-md-9  ListadoDatos">
 							<!-- //////Crear un sprint /////-->
-							<form ng-submit="crearSprint()"  ng-if="verSeccionSM =='verSprint' ">
+							<form ng-submit="crearSprint()"  ng-show="verSprint ">
 								<div class="form-row">
 									<div class="form-group col-md-3">
 										<label>Nombre</label>
@@ -308,8 +307,7 @@
 										<input required type="date" class="form-control" ng-model="fechaFin">
 									</div>
 								</div>
-								<button type="submit" class="btn btn-secondary">Crear</button>
-								<spam ng-show="SprintActivo"> Solo puede haber un sprint activo a la vez </spam>
+								<button type="submit"  class="btn btn-secondary">Crear</button>
 							</form>
 							<br>
 							<br>
@@ -347,9 +345,10 @@
 								<div class=" historias" ng-if="SprintPendientes.length == 0">
 										<h3>No existen de Srint pendientes </h3>
 								</div>
+								<span ng-show="MensajeDevelop" >{{MensajeDevelop}}</span>
 							</div>
 							<!-- //////Crear una historia de usuario y añadirla a un sprint /////-->
-							<div  ng-if="verSeccionSM =='verCreacionHistoriasUsuario' ">
+							<div  ng-show="verCreacionHistoriasUsuario">
 								<form ng-submit="addHistoriasUsuarioSprint()">
 									<div class="form-row">
 										<div class="form-group col-md-3">
@@ -393,6 +392,7 @@
 									<div class="form-row">
 										<div class="form-group col-md-2  ">
 											<button type="submit" class=" form-control  btn btn-secondary">Crear</button>
+											<spam style="color: red" ng-show="MensajeDevelopError">{{MensajeDevelopError}}</spam>
 										</div>
 									</div>
 								</form>
@@ -442,40 +442,65 @@
 													<tr>
 														<td>
 															<button ng-show="!verSprintActivo && !verEliminarHistorias" type="button" class="btn btn-secondary" ng-click="validarHistoria(historia.Id)" >Validar</button>
-															<button ng-show="verSprintActivo" type="button" class="btn btn-secondary" ng-click="addHistoriasUsuarioSprint(historia.Id)" >Añadir Historia</button>
 															<button ng-show="verEliminarHistorias" type="button" class="btn btn-secondary" ng-click="EliminarHistorias(historia.Id)" >Eliminar</button>
 														</td>
 													</tr>
 												</tbody>
 											</table>
-											<div class=" historias" ng-if="historias.length == 0">
-												<h3>No existen de Historias de Usuario </h3>
-											</div>
 									</div>
+									<button ng-show="verSprintActivo" type="button" class="btn btn-secondary" ng-click="addHistoriasUsuarioSprint()" >Añadir Historia</button>
+									<div class=" historias" ng-if="Pendientes.length == 0">
+											<h3>No existen de Historias de Usuario </h3>
+										</div>
 								</div>
 							</div>
 							<div  ng-if="verSeccionSM =='verTerminarSprint' ">
 									<h3>Dar por terminado el sprint activo</h3>
-									<button class="btn btn-secondary" ng-click="">Terminar</button>
+									<div class="col-md-9" ng-repeat="historia in SprintActivoTerminar" ng-if="SprintActivoTerminar.length != 0">
+										<table class="table historias_t table-responsive-md table-responsive-lg table-responsive-sm table-responsive-xl">
+											<tr>
+												<th>Nombre</th>
+												<td class="dato2">{{historia.Nombre}}</td>
+											</tr>
+											<tr>
+												<th>Fecha de Inicio</th>
+												<td class="dato2">{{historia.Fecha_Inicio | date:"yyyy/MM/dd"}}</td>
+											</tr>
+											<tr>
+												<th>Fecha de finalización</th>
+												<td class="dato2">{{historia.Fecha_Fin | date:"yyyy/MM/dd"}}</td>
+											</tr>
+											<tr>
+												<th>Descripción</th>
+												<td class="dato2">{{historia.Review}}</td>
+											</tr>							
+										</table>
+										<!-- Subir Archivos -->
+										<div ng-show="reviewMeeting" class="form-group row">
+											
+												<div class="col-sm-8">
+													<input type="file" class="form-control" file-model="myFile" />
+												</div>
+											<button ng-click="uploadFile()" class="btn btn-secondary">Subir sprint review meeting</button>
+										
+										</div>
+										<!-- Subir Archivos -->
+										<button ng-show="!reviewMeeting" type="button" class="btn btn-secondary" ng-click="terminarSrintActivo()" >Terminar</button>
+										<div class="historias" ng-if="SprintActivoTerminar.length == 0">
+												<h3>No existe ningun sprint activo </h3>
+										</div>
+									</div>
+								</div>	
 							</div>
 						</div>
 					</div>
-					
-					<!-- Subir Archivos -->
-					<div ng-controller="myCtrl" class="form-group row">
-						<div class="col-sm-8">
-							<input type="file" class="form-control" file-model="myFile" />
-						</div>
-						<button ng-click="uploadFile()" class="btn btn-primary">Upload File</button>
-					</div>
-				</div>
-					<!-- Subir Archivos -->
+				
 
 
-			</div>
-		</section>
+	  </div>
+			</section>
 		<br>
-	</main>
+		</main>
 	<footer class="finP" id="final">
 		<br>
 		

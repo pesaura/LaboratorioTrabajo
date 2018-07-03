@@ -93,7 +93,7 @@ app.delete('/api/v1.0/task/id/:taskId', taskController.deleteTableById);
 ///////////////////////////////////////////////////// subir archivo
 
 var storage = multer.diskStorage({
-    destination: './uploads/',
+    destination: './sprint_review_meeting/',
     filename: function (req, file, cb) {
       cb(null, file.originalname.replace(path.extname(file.originalname), "") + '-' + Date.now() + path.extname(file.originalname))
     }
