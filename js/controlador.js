@@ -268,7 +268,8 @@ app.controller('MainCtrl', function ($scope, $http, cookie) {
             $scope.actualizarEstadoHist = true; 
             $scope.verdatosCuandoNoMod =false;
             
-            console.log(response.data);
+            //console.log(response.data.data);
+            $scope.historias = response.data.data;
 
         }, function myError(response) {
             console.log(response.data.code);
@@ -297,8 +298,6 @@ app.controller('MainCtrl', function ($scope, $http, cookie) {
             console.log(response.data.code);
         });
     }
-
-
 
 
     ///////Función para el Listado de Historias de Usuario asignadas a más de un Sprint(en cualquier estado)/////

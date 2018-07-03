@@ -198,7 +198,6 @@ module.exports = {
    getUserHistorydevelopOfSprintActive :function(req,res){
     var tm=req.body.Id_tm;
     var sprint=req.body.Id_sprint;
-    console.log(req.body);
 
         connection.query('select Id_us from develop where Id_tm=?  and Id_sprint=?', [tm, sprint],function(err, result,fields){
             if(err){

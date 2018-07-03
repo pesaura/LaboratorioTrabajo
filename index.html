@@ -205,7 +205,7 @@
 								</form>
 							</div>
 							<div class="Listado">
-								<h4>Actualizar estado de la historia de usuario</h4>
+								<h4>Actualizar estado de la histori asociadas al desarrollador {{nombre}}</h4>
 								<button class="btn btn-outline-secondary" ng-click="ModHistorySprintEstatus()">Ver historias</button>
 							</div>
 						</div>
@@ -230,22 +230,19 @@
 											<td class="dato">{{historia.Prioridad}}</td>
 											<td class="dato">{{historia.Dificultad}}</td>
 											<td class="dato">
-												<input id="input_Coment" ng-show="actualizarEstadoHist" required type="text" class="form-control mb-2" placeholder="historia.Comentarios" ng-model="historia.Comentarios">
+												<input style="width: 250px;" ng-show="actualizarEstadoHist" required type="text" class="form-control mb-2" placeholder="historia.Comentarios" ng-model="historia.Comentarios">
 												<span ng-show="verdatosCuandoNoMod">{{historia.Comentarios}}</span>
 											</td>
-
 											<td class="dato">
 												<input id="input_Horas" ng-show="actualizarEstadoHist" required type="number" min="historia.Horas_Acumuladas" class="form-control mb-2" placeholder="historia.Horas_Acumuladas" ng-model="historia.Horas_Acumuladas">
 												<span ng-show="verdatosCuandoNoMod">{{historia.Horas_Acumuladas}}</span>
 											</td>
 											<td class="dato">
 													<select id="input_Status" ng-show="actualizarEstadoHist" required ng-model="historia.Status">
-															
-															<option value="En_curso">En curso</option>
-															<option value="Pendiente_de_validacion">Pendiente</option>
+														<option value="En_curso">En curso</option>
+														<option value="Pendiente_de_validacion">Pendiente</option>
 													</select>
 													<span ng-show="verdatosCuandoNoMod">{{historia.Status}}</span>
-												
 											</td>
 											<td class="dato">{{historia.As_A}}</td>
 											<td class="dato">{{historia.I_Want}}</td>
