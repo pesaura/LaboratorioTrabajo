@@ -195,6 +195,8 @@ app.controller('MainCtrl', function ($scope, $http, cookie,fileUpload) {
             url: "http://localhost:5000/api/v1.0/user_story_status/" + estado,
         }).then(function mySuccess(response) {
             $scope.verHistorias = true;
+            $scope.actualizarEstadoHist = false; 
+            $scope.verdatosCuandoNoMod =true;
             switch (estado) {
                 case 'terminada':
                     $scope.historias = response.data.data;
@@ -230,6 +232,8 @@ app.controller('MainCtrl', function ($scope, $http, cookie,fileUpload) {
         }).then(function mySuccess(response) {
             console.log(response.data.data);
             $scope.verHistorias = true;
+            $scope.actualizarEstadoHist = false; 
+            $scope.verdatosCuandoNoMod =true;
             if (estado === 'Activo') {
                 $scope.historias = response.data.data;
                 $scope.Pendientes = response.data.data;
@@ -240,7 +244,60 @@ app.controller('MainCtrl', function ($scope, $http, cookie,fileUpload) {
         });
     }
     ///////////////////////////////////////////////////
-    //$scope.HistorySprintEstatus($scope.estadoSprint);    
+    //$scope.HistorySprintEstatus($scope.estadoSprint);
+    
+    $scope.actualizarEstadoHist = false;
+    $scope.verdatosCuandoNoMod = true;
+    ///////Función para Modificar el Listado de Historias de Usuario del Sprint activo (en cualquier estado)/////
+    $scope.ModHistorySprintEstatus = function () {
+        var data = {
+            Id_tm:parseInt(cookie.readCookie('sesionId')),
+            Id_sprint:$scope.Id_sprintActivo
+        };
+        //console.log(data);
+        $http({
+            url: "http://localhost:5000/api/v1.0/getUserHistorydevelopOfSprintActive/",
+            method: "POST",
+            data: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function mySuccess(response) {
+            $scope.verHistorias = true;
+            $scope.actualizarEstadoHist = true; 
+            $scope.verdatosCuandoNoMod =false;
+            
+            //console.log(response.data.data);
+            $scope.historias = response.data.data;
+
+        }, function myError(response) {
+            console.log(response.data.code);
+        });
+    }
+
+    $scope.actualizarEstadodeHistorias= function(coment,horasAcu,statu){
+        var data = {
+            Id:parseInt(cookie.readCookie('sesionId')),
+            US_status: statu,
+            Horas_Acumuladas: horasAcu,
+            Comentarios: coment
+        };
+        console.log(data);
+        $http({
+            url: 'http://localhost:5000/api/v1.0/updateUserStoryStatus',
+            method: 'PUT',
+            data: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function mySuccess(response) {
+            console.log(response.data.data);
+            $scope.ModHistorySprintEstatus();
+        }, function myError(response) {
+            console.log(response.data.code);
+        });
+    }
+
 
     ///////Función para el Listado de Historias de Usuario asignadas a más de un Sprint(en cualquier estado)/////
     $scope.HistorySprintMultiple = function () {
@@ -250,6 +307,8 @@ app.controller('MainCtrl', function ($scope, $http, cookie,fileUpload) {
         }).then(function mySuccess(response) {
             console.log(response.data.data);
             $scope.verHistorias = true;
+            $scope.actualizarEstadoHist = false; 
+            $scope.verdatosCuandoNoMod =true;
             $scope.historias = response.data.data;
 
         }, function myError(response) {
@@ -279,6 +338,8 @@ app.controller('MainCtrl', function ($scope, $http, cookie,fileUpload) {
             url: "http://localhost:5000/api/v1.0/user_story_develop/" + nombre
         }).then(function mySuccess(response) {
             $scope.verHistorias = true;
+            $scope.actualizarEstadoHist = false; 
+            $scope.verdatosCuandoNoMod =true;
             console.log(response.data.data);
             $scope.historias = response.data.data;
             $scope.sprintActivo = false;

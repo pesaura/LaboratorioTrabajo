@@ -89,8 +89,6 @@
 							<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 								<a class="dropdown-item" href="#" ng-click="mostrarModificarDatos()">Datos Personales</a>
 								<div class="dropdown-divider"></div>
-								<a class="dropdown-item" href="#">Proyectos</a>
-								<div class="dropdown-divider"></div>
 								<a class="dropdown-item" href="#" ng-click="logout()">cerrar sesión</a>
 							</div>
 						</div>
@@ -205,9 +203,12 @@
 									</div>
 								</form>
 							</div>
-							<div style="color: red">ver las historias de un usuario en concreto y poder modificar su estado</div>
+							<div class="Listado">
+								<h4>Actualizar estado de la histori asociadas al desarrollador {{nombre}}</h4>
+								<button class="btn btn-outline-secondary" ng-click="ModHistorySprintEstatus()">Ver historias</button>
+							</div>
 						</div>
-						<div class="col-md-9 col-sm-12 ListadoDatos " ng-show="verHistorias ">
+						<div class="col-md-9 col-sm-12 ListadoDatos " ng-show="verHistorias">
 							<div class="historias" ng-repeat="historia in historias">
 								<h4 class="titulosHistorias">{{ historia.Nombre }} </h4>
 								<table class="table historias_t table-responsive-md table-responsive-lg table-responsive-sm table-responsive-xl">
@@ -227,18 +228,32 @@
 										<tr>
 											<td class="dato">{{historia.Prioridad}}</td>
 											<td class="dato">{{historia.Dificultad}}</td>
-											<td class="dato">{{historia.Comentarios}}</td>
-											<td class="dato">{{historia.Horas_Acumuladas}}</td>
-											<td class="dato">{{historia.Status}}</td>
+											<td class="dato">
+												<input style="width: 250px;" ng-show="actualizarEstadoHist" required type="text" class="form-control mb-2" placeholder="historia.Comentarios" ng-model="historia.Comentarios">
+												<span ng-show="verdatosCuandoNoMod">{{historia.Comentarios}}</span>
+											</td>
+											<td class="dato">
+												<input id="input_Horas" ng-show="actualizarEstadoHist" required type="number" min="historia.Horas_Acumuladas" class="form-control mb-2" placeholder="historia.Horas_Acumuladas" ng-model="historia.Horas_Acumuladas">
+												<span ng-show="verdatosCuandoNoMod">{{historia.Horas_Acumuladas}}</span>
+											</td>
+											<td class="dato">
+													<select id="input_Status" ng-show="actualizarEstadoHist" required ng-model="historia.Status">
+														<option value="En_curso">En curso</option>
+														<option value="Pendiente_de_validacion">Pendiente</option>
+													</select>
+													<span ng-show="verdatosCuandoNoMod">{{historia.Status}}</span>
+											</td>
 											<td class="dato">{{historia.As_A}}</td>
 											<td class="dato">{{historia.I_Want}}</td>
 											<td class="dato">{{historia.So_That}}</td>
 										</tr>
 									</tbody>
 								</table>
-
+								<div class="button_stile col-md-12 col-sm-12" ng-show="actualizarEstadoHist">
+									<button type="button" class="btn btn-secondary" ng-click="actualizarEstadodeHistorias(historia.Comentarios,historia.Horas_Acumuladas,historia.Status)" value="modificar">modificar</button>
+								</div>
 								<div class="button_stile col-md-12 col-sm-12" ng-show="sprintActivo">
-									<button type="button" class="btn btn-secondary" ng-click="addDeveloperAHistoria(historia.Id)" value="Eliminar">Añadirse a la historia</button>
+										<button type="button" class="btn btn-secondary" ng-click="addDeveloperAHistoria(historia.Id)" value="Eliminar">Añadirse a la historia</button>
 								</div>
 								<div class=" historias" ng-if="historias.length == 0">
 									<h3>No existen de Historias de Usuario </h3>
@@ -495,7 +510,6 @@
 						</div>
 					</div>
 				
-
 
 	  </div>
 			</section>
