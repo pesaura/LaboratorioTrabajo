@@ -190,7 +190,35 @@ module.exports = {
             return res.status(200).json({code:"one match task", data:result});
         });
     },
-      
+
+
+    /*listado de histoias de usuario asociadas a un usuario en concreto del sprint activo
+        SELECT * FROM user_story where Id in(select id_us from develop where id_tm=tm  and Id_sprint=sprint)
+    */
+   getUserHistorydevelopOfSprintActive :function(req,res){
+    var tm=req.body.Id_tm;
+    var sprint=req.body.Id_sprint;
+    console.log(req.body);
+
+    var data={
+        Id_tm:tm,
+        Id_sprint:sprint,
+    };
+
+        connection.query('SELECT * FROM user_story where Id in(select id_us from develop where id_tm=?  and Id_sprint=?', [tm, sprint],function(err, result,fields){
+            if(err){
+                console.log(err);
+                return res.status(500).json({code:"get user_story By developer and sprint active Failed", message:"error"});
+            }
+            if(result.length>0){
+                    return res.status(200).json({code:"addDeveloperToUserStory", message:"error emergente"});
+                }
+            return res.status(200).json({code:"one match task", data:result});
+        });
+    },
+
+
+
     /*APARTADO: Los Desarrolladores eligen qué Historias de Usuario van a desarrollar durante el Sprint.
         Esto puede variar en funcion de como se implente el codigo angular y el HTML
         

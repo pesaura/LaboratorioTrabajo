@@ -215,15 +215,27 @@ hr {
 .margin_style{
 	margin-top: 70px;
 }
-
+.margin_style_b{
+	margin-top: 42px;
+}
 
 th {
 	width: 10%;
 	background: #212529;
 }
 
-
-
 .enlinea {
 	display: inline;
 }
+
+#input_Coment{
+	width: 250px;
+}
+#input_Horas{
+	width: 80px;
+}
+#input_Status{
+	width: 110px; 
+	height: 35px;
+}
+
