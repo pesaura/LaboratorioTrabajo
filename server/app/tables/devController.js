@@ -200,21 +200,23 @@ module.exports = {
     var sprint=req.body.Id_sprint;
     console.log(req.body);
 
-    var data={
-        Id_tm:tm,
-        Id_sprint:sprint,
-    };
-
-        connection.query('SELECT * FROM user_story where Id in(select id_us from develop where id_tm=?  and Id_sprint=?', [tm, sprint],function(err, result,fields){
+        connection.query('select Id_us from develop where Id_tm=?  and Id_sprint=?', [tm, sprint],function(err, result,fields){
             if(err){
                 console.log(err);
                 return res.status(500).json({code:"get user_story By developer and sprint active Failed", message:"error"});
             }
-            if(result.length>0){
-                    return res.status(200).json({code:"addDeveloperToUserStory", message:"error emergente"});
+            if(result.length===0){
+                    return res.status(500).json({code:"getUserHistorydevelopOfSprintActive_failed", message:"Non exixtent Id_us from develop where Id_tm= "+tm+"  and Id_sprint= "+sprint});
+            }
+            connection.query('SELECT * FROM user_story where Id in(select Id_us from develop where Id_tm=?  and Id_sprint=?)', [tm, sprint],function(err, result,fields){
+                if(err){
+                    console.log(err);
+                    return res.status(500).json({code:"get user_story By developer and sprint active Failed", message:"error"});
                 }
             return res.status(200).json({code:"one match task", data:result});
-        });
+            });
+        });   
+        
     },
 
 

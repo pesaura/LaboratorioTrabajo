@@ -61,7 +61,7 @@ app.get('/api/v1.0/user_story_develop/:nombre',devController.getUserHistorydevel
 app.get('/api/v1.0/getUserHistoryStatus/:estado',scrumController.getUserHistoryStatus);
 
 /*3-07-2018*/
-app.get('/api/v1.0/getUserHistorydevelopofSprintActive',devController.getUserHistorydevelopOfSprintActive);
+app.post('/api/v1.0/getUserHistorydevelopofSprintActive',devController.getUserHistorydevelopOfSprintActive);
 
 /**22-06-2018 - añadir Developer a User_Story del Sprint activo */
 app.post('/api/v1.0/addDeveloperToUserStory',devController.addDeveloperToUserStory);

@@ -258,7 +258,7 @@ app.controller('MainCtrl', function ($scope, $http, cookie) {
         //console.log(data);
         $http({
             url: "http://localhost:5000/api/v1.0/getUserHistorydevelopOfSprintActive/",
-            method: "GET",
+            method: "POST",
             data: JSON.stringify(data),
             headers: {
                 'Content-Type': 'application/json'
