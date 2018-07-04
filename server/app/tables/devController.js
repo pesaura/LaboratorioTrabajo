@@ -257,7 +257,7 @@ module.exports = {
                     return res.status(500).json({code:"addDeveloperToUserStory_failed", message:"error un query"});
                 }
                 if(result.length>0){
-                    return res.status(200).json({code:"addDeveloperToUserStory", message:"Developer ya asignado a User_Story"});
+                    return res.status(200).json({code:"addDeveloperToUserStory", message:"Developer ya asignado a esta historia"});
                 }
 
                 connection.query("INSERT INTO develop SET ?",data,function(err, result,fields){
@@ -265,7 +265,7 @@ module.exports = {
                         console.log(err);
                         return res.status(500).json({code : "addDeveloperToUserStory_Insert_failed", message:"error Insert developer"});
                     }
-                    return res.status(200).json({code:"addDeveloperToUserStory_Insert_OK", message:"Developer asignado"});
+                    return res.status(200).json({code:"addDeveloperToUserStory_Insert_OK", message:"Developer asignado a la historia"});
                 });
 
 

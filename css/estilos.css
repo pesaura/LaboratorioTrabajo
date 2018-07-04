@@ -245,3 +245,15 @@ th {
 	text-align: center;
 }
 
+#exampleModal{
+	color:black;
+	
+	
+}
+
+.modalbodystyle{
+	color: gray;
+	background-color:gainsboro;
+	padding: 50px 50px;
+	text-align: center;
+}
