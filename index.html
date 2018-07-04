@@ -204,7 +204,7 @@
 								</form>
 							</div>
 							<div class="Listado">
-								<h4>Actualizar estado de la histori asociadas al desarrollador {{nombre}}</h4>
+								<h4>Actualizar estado de la historias asociadas al desarrollador {{nombre}}</h4>
 								<button class="btn btn-outline-secondary" ng-click="ModHistorySprintEstatus()">Ver historias</button>
 							</div>
 						</div>
@@ -233,15 +233,18 @@
 												<span ng-show="verdatosCuandoNoMod">{{historia.Comentarios}}</span>
 											</td>
 											<td class="dato">
-												<input id="input_Horas" ng-show="actualizarEstadoHist" required type="number" min="historia.Horas_Acumuladas" class="form-control mb-2" placeholder="historia.Horas_Acumuladas" ng-model="historia.Horas_Acumuladas">
+												<input id="input_Horas" ng-show="actualizarEstadoHist" required type="number"  class="form-control mb-2" placeholder="historia.Horas_Acumuladas" ng-model="historia.Horas_Acumuladas">
 												<span ng-show="verdatosCuandoNoMod">{{historia.Horas_Acumuladas}}</span>
 											</td>
 											<td class="dato">
-													<select id="input_Status" ng-show="actualizarEstadoHist" required ng-model="historia.Status">
+													
+													<select id="input_Status" class="custom-select" ng-show="actualizarEstadoHist" required ng-model="historia.Status">
+														<option value="No_iniciada">No iniciada</option>
 														<option value="En_curso">En curso</option>
 														<option value="Pendiente_de_validacion">Pendiente</option>
 													</select>
 													<span ng-show="verdatosCuandoNoMod">{{historia.Status}}</span>
+													
 											</td>
 											<td class="dato">{{historia.As_A}}</td>
 											<td class="dato">{{historia.I_Want}}</td>
@@ -250,7 +253,7 @@
 									</tbody>
 								</table>
 								<div class="button_stile col-md-12 col-sm-12" ng-show="actualizarEstadoHist">
-									<button type="button" class="btn btn-secondary" ng-click="actualizarEstadodeHistorias(historia.Comentarios,historia.Horas_Acumuladas,historia.Status)" value="modificar">modificar</button>
+									<button type="button" class="btn btn-secondary" ng-click="actualizarEstadodeHistorias(historia.Id,historia.Comentarios,historia.Horas_Acumuladas,historia.Status)" value="modificar">modificar</button>
 								</div>
 								<div class="button_stile col-md-12 col-sm-12" ng-show="sprintActivo">
 										<button type="button" class="btn btn-secondary" ng-click="addDeveloperAHistoria(historia.Id)" value="Eliminar">Añadirse a la historia</button>
@@ -463,7 +466,9 @@
 												</tbody>
 											</table>
 									</div>
-									<button ng-show="verSprintActivo" type="button" class="btn btn-secondary" ng-click="addHistoriasUsuarioSprint()" >Añadir Historia</button>
+									<div class="col-md-12 col-sm-12 col-12 centrado">
+										<button ng-show="verSprintActivo" type="button" class="btn btn-secondary btn-lg" ng-click="addHistoriasUsuarioSprint()" >Añadir Historia</button>
+									</div>
 									<div class=" historias" ng-if="Pendientes.length == 0">
 											<h3>No existen de Historias de Usuario </h3>
 										</div>

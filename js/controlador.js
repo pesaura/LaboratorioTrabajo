@@ -248,7 +248,7 @@ app.controller('MainCtrl', function ($scope, $http, cookie,fileUpload) {
     
     $scope.actualizarEstadoHist = false;
     $scope.verdatosCuandoNoMod = true;
-    ///////Función para Modificar el Listado de Historias de Usuario del Sprint activo (en cualquier estado)/////
+    ///////Funcion que nos muestra las historias de usuario asociadas al usuario actual del sprint activo//////
     $scope.ModHistorySprintEstatus = function () {
         var data = {
             Id_tm:parseInt(cookie.readCookie('sesionId')),
@@ -266,6 +266,7 @@ app.controller('MainCtrl', function ($scope, $http, cookie,fileUpload) {
             $scope.verHistorias = true;
             $scope.actualizarEstadoHist = true; 
             $scope.verdatosCuandoNoMod =false;
+            $scope.sprintActivo = false;
             
             //console.log(response.data.data);
             $scope.historias = response.data.data;
@@ -275,9 +276,10 @@ app.controller('MainCtrl', function ($scope, $http, cookie,fileUpload) {
         });
     }
 
-    $scope.actualizarEstadodeHistorias= function(coment,horasAcu,statu){
+    ///////Función para Modificar el Listado de Historias de Usuario del Sprint activo (en cualquier estado)/////
+    $scope.actualizarEstadodeHistorias= function(id_hist,coment,horasAcu,statu){
         var data = {
-            Id:parseInt(cookie.readCookie('sesionId')),
+            Id:id_hist,
             US_status: statu,
             Horas_Acumuladas: horasAcu,
             Comentarios: coment

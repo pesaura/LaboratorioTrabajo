@@ -207,7 +207,7 @@ module.exports = {
             if(result.length===0){
                     return res.status(500).json({code:"getUserHistorydevelopOfSprintActive_failed", message:"Non exixtent Id_us from develop where Id_tm= "+tm+"  and Id_sprint= "+sprint});
             }
-            connection.query('SELECT * FROM user_story where Id in(select Id_us from develop where Id_tm=?  and Id_sprint=?)', [tm, sprint],function(err, result,fields){
+            connection.query("SELECT * FROM user_story where Status!='Suspendida' AND Status!='terminada' AND Id in(select Id_us from develop where Id_tm=?  and Id_sprint=?)", [tm, sprint],function(err, result,fields){
                 if(err){
                     console.log(err);
                     return res.status(500).json({code:"get user_story By developer and sprint active Failed", message:"error"});
@@ -298,6 +298,9 @@ module.exports = {
             var Horas_Acumuladas=req.body.Horas_Acumuladas;
             var Comentarios=req.body.Comentarios;
             
+            console.log(id);
+
+
             if(!id || !status){
                 return res.status(500).json({code:"updateUserStoryStatus_FAILED", message:"missing data in body id= "+id+" status= "+status });
             }

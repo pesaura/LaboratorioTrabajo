@@ -232,10 +232,16 @@ th {
 	width: 250px;
 }
 #input_Horas{
-	width: 80px;
+	width: 90px;
+	margin-left: 27px;
+	
 }
 #input_Status{
-	width: 110px; 
+	width: 120px; 
 	height: 35px;
+}
+
+.centrado{
+	text-align: center;
 }
 
