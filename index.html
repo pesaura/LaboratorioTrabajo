@@ -10,8 +10,6 @@
 	<!-- <link rel="stylesheet" href="css/bootstrap.min.css"> -->
 	<!-- <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"> -->
 	<link href="css/bootstrap.min_4.1.css" rel="stylesheet" type="text/css">
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/all.css" integrity="sha384-G0fIWCsCzJIMAVNQPfjH08cyYaUtMwjJwqiRKxxE/rx96Uroj1BtIQ6MLJuheaO9"
-	    crossorigin="anonymous">
 
 	<link rel="stylesheet" href="css/estilos.css">
 
@@ -233,16 +231,19 @@
 												<span ng-show="verdatosCuandoNoMod">{{historia.Comentarios}}</span>
 											</td>
 											<td class="dato">
-												<input id="input_Horas" ng-show="actualizarEstadoHist" required type="number" min="historia.Horas_Acumuladas" class="form-control mb-2" placeholder="historia.Horas_Acumuladas" ng-model="historia.Horas_Acumuladas">
+												<input id="input_Horas" ng-show="actualizarEstadoHist" required type="number"  class="form-control mb-2" placeholder="historia.Horas_Acumuladas" ng-model="historia.Horas_Acumuladas">
 												<span ng-show="verdatosCuandoNoMod">{{historia.Horas_Acumuladas}}</span>
 											</td>
 											<td class="dato">
-													<select id="input_Status" ng-show="actualizarEstadoHist" required ng-model="historia.Status">
+													
+													<select id="input_Status" class="custom-select" ng-show="actualizarEstadoHist" required ng-model="historia.Status">
+														<option value="No_iniciada">No iniciada</option>
 														<option value="En_curso">En curso</option>
 														<option value="Pendiente_de_validacion">Pendiente</option>
 														<option value="Suspendida">Suspendida</option>
 													</select>
 													<span ng-show="verdatosCuandoNoMod">{{historia.Status}}</span>
+													
 											</td>
 											<td class="dato">{{historia.As_A}}</td>
 											<td class="dato">{{historia.I_Want}}</td>
@@ -365,10 +366,10 @@
 											<td class="dato2">{{SprintPendiente.Review}}</td>
 											<td ng-show="!activarSprint">
 												<!-- //////Modificación para activar el Sprint con la misma tabla  /////-->
-												<i class="fas fa-plus-circle" ng-click="mostrarCreacionHistoriaUsuario(SprintPendiente.Id)"></i>
+												<button class="btn btn-secondary" ng-click="mostrarCreacionHistoriaUsuario(SprintPendiente.Id)">Añadir Historia </button>
 											</td>
 											<td ng-show="activarSprint">
-												<i ng-show="!SprintActivo" class="fas fa-plus-circle" ng-click="cambiarEstadoSprint(SprintPendiente.Id,'Activo')"></i>
+												<button ng-show="!SprintActivo" class=" btn btn-secondary" ng-click="cambiarEstadoSprint(SprintPendiente.Id,'Activo')">Activar</button>
 												<spam ng-show="SprintActivo"> Solo puede haber un sprint activo a la vez </spam>
 											</td>
 										</tr>
@@ -483,12 +484,12 @@
 									<div class=" historias" ng-if="Pendientes.length == 0">
 										<h3>No existen de Historias de Usuario </h3>
 									</div>
-									<div class="col-md-12 col-sm-12">
+									<div class="col-md-12 col-sm-12 centrado">
 										<button ng-show="verSprintActivo" type="button" class="btn btn-secondary" ng-click="mostrarCreacionHistoriaUsuario(Id_sprintActivo)" >Añadir Historia</button>
 									</div>		
 								</div>
 							</div>
-							<div  ng-if="verSeccionSM =='verTerminarSprint' ">
+							<div  ng-show="verTerminarSprint">
 									<h3>Dar por terminado el sprint activo</h3>
 									<div class="col-md-9" ng-repeat="historia in SprintActivoTerminar" ng-if="SprintActivoTerminar.length != 0">
 										<table class="table historias_t table-responsive-md table-responsive-lg table-responsive-sm table-responsive-xl">
@@ -509,10 +510,11 @@
 												<td class="dato2">{{historia.Review}}</td>
 											</tr>							
 										</table>
+									</div>
 										<!-- Subir Archivos -->
 										<div ng-show="reviewMeeting" class="form-group row">
 											
-												<div class="col-sm-8">
+												<div class="col-sm-7">
 													<input type="file" class="form-control" file-model="myFile" />
 												</div>
 											<button ng-click="uploadFile()" class="btn btn-secondary">Subir sprint review meeting</button>
@@ -524,7 +526,7 @@
 												<h3>No existe ningun sprint activo </h3>
 										</div>
 									</div>
-								</div>	
+									
 							</div>
 						</div>
 					</div>

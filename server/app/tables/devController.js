@@ -265,7 +265,7 @@ module.exports = {
                         console.log(err);
                         return res.status(500).json({code : "addDeveloperToUserStory_Insert_failed", message:"error Insert developer"});
                     }
-                    return res.status(200).json({code:"addDeveloperToUserStory_Insert_OK", message:"Developer_asignado"});
+                    return res.status(200).json({code:"addDeveloperToUserStory_Insert_OK", message:"Developer asignado"});
                 });
 
 
@@ -298,10 +298,7 @@ module.exports = {
             var status=req.body.US_status;
             var Horas_Acumuladas=req.body.Horas_Acumuladas;
             var Comentarios=req.body.Comentarios;
-            console.log(id)
-            console.log(status)
-            console.log(Horas_Acumuladas)
-            console.log(Comentarios)
+         
             if(!id || !status){
                 return res.status(500).json({code:"updateUserStoryStatus_FAILED", message:"missing data in body id= "+id+" status= "+status });
             }
@@ -313,15 +310,22 @@ module.exports = {
                     return res.status(500).json({code:"updateUserStoryStatus_FAILED", message:"NO match in select where id= "+id+" "});
                 }
 
-                connection.query("UPDATE user_story SET Comentarios=?, Horas_Acumuladas=?, Status=?  where Id=?",[Comentarios, Horas_Acumuladas, status, id],function(err,result,fields){
-                   console.log(result);
+                connection.query("UPDATE user_story SET Comentarios=?, Horas_Acumuladas=?, Status=?  where Id=?",[Comentarios, Horas_Acumuladas, status, id],function(err,result,fields){             
                     if(err){
                         return res.status(500).json({code:"updateUserStoryStatus_FAILED", message:"ERROR in UPDATE where id= "+id+" "});
                     }
-                    console.log("cosa")
                     res.status(200).json({code:"updateUserStoryStatus_OK",message:"USER_STORY="+id+" UPDATED TO STATUS="+status});
 
                 });
+            });
+        },
+        deleteDevelopNull : function(req,res){
+            var id=req.body.Id_us;
+            connection.query("DELETE FROM develop   WHERE Id_tm IS NULL AND Id_us = ?",[id],function(err, result,fields){
+                if(err){
+                    return res.status(500).json({code:"deleteDevelopNullFailed", message:"error borrando  Develop id="+id});
+                }
+                return res.status(200).json({code:"deleteDevelopNull Correct"})
             });
         },
 

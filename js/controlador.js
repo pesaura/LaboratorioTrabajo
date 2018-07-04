@@ -228,7 +228,7 @@ app.controller('MainCtrl', function ($scope, $http, cookie,fileUpload) {
     
     $scope.actualizarEstadoHist = false;
     $scope.verdatosCuandoNoMod = true;
-    ///////Función para Modificar el Listado de Historias de Usuario del Sprint activo (en cualquier estado)/////
+    ///////Funcion que nos muestra las historias de usuario asociadas al usuario actual del sprint activo//////
     $scope.ModHistorySprintEstatus = function () {
         var data = {
             Id_tm:parseInt(cookie.readCookie('sesionId')),
@@ -256,9 +256,10 @@ app.controller('MainCtrl', function ($scope, $http, cookie,fileUpload) {
         });
     }
 
-    $scope.actualizarEstadodeHistorias = function(Id_us,coment,horasAcu,statu){
+    ///////Función para Modificar el Listado de Historias de Usuario del Sprint activo (en cualquier estado)/////
+    $scope.actualizarEstadodeHistorias= function(id_hist,coment,horasAcu,statu){
         var data = {
-            Id:Id_us,
+            Id:id_hist,
             US_status: statu,
             Horas_Acumuladas: horasAcu,
             Comentarios: coment
@@ -290,7 +291,7 @@ app.controller('MainCtrl', function ($scope, $http, cookie,fileUpload) {
             console.log(response.data.data);
             $scope.verHistorias = true;
             $scope.actualizarEstadoHist = false; 
-            $scope.verdatosCuandoNoMod =true;
+            $scope.verdatosCuandoNoMod = true;
             $scope.historias = response.data.data;
             $scope.addsprintActivo = false;
 
@@ -331,21 +332,18 @@ app.controller('MainCtrl', function ($scope, $http, cookie,fileUpload) {
         });
     }
     ///////////////////////////////////////////////////
-    // $scope.Historydevelop($scope.nombre);
+    
     $scope.obtenerIdSprintActivo= function(){
         $http({
             url: 'http://localhost:5000/api/v1.0/obtainSprintActive',
             method: 'GET'
         }).then(function mySuccess(response) {
             $scope.dataSprintActivo = response.data.data;
-            console.log($scope.dataSprintActivo) 
             if($scope.dataSprintActivo.length != 0){
-               $scope.Id_sprintActivo = $scope.dataSprintActivo[0].Id;
-                console.log($scope.Id_sprintActivo) 
+               $scope.Id_sprintActivo = $scope.dataSprintActivo[0].Id;  
             } 
             else
             $scope.SprintActivo = false;
-
             
         }, function myError(response) {
             console.log(response.data.code);
@@ -353,7 +351,7 @@ app.controller('MainCtrl', function ($scope, $http, cookie,fileUpload) {
     }
 
     $scope.obtenerIdSprintActivo(); 
-    $scope.MensajeAddHistory  ="cosa2"
+
     $scope.addDeveloperAHistoria = function(Id_us){
         var data = {
             Id_tm:parseInt(cookie.readCookie('sesionId')),
@@ -371,21 +369,42 @@ app.controller('MainCtrl', function ($scope, $http, cookie,fileUpload) {
         }).then(function mySuccess(response) {
             console.log(response.data);
             $scope.MensajeAddHistory = response.data.message;
+            $scope.deleteDevelopNull(Id_us);
             console.log($scope.MensajeAddHistory)
             
         }, function myError(response) {
             console.log(response.data.code);
         });
     }
+    //Borramos la entrada el develop null (Entradas no asignadas a nigun developer que 
+    //creo el Scrum Master al crear la relación sprint-historia)
+    $scope.deleteDevelopNull = function(id){
+        var data = {
+            Id_us: id,
+        };
+        $http({
+            url: 'http://localhost:5000/api/v1.0/deleteDevelopNull',
+            method: 'DELETE',
+            data: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function mySuccess(response) {
+          //  console.log(response.data);
+        }, function myError(response) {
+            console.log(response.data.code);
+        });
+    }
 
-    $scope.getUserStoryWithoutDeveloper = function(){
+    $scope.getUserStoryWithoutDeveloper = function(id_historia){
         $http.get("http://localhost:5000/api/v1.0/getUserStoryWithoutDeveloper")
         .then(function mySuccess(response) {
+            console.log(response.data.data);
             console.log(response.data.data);
         });
 
     }
-    $scope.getUserStoryWithoutDeveloper()
+    $scope.getUserStoryWithoutDeveloper(39)
 //////////////////////////////////////////////////////////////////
 
 
@@ -398,6 +417,7 @@ app.controller('MainCtrl', function ($scope, $http, cookie,fileUpload) {
                 $scope.verSeccionSM = '';
                 $scope.verSprint = true;
                 $scope.verCreacionHistoriasUsuario = false;
+                $scope.verTerminarSprint = false;
                 break;
             case 'historiaUsuarioP':
                 $scope.verSeccionSM = 'historiaUsuarioP';
@@ -405,6 +425,7 @@ app.controller('MainCtrl', function ($scope, $http, cookie,fileUpload) {
                 $scope.mostrarHistoriasUsuarioSprintPendiente();
                 $scope.verSprint =false;
                 $scope.verCreacionHistoriasUsuario = false;
+                $scope.verTerminarSprint = false;
                 break;
             case 'activarSprint':
                 $scope.verSeccionSM ='historiaUsuarioP';
@@ -413,6 +434,7 @@ app.controller('MainCtrl', function ($scope, $http, cookie,fileUpload) {
                 $scope.comprobacionSprintActivo();
                 $scope.verSprint =false;
                 $scope.verCreacionHistoriasUsuario = false;
+                $scope.verTerminarSprint = false;
                 break;
             case 'verHistoriasPendientes':
                 $scope.verSeccionSM ='verHistoriasSM';
@@ -421,6 +443,7 @@ app.controller('MainCtrl', function ($scope, $http, cookie,fileUpload) {
                 $scope.verSprintActivo = false;
                 $scope.verSprint =false;
                 $scope.verCreacionHistoriasUsuario = false;
+                $scope.verTerminarSprint = false;
                
                 break;
             case 'verSprintActivo':
@@ -430,6 +453,7 @@ app.controller('MainCtrl', function ($scope, $http, cookie,fileUpload) {
                 $scope.verEliminarHistorias = false;
                 $scope.verSprint =false;
                 $scope.verCreacionHistoriasUsuario = false;
+                $scope.verTerminarSprint = false;
                 break;
             case 'verEliminarHistorias':
                 $scope.verSeccionSM ='verHistoriasSM';
@@ -438,13 +462,16 @@ app.controller('MainCtrl', function ($scope, $http, cookie,fileUpload) {
                 $scope.verSprintActivo = false;
                 $scope.verSprint =false;
                 $scope.verCreacionHistoriasUsuario = false;
+                $scope.verTerminarSprint = false;
                 break;
             case 'verTerminarSprint':
                 $scope.verSeccionSM ='verTerminarSprint';
+                $scope.verTerminarSprint = true;
                 $scope.reviewMeeting = true;
                 $scope.mostrarSprintActivo();
                 $scope.verSprint =false;
                 $scope.verCreacionHistoriasUsuario = false;
+                
         }
     }
    
@@ -550,7 +577,9 @@ app.controller('MainCtrl', function ($scope, $http, cookie,fileUpload) {
             }
         }).then(function mySuccess(response) {
             console.log(response.data);
-            if(id_sprint = $scope.Id_sprintActivo){
+            console.log(id_sprint)
+            console.log($scope.Id_sprintActivo)
+            if(id_sprint == $scope.Id_sprintActivo){
                 $scope.mostrarSM('verSprintActivo');
                 $scope.verCreacionHistoriasUsuario = false;
                 $scope.MensajeDevelop = "Historia de usuario creada y asociada a un sprint correctamente";
@@ -665,7 +694,7 @@ app.controller('MainCtrl', function ($scope, $http, cookie,fileUpload) {
         console.log($scope.Id_sprintActivo)
         $scope.cambiarEstadoSprint($scope.Id_sprintActivo,'Terminado');
         location.reload();
-        $scope.mostrarSM('verSprint');
+       
     }
 
     $scope.uploadFile = function () {

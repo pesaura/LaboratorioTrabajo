@@ -47,6 +47,7 @@ app.post('/api/v1.0/createSprint',scrumController.createSprint);
 
 //07-06-2018
 app.delete('/api/v1.0/deleteUserStoyById',scrumController.deleteUserStoyById);
+app.delete('/api/v1.0/deleteDevelopNull',devController.deleteDevelopNull);
 
 
 /** OBTAIN TASK FROM DATABASE */
