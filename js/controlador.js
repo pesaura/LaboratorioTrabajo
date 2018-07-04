@@ -151,10 +151,10 @@ app.controller('MainCtrl', function ($scope, $http, cookie,fileUpload) {
     $scope.vermenu = false;
     $scope.mostrarMenuListas = function () {
         if ($scope.vermenu) {
-            $scope.vermenu = false;
+            $scope.vermenu = false;  
         } else {
             $scope.vermenu = true;
-            $scope.vermenuSM = false;
+            $scope.vermenuSM = false; 
         }
     }
     $scope.mostrarMenuSM = function () {
@@ -167,27 +167,6 @@ app.controller('MainCtrl', function ($scope, $http, cookie,fileUpload) {
     }
 
     //////// Función para el Listado de Historias de Usuario completadas //////////
-    $scope.HistoryStatus_general = function () { // Usando la funcion general getTableBy
-        var data = {
-            table: 'user_story',
-            column: 'status',
-            value: 'terminada'
-        };
-
-        $http({
-            url: 'http://localhost:5000/api/v1.0/user_story_terminada',
-            method: 'POST',
-            data: JSON.stringify(data),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }).then(function mySuccess(response) {
-            console.log(response.data);
-
-        }, function myError(response) {
-            console.log(response.data.code);
-        });
-    }
     $scope.verHistorias = false;
     $scope.HistoryStatus = function (estado) { // Usando una función mas concreta getUserHistory
         $http({ // (Nos da las historias de usuario en función del estado)
@@ -197,6 +176,7 @@ app.controller('MainCtrl', function ($scope, $http, cookie,fileUpload) {
             $scope.verHistorias = true;
             $scope.actualizarEstadoHist = false; 
             $scope.verdatosCuandoNoMod =true;
+            $scope.addsprintActivo = false;
             switch (estado) {
                 case 'terminada':
                     $scope.historias = response.data.data;
@@ -237,7 +217,7 @@ app.controller('MainCtrl', function ($scope, $http, cookie,fileUpload) {
             if (estado === 'Activo') {
                 $scope.historias = response.data.data;
                 $scope.Pendientes = response.data.data;
-                $scope.sprintActivo = true;
+                $scope.addsprintActivo = true;
             }
         }, function myError(response) {
             console.log(response.data.code);
@@ -265,7 +245,8 @@ app.controller('MainCtrl', function ($scope, $http, cookie,fileUpload) {
         }).then(function mySuccess(response) {
             $scope.verHistorias = true;
             $scope.actualizarEstadoHist = true; 
-            $scope.verdatosCuandoNoMod =false;
+            $scope.verdatosCuandoNoMod = false;
+            $scope.addsprintActivo = false;
             
             //console.log(response.data.data);
             $scope.historias = response.data.data;
@@ -275,9 +256,9 @@ app.controller('MainCtrl', function ($scope, $http, cookie,fileUpload) {
         });
     }
 
-    $scope.actualizarEstadodeHistorias= function(coment,horasAcu,statu){
+    $scope.actualizarEstadodeHistorias = function(Id_us,coment,horasAcu,statu){
         var data = {
-            Id:parseInt(cookie.readCookie('sesionId')),
+            Id:Id_us,
             US_status: statu,
             Horas_Acumuladas: horasAcu,
             Comentarios: coment
@@ -291,8 +272,9 @@ app.controller('MainCtrl', function ($scope, $http, cookie,fileUpload) {
                 'Content-Type': 'application/json'
             }
         }).then(function mySuccess(response) {
-            console.log(response.data.data);
-            $scope.ModHistorySprintEstatus();
+            console.log(response.data);
+            //$scope.ModHistorySprintEstatus();
+            $scope.addsprintActivo = false;
         }, function myError(response) {
             console.log(response.data.code);
         });
@@ -310,6 +292,7 @@ app.controller('MainCtrl', function ($scope, $http, cookie,fileUpload) {
             $scope.actualizarEstadoHist = false; 
             $scope.verdatosCuandoNoMod =true;
             $scope.historias = response.data.data;
+            $scope.addsprintActivo = false;
 
         }, function myError(response) {
             console.log(response.data.code);
@@ -354,8 +337,12 @@ app.controller('MainCtrl', function ($scope, $http, cookie,fileUpload) {
             url: 'http://localhost:5000/api/v1.0/obtainSprintActive',
             method: 'GET'
         }).then(function mySuccess(response) {
-            if(response.data.data[0].Id !='undefined')
-             $scope.Id_sprintActivo = response.data.data[0].Id;
+            $scope.dataSprintActivo = response.data.data;
+            console.log($scope.dataSprintActivo) 
+            if($scope.dataSprintActivo.length != 0){
+               $scope.Id_sprintActivo = $scope.dataSprintActivo[0].Id;
+                console.log($scope.Id_sprintActivo) 
+            } 
             else
             $scope.SprintActivo = false;
 
@@ -365,9 +352,9 @@ app.controller('MainCtrl', function ($scope, $http, cookie,fileUpload) {
         });  
     }
 
-        $scope.obtenerIdSprintActivo(); //prueba
-
-    $scope.addDeveloperAHistoria= function(Id_us){
+    $scope.obtenerIdSprintActivo(); 
+    $scope.MensajeAddHistory  ="cosa2"
+    $scope.addDeveloperAHistoria = function(Id_us){
         var data = {
             Id_tm:parseInt(cookie.readCookie('sesionId')),
             Id_sprint: $scope.Id_sprintActivo,
@@ -382,11 +369,23 @@ app.controller('MainCtrl', function ($scope, $http, cookie,fileUpload) {
                 'Content-Type': 'application/json'
             }
         }).then(function mySuccess(response) {
-            console.log(response.data.data);
+            console.log(response.data);
+            $scope.MensajeAddHistory = response.data.message;
+            console.log($scope.MensajeAddHistory)
+            
         }, function myError(response) {
             console.log(response.data.code);
         });
     }
+
+    $scope.getUserStoryWithoutDeveloper = function(){
+        $http.get("http://localhost:5000/api/v1.0/getUserStoryWithoutDeveloper")
+        .then(function mySuccess(response) {
+            console.log(response.data.data);
+        });
+
+    }
+    $scope.getUserStoryWithoutDeveloper()
 //////////////////////////////////////////////////////////////////
 
 
@@ -396,6 +395,7 @@ app.controller('MainCtrl', function ($scope, $http, cookie,fileUpload) {
     $scope.mostrarSM = function (entrada) {
         switch (entrada) {
             case 'verSprint':
+                $scope.verSeccionSM = '';
                 $scope.verSprint = true;
                 $scope.verCreacionHistoriasUsuario = false;
                 break;
@@ -499,13 +499,13 @@ app.controller('MainCtrl', function ($scope, $http, cookie,fileUpload) {
             });
     }
     //////Función para recivir el ID de sprint al que la añadiremos la historia de usuario
-    $scope.mostrarHistoriaUsuario = function (Id) {
+    $scope.mostrarCreacionHistoriaUsuario = function (Id) {
         $scope.Id_sprint = Id;
         $scope.verSeccionSM ='verCreacionHistoriasUsuario';
         $scope.verCreacionHistoriasUsuario = true;
         console.log($scope.Id_sprint);
     }
-    //Función que crea la hisroria de usuario
+    //Función que crea la historia de usuario
     $scope.addHistoriasUsuarioSprint = function () {
         var data = {
             Nombre: $scope.nombreHistoria,
@@ -527,7 +527,7 @@ app.controller('MainCtrl', function ($scope, $http, cookie,fileUpload) {
         }).then(function mySuccess(response) {
             console.log(response.data.data.insertId);
             $scope.Id_historiasUsuario = response.data.data.insertId;
-            $scope.crearDevelop();
+            $scope.crearDevelop($scope.Id_sprint,$scope.Id_historiasUsuario);
 
         }, function myError(response) {
             console.log(response.data.code);
@@ -536,10 +536,10 @@ app.controller('MainCtrl', function ($scope, $http, cookie,fileUpload) {
     ////////////////Fin de la función
 
     ///// Relacionamos el Id del sprint con el Id de la historia en la tabla develop
-    $scope.crearDevelop = function(){
+    $scope.crearDevelop = function(id_sprint,id_us){
         var data = {
-            Id_sprint: $scope.Id_sprint,
-            Id_us: $scope.Id_historiasUsuario
+            Id_sprint: id_sprint,
+            Id_us: id_us,
         };
         $http({
             url: 'http://localhost:5000/api/v1.0/addDeveloperToUserStory',
@@ -550,9 +550,16 @@ app.controller('MainCtrl', function ($scope, $http, cookie,fileUpload) {
             }
         }).then(function mySuccess(response) {
             console.log(response.data);
-            $scope.mostrarSM('historiaUsuarioP');
-            $scope.verCreacionHistoriasUsuario = false;
-            $scope.MensajeDevelop = "Historia de usuario creada y asociada a un sprint correctamente";
+            if(id_sprint = $scope.Id_sprintActivo){
+                $scope.mostrarSM('verSprintActivo');
+                $scope.verCreacionHistoriasUsuario = false;
+                $scope.MensajeDevelop = "Historia de usuario creada y asociada a un sprint correctamente";
+            }else{
+                 $scope.mostrarSM('historiaUsuarioP');
+                 $scope.verCreacionHistoriasUsuario = false;
+                 $scope.MensajeDevelop = "Historia de usuario creada y asociada a un sprint correctamente";
+            }
+           
 
         }, function myError(response) {
             console.log(response.data.code);
@@ -577,7 +584,8 @@ app.controller('MainCtrl', function ($scope, $http, cookie,fileUpload) {
         }).then(function mySuccess(response) {
             console.log(response.data);
             if(status == 'Activo'){
-                $scope.mostrarSM('verSprintActivo');   
+                $scope.mostrarSM('verSprintActivo');
+                $scope.obtenerIdSprintActivo();   
             }
             $scope.mostrarHistoriasUsuarioSprintPendiente();
         }, function myError(response) {
@@ -600,7 +608,7 @@ app.controller('MainCtrl', function ($scope, $http, cookie,fileUpload) {
             US_status: "Terminada"
         };
         $http({
-            url: 'http://localhost:5000/api/v1.0/updateUserStoryStatus',
+            url: 'http://localhost:5000/api/v1.0/updateUserStoryStatusSM',
             method: 'PUT',
             data: JSON.stringify(data),
             headers: {

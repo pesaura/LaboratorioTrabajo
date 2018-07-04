@@ -68,6 +68,7 @@ app.post('/api/v1.0/addDeveloperToUserStory',devController.addDeveloperToUserSto
 
 /*23-06-2018*/
 app.put('/api/v1.0/updateUserStoryStatus',devController.updateUserStoryStatus);
+app.put('/api/v1.0/updateUserStoryStatusSM',scrumController.updateUserStoryStatusSM);
 
 //26-06
 app.get('/api/v1.0/obtainListOfSprint', scrumController.obtainListOfSprint);

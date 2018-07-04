@@ -204,7 +204,7 @@
 								</form>
 							</div>
 							<div class="Listado">
-								<h4>Actualizar estado de la histori asociadas al desarrollador {{nombre}}</h4>
+								<h4>Actualizar estado de la historias asociadas al desarrollador {{nombre}}</h4>
 								<button class="btn btn-outline-secondary" ng-click="ModHistorySprintEstatus()">Ver historias</button>
 							</div>
 						</div>
@@ -240,6 +240,7 @@
 													<select id="input_Status" ng-show="actualizarEstadoHist" required ng-model="historia.Status">
 														<option value="En_curso">En curso</option>
 														<option value="Pendiente_de_validacion">Pendiente</option>
+														<option value="Suspendida">Suspendida</option>
 													</select>
 													<span ng-show="verdatosCuandoNoMod">{{historia.Status}}</span>
 											</td>
@@ -250,10 +251,26 @@
 									</tbody>
 								</table>
 								<div class="button_stile col-md-12 col-sm-12" ng-show="actualizarEstadoHist">
-									<button type="button" class="btn btn-secondary" ng-click="actualizarEstadodeHistorias(historia.Comentarios,historia.Horas_Acumuladas,historia.Status)" value="modificar">modificar</button>
+									<button type="button" class="btn btn-secondary" ng-click="actualizarEstadodeHistorias(historia.Id,historia.Comentarios,historia.Horas_Acumuladas,historia.Status)" value="modificar">modificar</button>
 								</div>
-								<div class="button_stile col-md-12 col-sm-12" ng-show="sprintActivo">
-										<button type="button" class="btn btn-secondary" ng-click="addDeveloperAHistoria(historia.Id)" value="Eliminar">Añadirse a la historia</button>
+								<div class="button_stile col-md-12 col-sm-12" ng-show="addsprintActivo">
+										<button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal" ng-click="addDeveloperAHistoria(historia.Id)" value="Eliminar">Añadirse a la historia</button>		
+								</div>
+								<!-- Modal -->
+								<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+									<div class="modal-dialog" role="document">
+									<div class="modal-content">
+										<div class="modal-header">
+										<h5 class="modal-title" id="exampleModalLabel">Asignación a historia</h5>
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+										</div>
+										<div class="modal-body">
+										<h4>{{MensajeAddHistory}}<h4>
+										</div>
+									</div>
+									</div>
 								</div>
 								<div class=" historias" ng-if="historias.length == 0">
 									<h3>No existen de Historias de Usuario </h3>
@@ -348,7 +365,7 @@
 											<td class="dato2">{{SprintPendiente.Review}}</td>
 											<td ng-show="!activarSprint">
 												<!-- //////Modificación para activar el Sprint con la misma tabla  /////-->
-												<i class="fas fa-plus-circle" ng-click="mostrarHistoriaUsuario(SprintPendiente.Id)"></i>
+												<i class="fas fa-plus-circle" ng-click="mostrarCreacionHistoriaUsuario(SprintPendiente.Id)"></i>
 											</td>
 											<td ng-show="activarSprint">
 												<i ng-show="!SprintActivo" class="fas fa-plus-circle" ng-click="cambiarEstadoSprint(SprintPendiente.Id,'Activo')"></i>
@@ -463,10 +480,12 @@
 												</tbody>
 											</table>
 									</div>
-									<button ng-show="verSprintActivo" type="button" class="btn btn-secondary" ng-click="addHistoriasUsuarioSprint()" >Añadir Historia</button>
 									<div class=" historias" ng-if="Pendientes.length == 0">
-											<h3>No existen de Historias de Usuario </h3>
-										</div>
+										<h3>No existen de Historias de Usuario </h3>
+									</div>
+									<div class="col-md-12 col-sm-12">
+										<button ng-show="verSprintActivo" type="button" class="btn btn-secondary" ng-click="mostrarCreacionHistoriaUsuario(Id_sprintActivo)" >Añadir Historia</button>
+									</div>		
 								</div>
 							</div>
 							<div  ng-if="verSeccionSM =='verTerminarSprint' ">
@@ -509,8 +528,6 @@
 							</div>
 						</div>
 					</div>
-				
-
 	  </div>
 			</section>
 		<br>

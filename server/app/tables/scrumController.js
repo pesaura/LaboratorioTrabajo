@@ -299,6 +299,30 @@ module.exports = {
             return res.status(200).json({code:"changeSprintStatus_ok"});
         });
     },
+    updateUserStoryStatusSM:function(req,res){
+        var id=req.body.Id;
+        var status=req.body.US_status
+        
+        if(!id || !status){
+            return res.status(500).json({code:"updateUserStoryStatus_FAILED", message:"missing data in body id= "+id+" status= "+status });
+        }
+        connection.query("SELECT * FROM user_story WHERE id=?",[id],function(err,result,fields){
+            if(err){
+                return res.status(500).json({code:"updateUserStoryStatus_FAILED", message:"Error in select where id= "+id+" "});
+            }
+            if(result.length===0){
+                return res.status(500).json({code:"updateUserStoryStatus_FAILED", message:"NO match in select where id= "+id+" "});
+            }
+
+            connection.query("UPDATE user_story SET Status=? where Id=?",[status, id],function(err,result,fields){
+                if(err){
+                    return res.status(500).json({code:"updateUserStoryStatus_FAILED", message:"ERROR in UPDATE where id= "+id+" "});
+                }
+                res.status(200).json({code:"updateUserStoryStatus_OK",message:"USER_STORY="+id+" UPDATED TO STATUS="+status});
+
+            });
+        });
+    }
 
 
 }

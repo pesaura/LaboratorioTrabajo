@@ -251,6 +251,7 @@ module.exports = {
                 Id_us:us,
             };
 
+
             connection.query("Select * from develop where Id_tm=? and Id_sprint=? and Id_us=?",[tm, sprint,us],function(err,result,fields){
                 if(err){
                     return res.status(500).json({code:"addDeveloperToUserStory_failed", message:"error un query"});
@@ -297,7 +298,10 @@ module.exports = {
             var status=req.body.US_status;
             var Horas_Acumuladas=req.body.Horas_Acumuladas;
             var Comentarios=req.body.Comentarios;
-            
+            console.log(id)
+            console.log(status)
+            console.log(Horas_Acumuladas)
+            console.log(Comentarios)
             if(!id || !status){
                 return res.status(500).json({code:"updateUserStoryStatus_FAILED", message:"missing data in body id= "+id+" status= "+status });
             }
@@ -310,9 +314,11 @@ module.exports = {
                 }
 
                 connection.query("UPDATE user_story SET Comentarios=?, Horas_Acumuladas=?, Status=?  where Id=?",[Comentarios, Horas_Acumuladas, status, id],function(err,result,fields){
+                   console.log(result);
                     if(err){
                         return res.status(500).json({code:"updateUserStoryStatus_FAILED", message:"ERROR in UPDATE where id= "+id+" "});
                     }
+                    console.log("cosa")
                     res.status(200).json({code:"updateUserStoryStatus_OK",message:"USER_STORY="+id+" UPDATED TO STATUS="+status});
 
                 });
@@ -373,7 +379,7 @@ module.exports = {
         },
 
         getUserStoryWithoutDeveloper:function(req,res){
-            connection.query("SELECT * FROM `develop` INNER JOIN user_story ON develop.Id_us=user_story.id WHERE develop.Id_tm='Null'",[],function(err, result,fields){
+            connection.query("SELECT * FROM `develop` INNER JOIN user_story ON develop.Id_us=user_story.id WHERE develop.Id_tm IS NULL",[],function(err, result,fields){
                 if(err){
                     console.log(err);
                     return res.status(500).json({code : "getUserStoryWithoutDeveloper failed", message:"error Insert getUserStoryWithoutDeveloper"});
