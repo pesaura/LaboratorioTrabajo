@@ -49,10 +49,49 @@
 				<ul class="nav navbar-nav navbar-right">
 					<li class="nav-item " ng-show="!Id">
 						<div class="btn-group dropleft">
-							<a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownSesion" data-toggle="dropdown" aria-haspopup="true"
+							<a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-toggle="modal" data-target=".ModalUser" aria-haspopup="true"
 							    aria-expanded="false">
 								Iniciar sesión
 							</a>
+
+							<div class="modal fade ModalUser" tabindex="-1" role="dialog" aria-hidden="true">
+									<div class="modal-dialog" role="document">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h4 class="modal-title" id="exampleModalLabel">Iniciar Sesión</h4>
+												<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+													<span aria-hidden="true">&times;</span>
+												</button>
+											</div>
+											<div class="modal-body modalbodystyleUser">
+												<form class="px-3 py-6" ng-submit="login(nombreLog,pass)">
+													<div class="form-group izq">
+														<label id="exampleModal">Usuario:</label>
+														<input required type="text" class="form-control mb-2" placeholder="Usuario" ng-model="nombreLog">
+													</div>
+													<div class="form-group izq">
+														<label id="exampleModal">Contraseña:</label>
+														<input required type="password" class="form-control" placeholder="Contraseña" ng-model="pass">
+													</div>
+													<div class="form-check">
+														<input type="checkbox" class="form-check-input" ng-model="remember">
+														<label id="exampleModal" class="form-check-label">
+															Recuerdame
+														</label>
+													</div>
+													<br>
+													<div class="form-group">
+														<span class="error" ng-show="loginError">{{loginError}}</span>
+													</div>
+													<button type="submit" class="btn btn-primary">Iniciar Sesión</button>
+												</form>
+											</div>
+										</div>
+									</div>
+								</div>
+
+
+
 							<div class="dropdown-menu" id="dropdownSesion">
 								<form class="px-3 py-6" ng-submit="login(nombreLog,pass)">
 									<div class="form-group">
@@ -135,13 +174,14 @@
 							</div>
 							<label class="col-sm-2 col-form-label">Apellidos</label>
 							<div class="col-sm-3">
-								<input required type="text" class="form-control" placeholder="Apellido" ng-model="apellidos" value={{apellidos}}>
+								<input type="text" class="form-control" placeholder="Apellido" ng-model="apellidos" value={{apellidos}}>
 							</div>
 						</div>
 						<div class="form-group row">
 							<div class="col-sm-10">
 								<button type="submit" class="btn btn-primary" style="width: 100%">Actualizar</button>
 							</div>
+							<div class="mensAct" ><p style="color: green">{{mensajeActualizacion}}</p></div>
 						</div>
 					</form>
 				</div>
@@ -255,10 +295,10 @@
 									<button type="button" class="btn btn-secondary" ng-click="actualizarEstadodeHistorias(historia.Id,historia.Comentarios,historia.Horas_Acumuladas,historia.Status)" value="modificar">modificar</button>
 								</div>
 								<div class="button_stile col-md-12 col-sm-12" ng-show="addsprintActivo">
-										<button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal" ng-click="addDeveloperAHistoria(historia.Id)" value="Eliminar">Añadirse a la historia</button>		
+										<button type="button" class="btn btn-secondary" data-toggle="modal" data-target=".exampleModal" ng-click="addDeveloperAHistoria(historia.Id)" value="aniadir">Añadirse a la historia</button>		
 								</div>
 								<!-- Modal -->
-								<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+								<div class="modal fade exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 									<div class="modal-dialog" role="document">
 									<div class="modal-content">
 										<div class="modal-header">
