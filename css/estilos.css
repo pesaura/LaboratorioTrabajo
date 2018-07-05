@@ -244,16 +244,31 @@ th {
 .centrado{
 	text-align: center;
 }
+.izq{
+	text-align: left;
+}
 
 #exampleModal{
 	color:black;
-	
-	
 }
-
+ #exampleModalLabel{
+	 color: darkgray;
+ }
 .modalbodystyle{
 	color: gray;
 	background-color:gainsboro;
 	padding: 50px 50px;
 	text-align: center;
+}
+
+.modalbodystyleUser{
+	
+	padding: 40px 30px;
+	text-align: center;
+}
+
+.mensAct{
+	text-align: center; 
+	width: 90%; 
+	padding-top: 20px;
 }

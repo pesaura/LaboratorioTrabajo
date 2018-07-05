@@ -130,10 +130,12 @@ app.controller('iniciarSesion', function ($scope, $http, cookie) {
             }
         }).then(function mySuccess(response) {
             console.log(response)
+            $scope.mensajeActualizacion  ="Datos actualizados correctamente.";
 
         }, function myError(response) {
             console.log(response.data.code);
             console.log(response.data.message);
+            $scope.mensajeActualizacion  ="Error al actualizar los datos.";
         });
     }
 
