@@ -249,10 +249,12 @@ app.controller('MainCtrl', function ($scope, $http, cookie,fileUpload) {
             $scope.addsprintActivo = false;
             
             //console.log(response.data.data);
+
             $scope.historias = response.data.data;
 
         }, function myError(response) {
             console.log(response.data.code);
+            $scope.historias  ="";
         });
     }
 
@@ -333,25 +335,28 @@ app.controller('MainCtrl', function ($scope, $http, cookie,fileUpload) {
     }
     ///////////////////////////////////////////////////
     
-    $scope.obtenerIdSprintActivo= function(){
+    $scope.obtenerIdSprintActivo = function(){
         $http({
             url: 'http://localhost:5000/api/v1.0/obtainSprintActive',
             method: 'GET'
         }).then(function mySuccess(response) {
             $scope.dataSprintActivo = response.data.data;
             if($scope.dataSprintActivo.length != 0){
-               $scope.Id_sprintActivo = $scope.dataSprintActivo[0].Id;  
+               $scope.Id_sprintActivo = $scope.dataSprintActivo[0].Id;
+               console.log($scope.SprintActivo)  
             } 
             else
             $scope.SprintActivo = false;
-            
+            console.log($scope.SprintActivo)
+           
         }, function myError(response) {
             console.log(response.data.code);
         });  
+      
     }
 
     $scope.obtenerIdSprintActivo(); 
-
+   
     $scope.addDeveloperAHistoria = function(Id_us){
         var data = {
             Id_tm:parseInt(cookie.readCookie('sesionId')),
@@ -418,6 +423,7 @@ app.controller('MainCtrl', function ($scope, $http, cookie,fileUpload) {
                 $scope.verSprint = true;
                 $scope.verCreacionHistoriasUsuario = false;
                 $scope.verTerminarSprint = false;
+                $scope.MensajeDevelop ="";
                 break;
             case 'historiaUsuarioP':
                 $scope.verSeccionSM = 'historiaUsuarioP';
@@ -426,15 +432,17 @@ app.controller('MainCtrl', function ($scope, $http, cookie,fileUpload) {
                 $scope.verSprint =false;
                 $scope.verCreacionHistoriasUsuario = false;
                 $scope.verTerminarSprint = false;
+                $scope.MensajeDevelop ="";
                 break;
             case 'activarSprint':
                 $scope.verSeccionSM ='historiaUsuarioP';
                 $scope.activarSprint = true;
                 $scope.mostrarHistoriasUsuarioSprintPendiente();
                 $scope.comprobacionSprintActivo();
-                $scope.verSprint =false;
+                $scope.verSprint = false;
                 $scope.verCreacionHistoriasUsuario = false;
                 $scope.verTerminarSprint = false;
+                $scope.MensajeDevelop ="";
                 break;
             case 'verHistoriasPendientes':
                 $scope.verSeccionSM ='verHistoriasSM';
@@ -460,7 +468,7 @@ app.controller('MainCtrl', function ($scope, $http, cookie,fileUpload) {
                 $scope.verEliminarHistorias = true;
                 $scope.mostrarHistoriasEliminar();
                 $scope.verSprintActivo = false;
-                $scope.verSprint =false;
+                $scope.verSprint = false;
                 $scope.verCreacionHistoriasUsuario = false;
                 $scope.verTerminarSprint = false;
                 break;
@@ -468,6 +476,7 @@ app.controller('MainCtrl', function ($scope, $http, cookie,fileUpload) {
                 $scope.verSeccionSM ='verTerminarSprint';
                 $scope.verTerminarSprint = true;
                 $scope.reviewMeeting = true;
+                $scope.comprobacionSprintActivo();
                 $scope.mostrarSprintActivo();
                 $scope.verSprint =false;
                 $scope.verCreacionHistoriasUsuario = false;
@@ -485,6 +494,7 @@ app.controller('MainCtrl', function ($scope, $http, cookie,fileUpload) {
                 else
                     $scope.SprintActivo = false;
             });
+
     }
 
     //// Funcion para Crear Un Sprnt
@@ -509,7 +519,7 @@ app.controller('MainCtrl', function ($scope, $http, cookie,fileUpload) {
             console.log(response.data);
             $scope.mostrarHistoriasUsuarioSprintPendiente();
             $scope.verSeccionSM = 'historiaUsuarioP';
-            $scope.verSprint =false;
+            $scope.verSprint = false;
         }, function myError(response) {
             console.log(response.data.code);
         });
@@ -676,7 +686,7 @@ app.controller('MainCtrl', function ($scope, $http, cookie,fileUpload) {
             }
         }).then(function mySuccess(response) {
             console.log(response.data);
-            $scope.mostrarHistoriasPendientes();
+            $scope.mostrarHistoriasEliminar();
         }, function myError(response) {
             console.log(response.data.code);
         });
@@ -693,7 +703,9 @@ app.controller('MainCtrl', function ($scope, $http, cookie,fileUpload) {
     $scope.terminarSrintActivo = function(){
         console.log($scope.Id_sprintActivo)
         $scope.cambiarEstadoSprint($scope.Id_sprintActivo,'Terminado');
-        location.reload();
+        $scope.obtenerIdSprintActivo();
+        $scope.SprintActivoTerminar  ="";
+        $scope.mostrarSM('verSprint');
        
     }
 
@@ -702,6 +714,7 @@ app.controller('MainCtrl', function ($scope, $http, cookie,fileUpload) {
         var uploadUrl = "http://localhost:5000/savedata";
         fileUpload.uploadFileToUrl(file, uploadUrl);
         $scope.reviewMeeting = false;
+        $scope.MensajeCerrarSprint = "Sprint cerrado Correctamente";
     };
 
 
